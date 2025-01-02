@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
-import { Corners } from "@/components/ui/borders"
 import { Montserrat } from 'next/font/google'
 
 const montserrat = Montserrat({ 
@@ -9,15 +8,14 @@ const montserrat = Montserrat({
   display: 'swap',
 })
 
-export default function Home() {
+export default function Page() {
   return (
-    <main className={`min-h-screen bg-[#f1e0b4] flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
-      <Corners />
-      <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
+    <main className={`min-h-screen bg-[#f1e0b4] flex flex-col items-center justify-center px-4 ${montserrat.className}`}>
+      <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1">
         {/* Logo Section */}
         <div className="relative w-full aspect-square max-w-[300px] mx-auto mb-8">
           <Image
-            src="/images/GOUDA_Logo.png"
+            src="/placeholder.svg"
             alt="Gouda & Company Logo"
             fill
             className="object-contain"
@@ -26,9 +24,9 @@ export default function Home() {
         </div>
 
         {/* Main Content */}
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <p className="text-[18px] leading-[24px] font-regular text-[#262223] max-w-[390px] mx-auto mb-4">
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <p className="text-[18px] leading-[24px] font-regular text-[#262223] max-w-[390px] mx-auto">
               Gouda & Company is a music school focusing on rocking at jam sessions.<br/>
               <strong>All instruments welcome!</strong>
             </p>
