@@ -7,7 +7,6 @@ import { app } from '@/firebase/firebase'
 import { Montserrat } from 'next/font/google'
 import { Navbar } from '@/components/ui/Navbar'
 import { Corners } from '@/components/ui/borders'
-import { Button } from '@/components/ui/button'
 import type { UserProfile } from '@/types/user'
 
 const montserrat = Montserrat({ subsets: ['latin'] })

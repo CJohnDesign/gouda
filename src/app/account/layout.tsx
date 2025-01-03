@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { Navbar } from '@/components/ui/Navbar'
+import { Corners } from '@/components/ui/borders'
 
 const navigationItems = [
   { name: 'Profile', href: '/account/profile' },
@@ -28,6 +29,7 @@ export default function AccountLayout({
   return (
     <>
       <Navbar />
+      <Corners />
       <div className="grid grid-cols-[240px_1fr] min-h-screen bg-[#f1e0b4] pt-16">
         <aside className="border-r border-[#262223]/10 px-4 py-8">
           <nav>

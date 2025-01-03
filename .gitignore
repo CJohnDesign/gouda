@@ -41,6 +41,5 @@ yarn-error.log*
 next-env.d.ts
 .firebase/gouda-company/functions/node_modules
 
-
 node_modules/
 .firebase/

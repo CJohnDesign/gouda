@@ -44,7 +44,7 @@ export function Menu() {
                 {isOpen ? (
                     <X className="h-6 w-6 text-white" />
                 ) : (
-                    <MenuIcon className="h-6 w-6 text-[#262223]" />
+                    <MenuIcon className="h-7 w-7 text-[#262223] font-bold " />
                 )}
             </button>
             <AnimatePresence>
@@ -54,7 +54,7 @@ export function Menu() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed inset-0 bg-[#272322] bg-opacity-95 z-40 flex items-center justify-center"
+                        className="fixed inset-0 bg-[#272322] bg-opacity-96 z-40 flex items-center justify-center"
                     >
                         <nav className="flex flex-col gap-8 items-center">
                             {user ? (
