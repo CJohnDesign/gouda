@@ -1,0 +1,12 @@
+specVersion: "v1beta"
+serviceId: "gouda"
+location: "us-east1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "gouda"
+      cloudSql:
+        instanceId: "gouda"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]

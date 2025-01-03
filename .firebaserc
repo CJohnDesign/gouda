@@ -1,0 +1,11 @@
+{
+  "projects": {
+    "default": "gouda-company"
+  },
+  "targets": {},
+  "etags": {
+    "gouda-company": {
+      "extensionInstances": {}
+    }
+  }
+}
