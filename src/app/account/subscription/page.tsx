@@ -5,11 +5,13 @@ import { Button } from '@/components/ui/button'
 import { getAuth, User } from 'firebase/auth'
 import { app } from '@/firebase/firebase'
 import type { UserProfile } from '@/types/user'
+import { SubscriptionStatusPill } from '@/components/ui/SubscriptionStatusPill'
 
 export default function SubscriptionPage() {
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const auth = getAuth(app)
 
   useEffect(() => {
@@ -17,6 +19,7 @@ export default function SubscriptionPage() {
       if (user) {
         setUser(user)
         try {
+          console.log('Fetching user profile...')
           const token = await user.getIdToken()
           const response = await fetch('/api/user-profile', {
             headers: {
@@ -24,12 +27,16 @@ export default function SubscriptionPage() {
             },
           })
           if (!response.ok) {
-            throw new Error('Failed to fetch profile')
+            const errorData = await response.json()
+            console.error('Profile fetch failed:', { status: response.status, error: errorData })
+            throw new Error(errorData.error?.details || errorData.error?.message || 'Failed to fetch profile')
           }
           const profileData = await response.json()
+          console.log('Profile data received:', profileData)
           setProfile(profileData)
         } catch (error) {
           console.error('Error fetching profile:', error)
+          setError(error instanceof Error ? error.message : 'Failed to fetch profile')
         }
       }
       setLoading(false)
@@ -39,9 +46,13 @@ export default function SubscriptionPage() {
   }, [auth])
 
   const handleManageBilling = async () => {
-    if (!user) return
+    if (!user) {
+      console.error('No user found')
+      return
+    }
 
     try {
+      console.log('Creating portal session...')
       const token = await user.getIdToken()
       const response = await fetch('/api/create-portal-session', {
         method: 'POST',
@@ -51,13 +62,21 @@ export default function SubscriptionPage() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to create portal session')
+        const errorData = await response.json()
+        console.error('Portal session creation failed:', { status: response.status, error: errorData })
+        throw new Error(errorData.error?.message || 'Failed to create portal session')
       }
 
-      const { url } = await response.json()
-      window.location.href = url
+      const data = await response.json()
+      console.log('Portal session created:', data)
+      if (data.url) {
+        window.location.href = data.url
+      } else {
+        throw new Error('No portal URL received')
+      }
     } catch (error) {
       console.error('Error creating portal session:', error)
+      setError(error instanceof Error ? error.message : 'Failed to create portal session')
     }
   }
 
@@ -73,10 +92,21 @@ export default function SubscriptionPage() {
       </div>
 
       <div className="bg-white rounded-lg border border-[#262223]/10 p-6">
-        <p className="text-[#262223]/60 mb-6">
-          {profile?.subscriptionStatus || 'No active subscription'}
-        </p>
+        {error && (
+          <div className="mb-4 p-4 bg-red-50 text-red-700 rounded-md">
+            {error}
+          </div>
+        )}
         
+        
+        <div className="mb-6 flex items-center justify-between">
+          <span className="text-[#262223]/80 font-medium">Subscription Status</span>
+            
+          <SubscriptionStatusPill status={profile?.subscriptionStatus || 'Unpaid'} />
+        </div>
+        <div className="mb-6">
+        <hr className="w-full border-t border-[#262223]/10" />
+        </div>
         <Button 
           onClick={handleManageBilling}
           className="w-full bg-[#de9c0e] hover:bg-[#de9c0e]/90 text-[#262223]"

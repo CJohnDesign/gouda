@@ -47,9 +47,10 @@ export default function StudioPage() {
               return
             }
             
-            // If not subscribed in Firestore either, redirect to subscription page
-            if (profileData.subscriptionStatus !== 'active') {
+            // Redirect to subscription page if status is Unpaid
+            if (profileData.subscriptionStatus === 'Unpaid') {
               router.push('/account/subscription')
+              return
             }
           } catch (error) {
             console.error('Error fetching profile:', error)

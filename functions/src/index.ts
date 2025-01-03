@@ -17,7 +17,7 @@ admin.initializeApp()
 
 const config = functions.config()
 const stripe = new Stripe(config.stripe.secret_key || '', {
-  apiVersion: '2022-11-15',
+  apiVersion: '2024-12-18.acacia',
   typescript: true
 })
 
@@ -97,11 +97,18 @@ export const createUserProfile = functions.auth.user().onCreate(async (user: Use
   try {
     console.log('Creating user profile for:', user.uid)
     
+    // Check if profile already exists
+    const existingProfile = await db.collection('users').doc(user.uid).get()
+    if (existingProfile.exists) {
+      console.log('User profile already exists for:', user.uid)
+      return null
+    }
+    
     // Create the user profile with default values
     await db.collection('users').doc(user.uid).set({
       uid: user.uid,
       email: user.email || '',
-      displayName: user.displayName || '',
+      telegramUsername: '',
       firstName: '',
       lastName: '',
       phoneNumber: user.phoneNumber || '',
@@ -115,9 +122,24 @@ export const createUserProfile = functions.auth.user().onCreate(async (user: Use
     })
 
     console.log('Successfully created user profile for:', user.uid)
+    
+    // Verify the profile was created
+    const verifyProfile = await db.collection('users').doc(user.uid).get()
+    if (!verifyProfile.exists) {
+      throw new Error('Profile creation verification failed')
+    }
+    
     return null
   } catch (error) {
     console.error('Error creating user profile:', error)
+    // Add more detailed error logging
+    if (error instanceof Error) {
+      console.error('Error details:', {
+        message: error.message,
+        stack: error.stack,
+        userId: user.uid
+      })
+    }
     throw error
   }
 })
