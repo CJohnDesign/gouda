@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.firebase/gouda-company/functions/node_modules
+
+
+node_modules/
+.firebase/
