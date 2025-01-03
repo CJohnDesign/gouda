@@ -2,43 +2,9 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Helper function to get a user's profile document path
-    function userProfilePath(userId) {
-      return /databases/$(database)/documents/users/$(userId);
-    }
-    
-    // Helper function to check if user is authenticated
-    function isAuthenticated() {
-      return request.auth != null;
-    }
-    
-    // Helper function to check if user is accessing their own profile
-    function isOwner(userId) {
-      return isAuthenticated() && request.auth.uid == userId;
-    }
-
-    // Rules for user profiles
     match /users/{userId} {
-      // Allow read of public fields by anyone
-      allow read: if true && (
-        // Only allow reading specific fields
-        request.resource.data.keys().hasOnly(['firstName', 'lastName', 'location', 'bio'])
-      );
-      
-      // Allow full read by profile owner
-      allow read: if isOwner(userId);
-      
-      // Allow update by profile owner
-      allow update: if isOwner(userId) && 
-        // Prevent modification of sensitive fields
-        (!request.resource.data.diff(resource.data).affectedKeys()
-          .hasAny(['email', 'subscriptionStatus', 'stripeCustomerId']));
-      
-      // Allow create only by the user themselves
-      allow create: if isOwner(userId);
-      
-      // Deny delete operations
-      allow delete: if false;
+      // Allow all operations if user is authenticated
+      allow read, write: if request.auth != null;
     }
   }
 }

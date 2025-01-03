@@ -21,19 +21,28 @@ export default function ProfilePage() {
       if (user) {
         setUser(user)
         try {
-          const token = await user.getIdToken()
-          const response = await fetch('/api/user-profile', {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
-          })
+            const token = await user.getIdToken(); 
+            const response = await fetch('/api/user-profile', {
+              headers: {
+                'Authorization': `Bearer ${token}`,
+              },
+            });
+
+          const data = await response.json()
+          
           if (!response.ok) {
-            throw new Error('Failed to fetch profile')
+            throw new Error(data.error?.message || 'Failed to fetch profile')
           }
-          const profileData = await response.json()
-          setProfile(profileData)
+
+          setProfile(data)
         } catch (error) {
           console.error('Error fetching profile:', error)
+          setToastMessage({
+            title: 'Error',
+            description: error instanceof Error ? error.message : 'Failed to fetch profile',
+            type: 'error'
+          })
+          setShowToast(true)
         }
       } else {
         router.push('/login')
@@ -58,8 +67,10 @@ export default function ProfilePage() {
         body: JSON.stringify(profile),
       })
 
+      const data = await response.json()
+
       if (!response.ok) {
-        throw new Error('Failed to update profile')
+        throw new Error(data.error?.message || 'Failed to update profile')
       }
 
       setToastMessage({
@@ -71,7 +82,7 @@ export default function ProfilePage() {
       console.error('Error updating profile:', error)
       setToastMessage({
         title: 'Error',
-        description: 'Failed to update your profile. Please try again.',
+        description: error instanceof Error ? error.message : 'Failed to update profile',
         type: 'error'
       })
     }
@@ -85,7 +96,11 @@ export default function ProfilePage() {
   }
 
   if (loading) {
-    return <div>Loading...</div>
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg text-[#262223]">Loading...</div>
+      </div>
+    )
   }
 
   if (!user) {
@@ -94,7 +109,7 @@ export default function ProfilePage() {
 
   return (
     <ToastProvider>
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto p-6">
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <div>
@@ -157,7 +172,7 @@ export default function ProfilePage() {
               <input
                 type="email"
                 value={user.email || ''}
-                className="w-full px-3 py-2 border rounded-md border-[#262223]/10 focus:outline-none focus:ring-2 focus:ring-[#de9c0e]"
+                className="w-full px-3 py-2 border rounded-md border-[#262223]/10 bg-gray-50 cursor-not-allowed"
                 readOnly
                 disabled
               />

@@ -24,9 +24,9 @@ export async function POST() {
     const token = authHeader?.split('Bearer ')[1];
 
     if (!token) {
-      return NextResponse.json(
-        { error: { message: 'No token provided', statusCode: 401 } },
-        { status: 401 }
+      return new NextResponse(
+        JSON.stringify({ error: { message: 'No token provided', statusCode: 401 } }),
+        { status: 401, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -40,9 +40,9 @@ export async function POST() {
     const userData = userDoc.data();
 
     if (!userData?.stripeCustomerId) {
-      return NextResponse.json(
-        { error: { message: 'No Stripe customer found. Please subscribe first.', statusCode: 404 } },
-        { status: 404 }
+      return new NextResponse(
+        JSON.stringify({ error: { message: 'No Stripe customer found. Please subscribe first.', statusCode: 404 } }),
+        { status: 404, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -53,7 +53,10 @@ export async function POST() {
         return_url: `${process.env.NEXT_PUBLIC_APP_URL}/account/subscription`,
       });
 
-      return NextResponse.json({ url: session.url });
+      return new NextResponse(
+        JSON.stringify({ url: session.url }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
     } catch (stripeError) {
       console.error('Stripe error:', stripeError);
       const err = stripeError as Stripe.errors.StripeError;
@@ -62,12 +65,12 @@ export async function POST() {
         // Update user record to remove invalid Stripe customer ID
         await db.collection('users').doc(userId).update({
           stripeCustomerId: null,
-          subscriptionStatus: 'inactive'
+          subscriptionStatus: 'Unpaid'
         });
         
-        return NextResponse.json(
-          { error: { message: 'Invalid subscription. Please subscribe again.', statusCode: 400 } },
-          { status: 400 }
+        return new NextResponse(
+          JSON.stringify({ error: { message: 'Invalid subscription. Please subscribe again.', statusCode: 400 } }),
+          { status: 400, headers: { 'Content-Type': 'application/json' } }
         );
       }
       
@@ -80,9 +83,9 @@ export async function POST() {
     const statusCode = 'statusCode' in err ? err.statusCode || 500 : 500;
     const message = err.message || 'Internal server error';
     
-    return NextResponse.json(
-      { error: { message, statusCode } } as ErrorResponse,
-      { status: statusCode }
+    return new NextResponse(
+      JSON.stringify({ error: { message, statusCode } } as ErrorResponse),
+      { status: statusCode, headers: { 'Content-Type': 'application/json' } }
     );
   }
 } 

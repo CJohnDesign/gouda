@@ -24,7 +24,7 @@ export default function JoinPage() {
     // Check if user is already logged in
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        router.push('/studio')
+        router.push('/account/subscription')
       }
     })
 

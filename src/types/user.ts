@@ -11,5 +11,5 @@ export interface UserProfile {
   createdAt: Date;
   updatedAt: Date;
   stripeCustomerId?: string;
-  subscriptionStatus?: 'active' | 'canceled' | 'past_due' | null;
+  subscriptionStatus?: 'Active' | 'PastDue' | 'Unpaid' | 'Paused' | null;
 } 

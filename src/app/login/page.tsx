@@ -24,7 +24,7 @@ export default function LoginPage() {
     // Check if user is already logged in
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        router.push('/studio')
+        router.push('/account/subscription')
       }
     })
 
@@ -49,8 +49,8 @@ export default function LoginPage() {
           .then(() => {
             // Clear the email from storage
             window.localStorage.removeItem('emailForSignIn')
-            // Redirect to studio after successful sign-in
-            router.push('/studio')
+            // Redirect to subscription page after successful sign-in
+            router.push('/account/subscription')
           })
           .catch((error) => {
             setError(error.message)

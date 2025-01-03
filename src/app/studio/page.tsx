@@ -32,15 +32,28 @@ export default function StudioPage() {
                 'Authorization': `Bearer ${token}`,
               },
             })
+
+            if (!response.ok) {
+              console.error('Profile fetch failed:', response.status)
+              router.push('/account/subscription')
+              return
+            }
+
             const profileData = await response.json()
             
-            // If not subscribed in Firestore either, redirect to subscribe page
+            if (!profileData || profileData.error) {
+              console.error('Invalid profile data:', profileData)
+              router.push('/account/subscription')
+              return
+            }
+            
+            // If not subscribed in Firestore either, redirect to subscription page
             if (profileData.subscriptionStatus !== 'active') {
-              router.push('/subscribe')
+              router.push('/account/subscription')
             }
           } catch (error) {
             console.error('Error fetching profile:', error)
-            router.push('/subscribe')
+            router.push('/account/subscription')
           }
         }
       } else {

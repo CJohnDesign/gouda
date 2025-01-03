@@ -1,86 +1,120 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
-import { getAuth } from 'firebase-admin/auth';
-import { getFirestore } from 'firebase-admin/firestore';
-import { adminApp } from '@/firebase/admin';
+import { adminApp, db, auth } from '@/firebase/admin';
 
 export async function GET() {
+  console.log('Starting GET request...');
   try {
+    // Get auth token
     const headersList = await headers();
     const token = headersList.get('authorization')?.split('Bearer ')[1];
+    console.log('Token exists:', !!token);
+    console.log('Token:', token?.substring(0, 10) + '...');
 
     if (!token) {
-      return NextResponse.json(
-        { error: { message: 'No token provided', statusCode: 401 } },
-        { status: 401 }
+      console.log('No token provided');
+      return new NextResponse(
+        JSON.stringify({ error: 'Unauthorized' }),
+        { 
+          status: 401,
+          headers: { 'Content-Type': 'application/json' }
+        }
       );
     }
 
-    // Verify Firebase token
-    const decodedToken = await getAuth(adminApp).verifyIdToken(token);
+    // Verify token and get user ID
+    console.log('Verifying token...');
+    const decodedToken = await auth.verifyIdToken(token);
+    console.log('Token verified successfully');
     const userId = decodedToken.uid;
+    console.log('User ID:', userId);
 
-    // Get user profile from Firestore
-    const db = getFirestore(adminApp);
+    // Get user document
+    console.log('Getting Firestore document...');
     const userDoc = await db.collection('users').doc(userId).get();
+    console.log('Document exists:', userDoc.exists);
+
+    // If no user document exists, create one
+    if (!userDoc.exists) {
+      console.log('Creating new user document...');
+      const userData = {
+        uid: userId,
+        email: decodedToken.email || '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        subscriptionStatus: 'Unpaid',
+        displayName: '',
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        profilePicUrl: '',
+        location: '',
+        bio: '',
+        stripeCustomerId: ''
+      };
+
+      await db.collection('users').doc(userId).set(userData);
+      console.log('New user document created');
+      return new NextResponse(
+        JSON.stringify({
+          ...userData,
+          createdAt: userData.createdAt.toISOString(),
+          updatedAt: userData.updatedAt.toISOString()
+        }),
+        { 
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
+
+    // Return existing user data
     const userData = userDoc.data();
-
+    console.log('Got user data:', !!userData);
+    console.log('User data fields:', userData ? Object.keys(userData) : 'null');
+    
     if (!userData) {
-      return NextResponse.json(
-        { error: { message: 'User profile not found', statusCode: 404 } },
-        { status: 404 }
+      console.log('User data is null');
+      return new NextResponse(
+        JSON.stringify({ error: 'User data not found' }),
+        { 
+          status: 404,
+          headers: { 'Content-Type': 'application/json' }
+        }
       );
     }
 
-    return NextResponse.json(userData);
-  } catch (error) {
-    console.error('Error fetching user profile:', error);
-    return NextResponse.json(
-      { error: { message: 'Internal server error', statusCode: 500 } },
-      { status: 500 }
+    // Convert dates to ISO strings for JSON
+    const processedData = {
+      ...userData,
+      createdAt: userData.createdAt?.toDate?.()?.toISOString() || new Date().toISOString(),
+      updatedAt: userData.updatedAt?.toDate?.()?.toISOString() || new Date().toISOString()
+    };
+
+    console.log('Sending response...');
+    return new NextResponse(
+      JSON.stringify(processedData),
+      { 
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      }
     );
-  }
-}
 
-export async function PATCH(request: Request) {
-  try {
-    const headersList = await headers();
-    const token = headersList.get('authorization')?.split('Bearer ')[1];
-
-    if (!token) {
-      return NextResponse.json(
-        { error: { message: 'No token provided', statusCode: 401 } },
-        { status: 401 }
-      );
+  } catch (error: any) {
+    console.error('Error in GET request:', error?.message || error);
+    if (error?.stack) {
+      console.error('Stack trace:', error.stack);
     }
-
-    // Verify Firebase token
-    const decodedToken = await getAuth(adminApp).verifyIdToken(token);
-    const userId = decodedToken.uid;
-
-    // Get update data from request body
-    const updates = await request.json();
-
-    // Update Firestore profile
-    const db = getFirestore(adminApp);
-    await db.collection('users').doc(userId).update({
-      ...updates,
-      updatedAt: new Date()
-    });
-
-    // Update Firebase Auth display name
-    if (updates.displayName !== undefined) {
-      await getAuth(adminApp).updateUser(userId, {
-        displayName: updates.displayName
-      });
-    }
-
-    return NextResponse.json({ message: 'Profile updated successfully' });
-  } catch (error) {
-    console.error('Error updating user profile:', error);
-    return NextResponse.json(
-      { error: { message: 'Internal server error', statusCode: 500 } },
-      { status: 500 }
+    
+    return new NextResponse(
+      JSON.stringify({ 
+        error: 'Internal server error', 
+        details: error?.message || 'Unknown error'
+      }),
+      { 
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      }
     );
   }
 } 

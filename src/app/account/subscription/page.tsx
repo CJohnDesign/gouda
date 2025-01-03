@@ -73,7 +73,9 @@ export default function SubscriptionPage() {
       </div>
 
       <div className="bg-white rounded-lg border border-[#262223]/10 p-6">
-        <p className="text-[#262223]/60 mb-6">Manage your subscription and payment details through our secure Stripe portal.</p>
+        <p className="text-[#262223]/60 mb-6">
+          {profile?.subscriptionStatus || 'No active subscription'}
+        </p>
         
         <Button 
           onClick={handleManageBilling}
