@@ -1,87 +1,42 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
-import { getAuth, User } from 'firebase/auth'
-import { app } from '@/firebase/firebase'
-import type { UserProfile } from '@/types/user'
 import { SubscriptionStatusPill } from '@/components/ui/SubscriptionStatusPill'
+import { useUserProfile } from '@/contexts/UserProfileContext'
 
 export default function SubscriptionPage() {
-  const [user, setUser] = useState<User | null>(null)
-  const [profile, setProfile] = useState<UserProfile | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const auth = getAuth(app)
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        setUser(user)
-        try {
-          console.log('Fetching user profile...')
-          const token = await user.getIdToken()
-          const response = await fetch('/api/user-profile', {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
-          })
-          if (!response.ok) {
-            const errorData = await response.json()
-            console.error('Profile fetch failed:', { status: response.status, error: errorData })
-            throw new Error(errorData.error?.details || errorData.error?.message || 'Failed to fetch profile')
-          }
-          const profileData = await response.json()
-          console.log('Profile data received:', profileData)
-          setProfile(profileData)
-        } catch (error) {
-          console.error('Error fetching profile:', error)
-          setError(error instanceof Error ? error.message : 'Failed to fetch profile')
-        }
-      }
-      setLoading(false)
-    })
-
-    return () => unsubscribe()
-  }, [auth])
+  const { user, profile, loading, error } = useUserProfile();
 
   const handleManageBilling = async () => {
-    if (!user) {
-      console.error('No user found')
-      return
-    }
+    if (!user) return;
 
     try {
-      console.log('Creating portal session...')
-      const token = await user.getIdToken()
+      const token = await user.getIdToken();
       const response = await fetch('/api/create-portal-session', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
         },
-      })
+      });
 
       if (!response.ok) {
-        const errorData = await response.json()
-        console.error('Portal session creation failed:', { status: response.status, error: errorData })
-        throw new Error(errorData.error?.message || 'Failed to create portal session')
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || 'Failed to create portal session');
       }
 
-      const data = await response.json()
-      console.log('Portal session created:', data)
+      const data = await response.json();
       if (data.url) {
-        window.location.href = data.url
+        window.location.href = data.url;
       } else {
-        throw new Error('No portal URL received')
+        throw new Error('No portal URL received');
       }
     } catch (error) {
-      console.error('Error creating portal session:', error)
-      setError(error instanceof Error ? error.message : 'Failed to create portal session')
+      console.error('Error creating portal session:', error);
     }
-  }
+  };
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   return (
@@ -98,14 +53,12 @@ export default function SubscriptionPage() {
           </div>
         )}
         
-        
         <div className="mb-6 flex items-center justify-between">
           <span className="text-[#262223]/80 font-medium">Subscription Status</span>
-            
           <SubscriptionStatusPill status={profile?.subscriptionStatus || 'Unpaid'} />
         </div>
         <div className="mb-6">
-        <hr className="w-full border-t border-[#262223]/10" />
+          <hr className="w-full border-t border-[#262223]/10" />
         </div>
         <Button 
           onClick={handleManageBilling}
@@ -115,5 +68,5 @@ export default function SubscriptionPage() {
         </Button>
       </div>
     </div>
-  )
+  );
 } 

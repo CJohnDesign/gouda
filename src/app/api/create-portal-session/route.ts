@@ -53,7 +53,7 @@ export async function POST() {
       try {
         await stripe.customers.retrieve(stripeCustomerId);
       } catch (error) {
-        console.log('Failed to retrieve Stripe customer, creating new one');
+        console.log('Failed to retrieve Stripe customer, creating new one' + error);
         stripeCustomerId = null;
       }
     }
@@ -152,7 +152,7 @@ export async function POST() {
         { status: 200, headers: { 'Content-Type': 'application/json' } }
       );
     } catch (error) {
-      console.log('Failed to create portal session, creating new customer flow');
+      console.log('Failed to create portal session, creating new customer flow: ' + error);
       stripeCustomerId = null;
       await userDoc.ref.update({
         stripeCustomerId: null,

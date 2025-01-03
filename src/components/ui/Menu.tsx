@@ -59,19 +59,20 @@ export function Menu() {
                         <nav className="flex flex-col gap-8 items-center">
                             {user ? (
                                 <>
-                                    <Link
-                                        href="/account"
-                                        className="text-3xl font-bold text-white hover:text-[#de9c0e] transition-colors"
-                                        onClick={toggleMenu}
-                                    >
-                                        Account
-                                    </Link>
+                                    
                                     <Link
                                         href="/studio"
                                         className="text-3xl font-bold text-white hover:text-[#de9c0e] transition-colors"
                                         onClick={toggleMenu}
                                     >
                                         Studio
+                                    </Link>
+                                    <Link
+                                        href="/account/profile"
+                                        className="text-3xl font-bold text-white hover:text-[#de9c0e] transition-colors"
+                                        onClick={toggleMenu}
+                                    >
+                                        Account
                                     </Link>
                                     <button
                                         onClick={() => {

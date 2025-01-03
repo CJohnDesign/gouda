@@ -1,15 +1,14 @@
 'use client'
 
 import { useEffect } from 'react'
-import { getAuth } from 'firebase/auth'
 import { useRouter } from 'next/navigation'
-import { app } from '@/firebase/firebase'
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { Corners } from "@/components/ui/borders"
 import { Montserrat } from 'next/font/google'
 import { Navbar } from "@/components/ui/Navbar"
 import Link from 'next/link'
+import { useUserProfile } from '@/contexts/UserProfileContext'
 
 const montserrat = Montserrat({ 
   subsets: ['latin'],
@@ -19,19 +18,25 @@ const montserrat = Montserrat({
 
 export default function Home() {
   const router = useRouter()
-  const auth = getAuth(app)
+  const { user, loading } = useUserProfile()
 
   useEffect(() => {
-    // Check if user is already logged in
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        router.push('/studio')
-      }
-    })
+    // Only redirect to studio if user is logged in
+    if (!loading && user) {
+      router.push('/studio')
+    }
+  }, [loading, user, router])
 
-    return () => unsubscribe()
-  }, [auth, router])
+  // Show loading state while checking auth
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg text-[#262223]">Loading...</div>
+      </div>
+    )
+  }
 
+  // If not logged in, show the homepage
   return (
     <main className={`min-h-screen bg-[#f1e0b4] flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
       <Corners />
@@ -53,7 +58,7 @@ export default function Home() {
           <div className="space-y-2">
             <p className="text-[18px] leading-[24px] font-regular text-[#262223] max-w-[390px] mx-auto mb-4">
               Gouda & Company is a music school focusing on rocking at jam sessions.<br/>
-              <strong>All instruments welcome!</strong>
+              All instruments welcome!
             </p>
           </div>
 
@@ -70,7 +75,7 @@ export default function Home() {
           {/* Footer Info */}
           <div className="space-y-1 text-[#262223]">
             <p className="text-[14px] leading-[21px] font-medium">
-              Group Lessons Every Monday Night <br/>
+              Group Lessons Twice a Month <br/>
               in North Miami Beach + Telegram Community
             </p>
           </div>

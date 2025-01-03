@@ -1,17 +1,21 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
-import { adminApp, db, auth } from '@/firebase/admin';
+import { db, auth } from '@/firebase/admin';
 import { inviteUserToChannel, sendWelcomeMessage } from '@/lib/telegram';
 
+// Define error interface
+interface ApiError extends Error {
+  code?: string;
+  details?: string;
+}
+
 export async function GET() {
-  console.log('Starting GET request...');
   try {
     // Get auth token
     const headersList = await headers();
     const token = headersList.get('authorization')?.split('Bearer ')[1];
 
     if (!token) {
-      console.log('No token provided');
       return new NextResponse(
         JSON.stringify({ 
           error: { 
@@ -32,7 +36,6 @@ export async function GET() {
     const userData = userDoc.data();
     
     if (!userData) {
-      console.log('User data not found for ID:', userId);
       return new NextResponse(
         JSON.stringify({ 
           error: { 
@@ -49,14 +52,13 @@ export async function GET() {
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
 
-  } catch (error: any) {
-    console.error('Error in GET request:', error);
-    
+  } catch (error: unknown) {
+    const apiError = error as ApiError;
     return new NextResponse(
       JSON.stringify({ 
         error: { 
           message: 'Internal server error',
-          details: error?.message || 'An unexpected error occurred'
+          details: apiError.message || 'An unexpected error occurred'
         } 
       }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
@@ -85,7 +87,7 @@ export async function PATCH(request: Request) {
     const updateData = await request.json();
 
     // Fields that are allowed to be updated
-    const allowedFields = ['displayName', 'firstName', 'lastName', 'phoneNumber', 'location', 'bio', 'telegramUsername'];
+    const allowedFields = ['telegramUsername', 'firstName', 'lastName', 'phoneNumber', 'location', 'bio'];
     const sanitizedData = Object.fromEntries(
       Object.entries(updateData).filter(([key]) => allowedFields.includes(key))
     );
@@ -95,29 +97,19 @@ export async function PATCH(request: Request) {
 
     // Update user document
     await db.collection('users').doc(userId).update(sanitizedData);
-    console.log('User document updated:', sanitizedData);
 
-    // If telegramUsername is provided and user has active subscription, invite to channel
+    // Handle Telegram integration
     if (sanitizedData.telegramUsername && typeof sanitizedData.telegramUsername === 'string') {
-        console.log('Telegram username provided:', sanitizedData.telegramUsername);
         const userDoc = await db.collection('users').doc(userId).get();
         const userData = userDoc.data();
         
         if (userData?.subscriptionStatus === 'Active') {
-            const channelId = 'j2wKdI8p38w1NmQ5'; // Channel username or ID without the + prefix
-            console.log('Inviting user to channel...');
-            
-            // Remove @ prefix if present
+            const channelId = 'j2wKdI8p38w1NmQ5';
             const cleanUsername = sanitizedData.telegramUsername.replace(/^@/, '');
             
-            // First try welcome message
             const welcomeSent = await sendWelcomeMessage(cleanUsername);
             if (welcomeSent) {
-                // If welcome message was successful, send the invite
                 await inviteUserToChannel(cleanUsername, channelId);
-                console.log('Invite and welcome message sent');
-            } else {
-                console.error('Failed to send welcome message - user might not exist or bot might not have permission');
             }
         }
     }
@@ -127,13 +119,12 @@ export async function PATCH(request: Request) {
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
 
-  } catch (error: any) {
-    console.error('Error in PATCH request:', error);
-    
+  } catch (error: unknown) {
+    const apiError = error as ApiError;
     return new NextResponse(
       JSON.stringify({ 
         error: 'Internal server error', 
-        details: error?.message 
+        details: apiError.message 
       }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
