@@ -7,14 +7,12 @@ import { app } from '@/firebase/firebase'
 import { Montserrat } from 'next/font/google'
 import { Navbar } from '@/components/ui/Navbar'
 import { Corners } from '@/components/ui/borders'
-import type { UserProfile } from '@/types/user'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function StudioPage() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
-  const [profile, setProfile] = useState<UserProfile | null>(null)
   const router = useRouter()
   const auth = getAuth(app)
 
@@ -35,7 +33,6 @@ export default function StudioPage() {
               },
             })
             const profileData = await response.json()
-            setProfile(profileData)
             
             // If not subscribed in Firestore either, redirect to subscribe page
             if (profileData.subscriptionStatus !== 'active') {

@@ -4,15 +4,34 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { getAuth, User } from 'firebase/auth'
 import { app } from '@/firebase/firebase'
+import type { UserProfile } from '@/types/user'
 
 export default function SubscriptionPage() {
   const [user, setUser] = useState<User | null>(null)
+  const [profile, setProfile] = useState<UserProfile | null>(null)
   const [loading, setLoading] = useState(true)
   const auth = getAuth(app)
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user)
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setUser(user)
+        try {
+          const token = await user.getIdToken()
+          const response = await fetch('/api/user-profile', {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          })
+          if (!response.ok) {
+            throw new Error('Failed to fetch profile')
+          }
+          const profileData = await response.json()
+          setProfile(profileData)
+        } catch (error) {
+          console.error('Error fetching profile:', error)
+        }
+      }
       setLoading(false)
     })
 
@@ -54,8 +73,7 @@ export default function SubscriptionPage() {
       </div>
 
       <div className="bg-white rounded-lg border border-[#262223]/10 p-6">
-        <h2 className="text-lg font-medium text-[#262223] mb-4">Subscription Status</h2>
-        <p className="text-[#262223]/60 mb-6">Manage your subscription and payment details through our secure portal.</p>
+        <p className="text-[#262223]/60 mb-6">Manage your subscription and payment details through our secure Stripe portal.</p>
         
         <Button 
           onClick={handleManageBilling}
