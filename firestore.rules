@@ -2,8 +2,14 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Allow authenticated users to read songs
+    match /songs/{songId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only admins can write songs (through admin SDK)
+    }
+
+    // Existing user rules
     match /users/{userId} {
-      // Allow all operations if user is authenticated
       allow read, write: if request.auth != null;
     }
   }

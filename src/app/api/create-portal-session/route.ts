@@ -13,6 +13,22 @@ type ErrorResponse = {
   };
 };
 
+// Helper function to get the base URL
+const getBaseUrl = (headersList: Headers) => {
+  // Try to get the origin from the referer header
+  const referer = headersList.get('referer');
+  if (referer) {
+    try {
+      const url = new URL(referer);
+      return url.origin;
+    } catch (e) {
+      console.log('Failed to parse referer URL');
+    }
+  }
+  // Fall back to the environment variable
+  return process.env.NEXT_PUBLIC_APP_URL;
+};
+
 export async function POST() {
   try {
     console.log('Starting portal session creation...');
@@ -116,6 +132,7 @@ export async function POST() {
         );
       }
 
+      const baseUrl = getBaseUrl(headersList);
       const session = await stripe.checkout.sessions.create({
         customer: stripeCustomerId,
         payment_method_types: ['card'],
@@ -126,8 +143,8 @@ export async function POST() {
           },
         ],
         mode: 'subscription',
-        success_url: `${process.env.NEXT_PUBLIC_APP_URL}/api/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/account/subscription?canceled=true`,
+        success_url: `${baseUrl}/api/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${baseUrl}/account/subscription?canceled=true`,
         allow_promotion_codes: true,
         billing_address_collection: 'required',
       });
@@ -141,9 +158,10 @@ export async function POST() {
     try {
       console.log('Creating Stripe billing portal session for customer:', stripeCustomerId);
       // Create Stripe billing portal session
+      const baseUrl = getBaseUrl(headersList);
       const session = await stripe.billingPortal.sessions.create({
         customer: stripeCustomerId,
-        return_url: `${process.env.NEXT_PUBLIC_APP_URL}/account/subscription`,
+        return_url: `${baseUrl}/account/subscription`,
       });
       console.log('Portal session created successfully:', session.url);
 

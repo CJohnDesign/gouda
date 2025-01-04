@@ -57,7 +57,7 @@ export default function Home() {
         <div className="space-y-4">
           <div className="space-y-2">
             <p className="text-[18px] leading-[24px] font-regular text-[#262223] max-w-[390px] mx-auto mb-4">
-              Gouda & Company is a music school focusing on rocking at jam sessions.<br/>
+              Gouda & Company is a <strong>music school</strong> focusing on rocking at jam sessions.<br/>
               All instruments welcome!
             </p>
           </div>
