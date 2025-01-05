@@ -35,18 +35,61 @@ async function createTestUser() {
 
     // Create or update user profile in Firestore
     await db.collection('users').doc(userId).set({
+      // Core identity fields
+      id: userId,
       uid: userId,
       email: userEmail,
+      name: 'CJ Design',
       firstName: 'CJ',
       lastName: 'Design',
-      phoneNumber: '+1234567890',
-      profilePicUrl: 'https://avatars.githubusercontent.com/u/cjohndesign',
-      location: 'San Francisco, CA',
+      
+      // Profile fields
       bio: 'Designer and developer passionate about creating amazing user experiences. Building Gouda to help musicians collaborate and create.',
-      stripeCustomerId: 'cus_test_123', // Test Stripe customer ID
-      subscriptionStatus: 'active',
+      location: 'San Francisco, CA',
+      avatarUrl: 'https://avatars.githubusercontent.com/u/cjohndesign',
+      profilePicUrl: 'https://avatars.githubusercontent.com/u/cjohndesign', // Legacy field
+      phoneNumber: '+1234567890',
+      telegramUsername: '',
+
+      // Collections/Lists
+      playlists: [],
+      favoriteSongs: [],
+      favoriteArtists: [],
+      favoriteAlbums: [],
+
+      // Stripe billing fields
+      stripeCustomerId: 'cus_test_123',
+      subscriptionStatus: 'Active',
+      stripePaymentMethods: [],
+      stripeBillingDetails: {
+        address: {
+          city: 'San Francisco',
+          country: 'US',
+          line1: '123 Main St',
+          postal_code: '94105',
+          state: 'CA'
+        },
+        email: userEmail,
+        name: 'CJ Design',
+        phone: '+1234567890'
+      },
+      
+      // Timestamps
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      
+      // Metadata flags
+      metadata: {
+        isPublished: true,
+        isFeatured: false,
+        isPrivate: false,
+        isDeleted: false,
+        isDraft: false,
+        isPending: false,
+        isApproved: true,
+        isRejected: false,
+        isHidden: false
+      }
     }, { merge: false }); // merge: false ensures complete overwrite
 
     console.log('Setting custom claims...');

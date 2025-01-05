@@ -106,19 +106,61 @@ export const createUserProfile = functions.auth.user().onCreate(async (user: Use
     
     // Create the user profile with default values
     await db.collection('users').doc(user.uid).set({
+      // Core identity fields
+      id: user.uid,
       uid: user.uid,
       email: user.email || '',
-      telegramUsername: '',
+      name: '',
       firstName: '',
       lastName: '',
-      phoneNumber: user.phoneNumber || '',
-      profilePicUrl: user.photoURL || '',
-      location: '',
+      
+      // Profile fields
       bio: '',
+      location: '',
+      avatarUrl: user.photoURL || '',
+      profilePicUrl: user.photoURL || '', // Legacy field
+      phoneNumber: user.phoneNumber || '',
+      telegramUsername: '',
+
+      // Collections/Lists
+      playlists: [],
+      favoriteSongs: [],
+      favoriteArtists: [],
+      favoriteAlbums: [],
+
+      // Stripe billing fields
+      stripeCustomerId: '',
+      subscriptionStatus: 'Unpaid',
+      stripePaymentMethods: [],
+      stripeBillingDetails: {
+        address: {
+          city: '',
+          country: '',
+          line1: '',
+          postal_code: '',
+          state: ''
+        },
+        email: user.email || '',
+        name: '',
+        phone: user.phoneNumber || ''
+      },
+      
+      // Timestamps
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-      stripeCustomerId: '',
-      subscriptionStatus: 'Unpaid'
+      
+      // Metadata flags
+      metadata: {
+        isPublished: false,
+        isFeatured: false,
+        isPrivate: true,
+        isDeleted: false,
+        isDraft: false,
+        isPending: false,
+        isApproved: false,
+        isRejected: false,
+        isHidden: false
+      }
     })
 
     console.log('Successfully created user profile for:', user.uid)

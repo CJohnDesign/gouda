@@ -108,6 +108,13 @@ export default function SongbookPage() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    // Handle authentication check
+    if (!loading && !user) {
+      router.push('/')
+      return
+    }
+
+    // Fetch songs if user is authenticated
     async function fetchSongs() {
       try {
         const songsQuery = query(
@@ -130,7 +137,7 @@ export default function SongbookPage() {
     if (user) {
       fetchSongs()
     }
-  }, [user])
+  }, [loading, user, router])
 
   if (loading || isLoading) {
     return (
@@ -140,9 +147,9 @@ export default function SongbookPage() {
     )
   }
   
-  if (!user) { 
-    router.push('/')
-    return null 
+  // Don't render anything while redirecting
+  if (!user) {
+    return null
   }
 
   return (
@@ -150,7 +157,7 @@ export default function SongbookPage() {
       
       <Navbar />
       
-      <div className="pt-20 z-10">
+      <div className="pt-20 z-10 max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-12 sm:grid-cols-16 md:grid-cols-24 lg:grid-cols-24 auto-rows-[50px] gap-1 p-2 grid-flow-dense">
           {songs.map((song, index) => {
             const style = getCardStyle(index, !!song.description)
@@ -191,12 +198,16 @@ interface SongCardProps {
 }
 
 function SongCard({ song, isDark, isAccent, size }: SongCardProps) {
+  const router = useRouter()
   // Always use white text since all cards are dark
   const textColor = 'text-white'
   const mutedTextColor = 'text-white/70'
   
   return (
-    <div className="h-full p-4 flex flex-col">
+    <button 
+      onClick={() => router.push(`/song/${song.id}`)}
+      className="h-full w-full p-4 flex flex-col text-left hover:opacity-90 transition-opacity"
+    >
       {/* Genre and key */}
       <div className={`text-xs uppercase tracking-wider mb-2 ${mutedTextColor}`}>
         {song.genre} • {song.key}
@@ -231,6 +242,6 @@ function SongCard({ song, isDark, isAccent, size }: SongCardProps) {
           <p>{song.duration} • {song.releaseYear}</p>
         )}
       </div>
-    </div>
+    </button>
   )
 } 
