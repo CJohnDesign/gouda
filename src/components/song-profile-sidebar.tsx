@@ -60,17 +60,31 @@ export function SongProfileSidebar({
             </div>
           </div>
 
-          {/* Song Details */}
+          {/* Genre */}
           <div className="space-y-2">
             <h3 className="text-xs uppercase tracking-widest mb-3 text-primary border-b border-primary/20 pb-2">
-              Song Details
+              Genre
             </h3>
-            <div className="space-y-2 text-sm">
-              <p><span className="text-muted-foreground">Artist:</span> <span className="text-foreground">{song.artist}</span></p>
-              <p><span className="text-muted-foreground">Album:</span> <span className="text-foreground">{song.album}</span></p>
-              <p><span className="text-muted-foreground">Duration:</span> <span className="text-foreground">{song.duration}</span></p>
-              <p><span className="text-muted-foreground">Year:</span> <span className="text-foreground">{song.releaseYear}</span></p>
-              <p><span className="text-muted-foreground">Writer:</span> <span className="text-foreground">{song.writer}</span></p>
+            <div className="flex flex-wrap gap-2">
+              {song.genre?.map((genre) => (
+                <span key={genre} className="px-3 py-1 text-sm rounded-full border border-[0.75px] border-border text-muted-foreground">
+                  {genre}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Mood */}
+          <div className="space-y-2">
+            <h3 className="text-xs uppercase tracking-widest mb-3 text-primary border-b border-primary/20 pb-2">
+              Mood
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {song.mood?.map((mood) => (
+                <span key={mood} className="px-3 py-1 text-sm rounded-full border border-[0.75px] border-border text-muted-foreground">
+                  {mood}
+                </span>
+              ))}
             </div>
           </div>
 

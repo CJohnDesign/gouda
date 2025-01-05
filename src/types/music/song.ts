@@ -1,24 +1,11 @@
 import { MetadataEntity } from '../metadata';
 import { MusicTheory } from './theory';
 
-// Song sections (e.g., intro, verse, chorus) with linked lyrics and chord progressions
-export interface SongSection {
-  type: 'Intro' | 'Verse' | 'Chorus' | 'Bridge' | 'Outro' | 'Pre-Chorus' | 'Refrain' | 'Interlude' | 'Solo' | 'Coda';
-  content: SectionContent[];
-  rhythmPattern: string;
-  keyChange?: string;
-}
-
-// Content for each song section
-export interface SectionContent {
+// Song structure section
+export interface SongStructureSection {
+  section: string;
   lyrics: string[];
-  chordProgression: string[];
-}
-
-// Chart performance section
-export interface ChartPerformance {
-  chartName: string;
-  position: number;
+  chords: string[];
 }
 
 // Main Song interface
@@ -37,10 +24,16 @@ export interface Song extends MetadataEntity {
   genre: string[];
   mood: string[];
   duration: string;
-  sections: SongSection[];
+  structure: SongStructureSection[];
   theory: MusicTheory;
   chartPerformance?: ChartPerformance[];
   hasMaleVocals?: boolean;
   hasFemaleVocals?: boolean;
   hasGuitarSolo?: boolean;
+}
+
+// Chart performance section
+export interface ChartPerformance {
+  chartName: string;
+  position: number;
 } 

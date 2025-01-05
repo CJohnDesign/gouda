@@ -2,11 +2,11 @@ import { Menu } from "./Menu"
 
 export function Navbar() {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50">
-      <div className="px-4 h-16 flex items-center">
+    <nav className="h-16 bg-background border-b border-primary/30">
+      <div className="h-full max-w-6xl mx-auto px-4 flex items-center justify-between">
         <Menu />
       </div>
-    </div>
+    </nav>
   )
 }
 
