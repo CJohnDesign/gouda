@@ -23,9 +23,9 @@ export function SongProfileSidebar({
       className={cn(
         // Mobile: fullscreen overlay
         "fixed inset-0 z-50 bg-[#f1e0b4] transform transition-all duration-300 ease-in-out",
-        // Desktop: static sidebar
-        "md:static md:h-screen md:w-64 md:translate-y-0 md:translate-x-0",
-        // Mobile: slide from top, Desktop: always visible
+        // Desktop: static sidebar, always visible
+        "md:static md:h-screen md:w-64 md:translate-y-0 md:translate-x-0 md:block",
+        // Mobile: slide from top
         isOpen ? "translate-y-0" : "-translate-y-full",
         // Hide on mobile when closed
         !isOpen && "invisible md:visible"
@@ -34,7 +34,7 @@ export function SongProfileSidebar({
       <Button
         variant="ghost"
         size="icon"
-        className="absolute top-4 left-4 z-50 md:hidden text-[#262223] hover:text-[#de9c0e]"
+        className="absolute top-4 right-4 z-50 sm:hidden text-[#262223] hover:text-[#de9c0e]"
         onClick={onClose}
       >
         <X className="h-6 w-6" />
@@ -42,16 +42,10 @@ export function SongProfileSidebar({
       </Button>
 
       <ScrollArea className="h-screen">
-        <div className="p-6 md:p-4 space-y-6">
-          {/* Album Art */}
-          <div className="w-full aspect-square border-b border-[#262223]/10">
-            <img 
-              src={song.coverUrl || "/placeholder.svg"}
-              alt={`${song.title} Cover`}
-              className="w-full h-full object-cover"
-            />
-          </div>
+        {/* Cover Box */}
+        <div className="w-full aspect-square bg-[#262223]/5 border-b border-[#262223]/10" />
 
+        <div className="p-6 md:p-4 space-y-6">
           {/* Key Music Theory */}
           <div className="space-y-2">
             <h3 className="text-xs uppercase tracking-widest mb-3 text-[#262223]/75">
