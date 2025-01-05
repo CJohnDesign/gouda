@@ -1,0 +1,166 @@
+{
+    "id": "comfortably-numb-pink-floyd",
+    "title": "Comfortably Numb",
+    "artist": "Pink Floyd",
+    "featuring": [],
+    "artistId": "pink-floyd",
+    "album": "The Wall",
+    "albumId": "the-wall",
+    "writer": "Roger Waters, David Gilmour",
+    "coverUrl": "/images/placeholder.jpg",
+    "description": "An iconic rock song from Pink Floyd's album 'The Wall', known for its powerful guitar solos and introspective lyrics.",
+    "releaseYear": 1979,
+    "genre": ["Rock", "Progressive Rock"],
+    "mood": ["Introspective", "Melancholic", "Epic"],
+    "duration": "6:21",
+    "structure": [
+      {
+        "section": "Verse 1",
+        "lyrics": [
+          "Hello?",
+          "Is there anybody in there?",
+          "Just nod if you can hear me",
+          "Is there anyone at home?",
+          "Come on now",
+          "I hear you're feeling down",
+          "I can ease your pain",
+          "And get you on your feet again",
+          "Relax",
+          "I'll need some information first",
+          "Just the basic facts",
+          "Can you show me where it hurts?"
+        ],
+        "chords": [
+          "Bsus2", "(Bm)",
+          "A",
+          "G", "(G/F#)",
+          "Em",
+          "Bm"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "There is no pain, you are receding",
+          "A distant ship smoke on the horizon",
+          "You are only coming through in waves",
+          "Your lips move but I can't hear what you're saying",
+          "When I was a child I had a fever",
+          "My hands felt just like two balloons",
+          "Now I've got that feeling once again, I can't explain,",
+          "You would not understand, this is not how I am",
+          "I have become comfortably numb"
+        ],
+        "chords": [
+          "D",
+          "A",
+          "(G/B)", "C",
+          "G"
+        ]
+      },
+      {
+        "section": "Guitar Solo 1",
+        "lyrics": [],
+        "chords": [
+          "D", "A",
+          "C", "G",
+          "A",
+          "(G/B)", "C",
+          "G",
+          "D"
+        ]
+      },
+      {
+        "section": "Verse 2",
+        "lyrics": [
+          "O.K.",
+          "Just a little pinprick",
+          "There'll be no more aaaaaaaah!",
+          "But you may feel a little sick",
+          "Can you stand up?",
+          "I do believe it's working, good",
+          "That'll keep you going through the show",
+          "Come on, it's time to go"
+        ],
+        "chords": [
+          "Bsus2", "(Bm)",
+          "A",
+          "G", "Em",
+          "Bm"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "There is no pain, you are receding",
+          "A distant ship smoke on the horizon",
+          "You are only coming through in waves",
+          "Your lips move but I can't hear what you're saying",
+          "When I was a child, I caught a fleeting glimpse",
+          "Out of the corner of my eye",
+          "I turned to look but it was gone",
+          "I cannot put my finger on it now",
+          "The child is grown, the dream is gone",
+          "And I have become comfortably numb"
+        ],
+        "chords": [
+          "D",
+          "A",
+          "(G/B)", "C",
+          "G"
+        ]
+      },
+      {
+        "section": "Guitar Solo 2",
+        "lyrics": [],
+        "chords": [
+          "Bm", "A",
+          "G", "Em",
+          "Bm"
+        ]
+      }
+    ],
+    "theory": {
+      "key": "Bm",
+      "scale": "minor",
+      "mode": "aeolian",
+      "tempoMarking": "Moderato",
+      "timeSignature": [4, 4],
+      "bpm": 64,
+      "harmonicAnalysis": {
+        "chordProgression": "i-iv-i progression with rock variations",
+        "secondaryDominants": [],
+        "borrowedChords": ["(G/B)", "C"],
+        "modulationSections": []
+      },
+      "melodicAnalysis": {
+        "vocalRange": "B2-E4",
+        "vocalTechniques": ["Falsetto", "Vibrato"],
+        "motifs": ["Repetitive Phrases", "Syncopated Rhythm"],
+        "phrasingPatterns": ["4-bar phrases"]
+      }
+    },
+    "chartPerformance": [
+      {
+        "chartName": "Billboard Hot 100",
+        "position": 6
+      }
+    ],
+    "hasMaleVocals": true,
+    "hasFemaleVocals": false,
+    "hasGuitarSolo": true,
+    "metadata": {
+      "isPublished": true,
+      "isFeatured": true,
+      "isPrivate": false,
+      "isDeleted": false,
+      "isDraft": false,
+      "isPending": false,
+      "isApproved": true,
+      "isRejected": false,
+      "isHidden": false
+    },
+    "createdAt": "2025-01-05T00:00:00Z",
+    "updatedAt": "2025-01-05T00:00:00Z"
+  }
+  

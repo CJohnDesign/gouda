@@ -1,0 +1,133 @@
+{
+    "id": "i-will-survive-cake",
+    "title": "I Will Survive",
+    "artist": "CAKE",
+    "featuring": [],
+    "artistId": "cake",
+    "album": "Fashion Nugget",
+    "albumId": "fashion-nugget",
+    "writer": "Freddie Perren, Dino Fekaris",
+    "coverUrl": "/images/placeholder.jpg",
+    "description": "A cover of the classic disco hit by Gloria Gaynor, performed by CAKE.",
+    "releaseYear": 1996,
+    "genre": ["Alternative Rock", "Indie Rock"],
+    "mood": ["Empowering", "Defiant", "Energetic"],
+    "duration": "4:11",
+    "structure": [
+      {
+        "section": "Verse",
+        "lyrics": [
+          "At first I was afraid, I was petrified",
+          "I kept thinkin' I could never live without you by my side",
+          "But then I spent so many nights just thinking how you've done me wrong",
+          "And I grew strong, I learned how to get along...",
+          "And so you're back from outer space",
+          "I just walked in to find you here with that, that look upon your face,",
+          "I should have changed my fuckin' lock, I would have made you leave your key -",
+          "If I’d have known for just one second you'd be back to bother me."
+        ],
+        "chords": [
+          "Am", "Dm", "G", "C",
+          "F", "B7", "E", "E7"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "Oh now go, walk out the door,",
+          "Just turn around now, you're not welcome anymore.",
+          "Weren't you the one who tried to break me with desire?",
+          "Did you think I'd crumble? Did you think I'd lay down and die?",
+          "Oh not I, I will survive,",
+          "Yeah, as long as I know how to love, I know I'll be alive.",
+          "I've got all my life to live, I've got all my love to give,",
+          "I will survive, I will survive, Yeah, yeah..."
+        ],
+        "chords": [
+          "Am", "Dm", "G", "C",
+          "F", "B7", "E", "E7"
+        ]
+      },
+      {
+        "section": "Solo",
+        "lyrics": [],
+        "chords": []
+      },
+      {
+        "section": "Verse",
+        "lyrics": [
+          "It took all the strength I had just not to fall apart,",
+          "I’m tryin' hard to mend the pieces of my broken heart,",
+          "And I spent oh so many nights just feelin' sorry for myself,",
+          "I used to cry, But now I hold my head up high.",
+          "And you’ll see me with somebody new, I'm not that stupid little person still in love with you.",
+          "And so you thought you’d just drop by and you expect me to be free,",
+          "But now I'm saving all my lovin' for someone who's lovin' me,"
+        ],
+        "chords": [
+          "Am", "Dm", "G", "C",
+          "F", "B7", "E", "E7"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "Oh now go, walk out the door,", 
+          "Just turn around now, you're not welcome anymore.",
+          "Weren't you the one who tried to break me with desire?",
+          "Did you think I'd crumble? Did you think I'd lay down and die?",
+          "Oh not I, I will survive,",
+          "Yeah, as long as I know how to love, I know I'll be alive.",
+          "I've got all my life to live, I've got all my love to give, I will",
+          "survive, I will survive, Yeah, yeah..."
+        ],
+        "chords": [
+          "Am", "Dm", "G", "C",
+          "F", "B7", "E", "E7"
+        ]
+      }
+    ],
+    "theory": {
+      "key": "A",
+      "scale": "minor",
+      "mode": "natural",
+      "tempoMarking": "Moderato",
+      "timeSignature": [4, 4],
+      "bpm": 96,
+      "harmonicAnalysis": {
+        "chordProgression": "i-iv-VII-III progression with rock variations",
+        "secondaryDominants": [],
+        "borrowedChords": [],
+        "modulationSections": []
+      },
+      "melodicAnalysis": {
+        "vocalRange": "E3-A4",
+        "vocalTechniques": ["Belting", "Growl"],
+        "motifs": ["Repetitive Phrases", "Defiant Tone"],
+        "phrasingPatterns": ["4-bar phrases"]
+      }
+    },
+    "chartPerformance": [
+      {
+        "chartName": "Billboard Alternative Songs",
+        "position": 28
+      }
+    ],
+    "hasMaleVocals": true,
+    "hasFemaleVocals": false,
+    "hasGuitarSolo": false,
+    "metadata": {
+      "isPublished": true,
+      "isFeatured": false,
+      "isPrivate": false,
+      "isDeleted": false,
+      "isDraft": false,
+      "isPending": false,
+      "isApproved": true,
+      "isRejected": false,
+      "isHidden": false
+    },
+    "createdAt": "2025-01-05T00:00:00Z",
+    "updatedAt": "2025-01-05T00:00:00Z"
+  }
+  

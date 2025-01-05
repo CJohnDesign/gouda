@@ -1,0 +1,177 @@
+{
+    "id": "let-it-be-beatles",
+    "title": "Let It Be",
+    "artist": "The Beatles",
+    "featuring": [],
+    "artistId": "the-beatles",
+    "album": "Let It Be",
+    "albumId": "let-it-be",
+    "writer": "Paul McCartney",
+    "coverUrl": "/images/placeholder.jpg",
+    "description": "A classic song by The Beatles, known for its comforting lyrics and memorable melody.",
+    "releaseYear": 1970,
+    "genre": ["Rock", "Pop"],
+    "mood": ["Reflective", "Comforting", "Melancholic"],
+    "duration": "4:03",
+    "structure": [
+      {
+        "section": "Intro",
+        "lyrics": [],
+        "chords": [
+          "C", "G", "Am", "Fmaj7", "(F6)", "C", "G", "F", "(C/E)", "(Dm7)", "C"
+        ]
+      },
+      {
+        "section": "Verse 1",
+        "lyrics": [
+          "When I find myself in times of trouble,",
+          "Mother Mary comes to me",
+          "Speaking words of wisdom, let it be",
+          "And in my hour of darkness,",
+          "she is standing right in front of me",
+          "Speaking words of wisdom, let it be"
+        ],
+        "chords": [
+          "C", "G", "Am", "(Am/G)", "Fmaj7", "(F6)", "C", "G", "F", "(C/E)", "(Dm7)", "C"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "Let it be, let it be, let it be, let it be",
+          "Whisper words of wisdom, let it be"
+        ],
+        "chords": [
+          "Am", "G", "F", "C", "C", "G", "F", "(C/E)", "(Dm7)", "C"
+        ]
+      },
+      {
+        "section": "Verse 2",
+        "lyrics": [
+          "And when the broken hearted people,",
+          "living in the world agree",
+          "There will be an answer, let it be",
+          "For though they may be parted,",
+          "there is still a chance that they will see",
+          "There will be an answer, let it be"
+        ],
+        "chords": [
+          "C", "G", "Am", "(Am/G)", "Fmaj7", "(F6)", "C", "G", "F", "(C/E)", "(Dm7)", "C"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "Let it be, let it be, let it be, let it be",
+          "There will be an answer, let it be",
+          "Let it be, let it be, let it be, let it be",
+          "Whisper words of wisdom, let it be"
+        ],
+        "chords": [
+          "Am", "G", "F", "C", "C", "G", "F", "(C/E)", "(Dm7)", "C"
+        ]
+      },
+      {
+        "section": "Instrumental",
+        "lyrics": [],
+        "chords": [
+          "F", "(C/E)", "(Dm7)", "C", "(Bb)", "(F/A)", "G", "F", "C"
+        ]
+      },
+      {
+        "section": "Solo",
+        "lyrics": [],
+        "chords": [
+          "C", "G", "Am", "F", "C", "G", "F", "C"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "Let it be, let it be, let it be, let it be",
+          "Whisper words of wisdom, let it be"
+        ],
+        "chords": [
+          "Am", "G", "F", "C", "C", "G", "F", "(C/E)", "(Dm7)", "C"
+        ]
+      },
+      {
+        "section": "Verse 3",
+        "lyrics": [
+          "And when the night is cloudy,",
+          "There is still a light that shines on me",
+          "Shine on till tomorrow, let it be",
+          "I wake up to the sound of music,",
+          "Mother Mary comes to me",
+          "Speaking words of wisdom, let it be"
+        ],
+        "chords": [
+          "C", "G", "Am", "(Am/G)", "Fmaj7", "(F6)", "C", "G", "F", "(C/E)", "(Dm7)", "C"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "Let it be, let it be, let it be, let it be",
+          "There will be an answer, let it be",
+          "Let it be, let it be, let it be, let it be",
+          "There will be an answer, let it be",
+          "Let it be, let it be, let it be, ya let it be",
+          "Whisper words of wisdom, let it be"
+        ],
+        "chords": [
+          "Am", "G", "F", "C", "C", "G", "F", "(C/E)", "(Dm7)", "C"
+        ]
+      },
+      {
+        "section": "Outro",
+        "lyrics": [],
+        "chords": [
+          "F", "(C/E)", "(Dm7)", "C", "(Bb)", "(F/A)", "G", "F", "C"
+        ]
+      }
+    ],
+    "theory": {
+      "key": "C",
+      "scale": "major",
+      "mode": "ionian",
+      "tempoMarking": "Moderato",
+      "timeSignature": [4, 4],
+      "bpm": 76,
+      "harmonicAnalysis": {
+        "chordProgression": "I-V-vi-IV progression with passing chords",
+        "secondaryDominants": [],
+        "borrowedChords": [],
+        "modulationSections": []
+      },
+      "melodicAnalysis": {
+        "vocalRange": "C4-E5",
+        "vocalTechniques": ["Legato", "Vibrato"],
+        "motifs": ["Ascending Melody", "Descending Melody"],
+        "phrasingPatterns": ["4-bar phrases"]
+      }
+    },
+    "chartPerformance": [
+      {
+        "chartName": "Billboard Hot 100",
+        "position": 1
+      }
+    ],
+    "hasMaleVocals": true,
+    "hasFemaleVocals": false,
+    "hasGuitarSolo": false,
+    "metadata": {
+      "isPublished": true,
+      "isFeatured": true,
+      "isPrivate": false,
+      "isDeleted": false,
+      "isDraft": false,
+      "isPending": false,
+      "isApproved": true,
+      "isRejected": false,
+      "isHidden": false
+    },
+    "createdAt": "2025-01-05T00:00:00Z",
+    "updatedAt": "2025-01-05T00:00:00Z"
+  }
+  

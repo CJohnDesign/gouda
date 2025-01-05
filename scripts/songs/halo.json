@@ -1,0 +1,170 @@
+{
+  "id": "halo-beyonce",
+  "title": "Halo",
+  "artist": "Beyonce",
+  "featuring": [],
+  "artistId": "beyonce",
+  "album": "I Am... Sasha Fierce",
+  "albumId": "i-am-sasha-fierce",
+  "writer": "Ryan Tedder, Evan Bogart, Beyoncé Knowles",
+  "coverUrl": "/images/placeholder.jpg",
+  "description": "A powerful ballad about finding love and hope in the midst of darkness.",
+  "releaseYear": 2008,
+  "genre": ["Pop", "R&B", "Soul"],
+  "mood": ["Inspirational", "Emotional", "Uplifting"],
+  "duration": "4:22",
+  "structure": [
+    {
+      "section": "Intro",
+      "lyrics": [],
+      "chords": [
+        "A", "Bm", "F#m", "D"
+      ]
+    },
+    {
+      "section": "Verse 1",
+      "lyrics": [
+        "Remember those walls I built",
+        "Well baby they're tumbling down",
+        "And they didn't even put up a fight",
+        "They didn't even make a sound",
+        "I found a way to let you in",
+        "But I never really had a doubt",
+        "Standing in the light of your halo",
+        "I got my angel now"
+      ],
+      "chords": [
+        "A", "Bm",
+        "F#m", "D",
+        "A", "Bm",
+        "F#m", "D"
+      ]
+    },
+    {
+      "section": "Pre-Chorus",
+      "lyrics": [
+        "It's like I've been awakened",
+        "Every rule I had you breakin'",
+        "It's the risk that I'm takin'",
+        "I ain't never gonna shut you out"
+      ],
+      "chords": [
+        "Bm", "F#m",
+        "D", "A"
+      ]
+    },
+    {
+      "section": "Chorus",
+      "lyrics": [
+        "Everywhere I'm looking now",
+        "I'm surrounded by your embrace",
+        "Baby I can see your halo",
+        "You know you're my saving grace",
+        "You're everything I need and more",
+        "It's written all over your face",
+        "Baby I can feel your halo",
+        "Pray it won't fade away",
+        "I can feel your halo (halo) halo",
+        "I can see your halo (halo) halo",
+        "I can feel your halo (halo) halo",
+        "I can see your halo (halo) halo",
+        "Woah..."
+      ],
+      "chords": [
+        "Bm", "F#m",
+        "D", "A",
+        "Bm", "F#m",
+        "D", "A",
+        "Bm", "F#m",
+        "D", "A"
+      ]
+    },
+    {
+      "section": "Verse 2",
+      "lyrics": [
+        "Hit me like a ray of sun",
+        "Burning through my darkest night",
+        "You're the only one that I want",
+        "Think I'm addicted to your light",
+        "I swore I'd never fall again",
+        "But this don't even feel like falling",
+        "Gravity can't forget",
+        "To pull me to the ground again"
+      ],
+      "chords": [
+        "A", "Bm",
+        "F#m", "D",
+        "A", "Bm",
+        "F#m", "D"
+      ]
+    },
+    {
+      "section": "Post-Chorus",
+      "lyrics": [
+        "It's like I've been awakened",
+        "Every rule I had you breakin'",
+        "It's the risk that I'm takin'",
+        "I ain't never gonna shut you out"
+      ],
+      "chords": [
+        "Bm", "F#m",
+        "D", "A"
+      ]
+    },
+    {
+      "section": "Outro",
+      "lyrics": [
+        "Halooooo ouuuu",
+        "Halooooo ouuuu",
+        "Halooooo ouuuu",
+        "Ouuuuu ouuuuu ouuuuu"
+      ],
+      "chords": [
+        "A", "Bm",
+        "F#m", "D"
+      ]
+    }
+  ],
+  "theory": {
+    "key": "A",
+    "scale": "major",
+    "mode": "ionian",
+    "tempoMarking": "Moderato",
+    "timeSignature": [4, 4],
+    "bpm": 84,
+    "harmonicAnalysis": {
+      "chordProgression": "I-vi-iii-V progression",
+      "secondaryDominants": [],
+      "borrowedChords": [],
+      "modulationSections": []
+    },
+    "melodicAnalysis": {
+      "vocalRange": "F#3-E5",
+      "vocalTechniques": ["Belt", "Falsetto", "Vibrato"],
+      "motifs": ["Ascending Melodic Line", "Repetitive Phrases"],
+      "phrasingPatterns": ["4-bar phrases", "8-bar phrases"]
+    }
+  },
+  "chartPerformance": [
+    {
+      "chartName": "Billboard Hot 100",
+      "position": 5
+    }
+  ],
+  "hasMaleVocals": false,
+  "hasFemaleVocals": true,
+  "hasGuitarSolo": false,
+  "metadata": {
+    "isPublished": true,
+    "isFeatured": true,
+    "isPrivate": false,
+    "isDeleted": false,
+    "isDraft": false,
+    "isPending": false,
+    "isApproved": true,
+    "isRejected": false,
+    "isHidden": false
+  },
+  "createdAt": "2025-01-05T00:00:00Z",
+  "updatedAt": "2025-01-05T00:00:00Z"
+}

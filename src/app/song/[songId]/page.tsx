@@ -18,11 +18,15 @@ export default function SongPage() {
   const params = useParams()
   const songId = params.songId as string
 
+  const toggleSidebar = () => {
+    setSidebarOpen(prev => !prev)
+  }
+
   // Close sidebar on mobile when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as HTMLElement
-      if (window.innerWidth < 768 && !target.closest('[data-sidebar]')) {
+      if (window.innerWidth < 1024 && !target.closest('[data-sidebar]') && !target.closest('button')) {
         setSidebarOpen(false)
       }
     }
@@ -34,7 +38,7 @@ export default function SongPage() {
   // Set default sidebar state based on screen size
   useEffect(() => {
     function handleResize() {
-      setSidebarOpen(window.innerWidth >= 768)
+      setSidebarOpen(window.innerWidth >= 1024)
     }
 
     window.addEventListener('resize', handleResize)
@@ -68,7 +72,7 @@ export default function SongPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Mobile Header */}
-      <header className="md:hidden bg-background border-b-[0.75px] border-primary/30">
+      <header className="lg:hidden bg-background border-b-[0.75px] border-primary/30">
         <div className="px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -93,7 +97,7 @@ export default function SongPage() {
               size="icon"
               className="text-foreground hover:text-primary ml-3"
               aria-label="Toggle sidebar"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
+              onClick={toggleSidebar}
             >
               <Music className="h-6 w-6" />
             </Button>
@@ -101,43 +105,58 @@ export default function SongPage() {
         </div>
       </header>
 
-      <div className="flex-1 flex flex-col md:flex-row">
+      <div className="flex-1 flex flex-col lg:flex-row">
         {/* Main Content */}
-        <main className="flex-1">
+        <main className={cn(
+          "flex-1 transition-all duration-300",
+          // Expand main content when sidebar is closed
+          !sidebarOpen && "lg:mr-0",
+          // Add margin when sidebar is open
+          sidebarOpen && "lg:mr-64"
+        )}>
           {/* Desktop Header */}
-          <header className="hidden md:block px-6 py-4 border-b-[0.75px] border-primary/30">
-            <div className="flex items-center gap-3">
+          <header className="hidden lg:block px-6 py-4 border-b-[0.75px] border-primary/30">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-foreground hover:text-primary"
+                  onClick={() => router.push('/songbook')}
+                >
+                  <ArrowLeft className="h-6 w-6" />
+                </Button>
+                <div className="min-w-0">
+                  <h1 className="text-2xl font-semibold leading-tight truncate text-foreground">{song.title}</h1>
+                  <p className="text-lg text-muted-foreground truncate">{song.artist}</p>
+                  {song.featuring && song.featuring.length > 0 && (
+                    <p className="text-sm text-muted-foreground/75 truncate">feat. {song.featuring.join(', ')}</p>
+                  )}
+                </div>
+              </div>
               <Button
                 variant="ghost"
                 size="icon"
                 className="text-foreground hover:text-primary"
-                onClick={() => router.push('/songbook')}
+                aria-label="Toggle sidebar"
+                onClick={toggleSidebar}
               >
-                <ArrowLeft className="h-6 w-6" />
+                <Music className="h-6 w-6" />
               </Button>
-              <div className="min-w-0">
-                <h1 className="text-2xl font-semibold leading-tight truncate text-foreground">{song.title}</h1>
-                <p className="text-lg text-muted-foreground truncate">{song.artist}</p>
-                {song.featuring && song.featuring.length > 0 && (
-                  <p className="text-sm text-muted-foreground/75 truncate">feat. {song.featuring.join(', ')}</p>
-                )}
-              </div>
             </div>
           </header>
 
-          <div className="px-4 py-6 md:p-6">
+          <div className="px-4 py-6 lg:p-6">
             <ChordSheet song={song} />
           </div>
         </main>
 
         {/* Sidebar */}
-        <div data-sidebar className="md:w-64 flex-shrink-0 border-l border-primary/30">
-          <SongProfileSidebar 
-            song={song}
-            isOpen={sidebarOpen}
-            onClose={() => setSidebarOpen(false)}
-          />
-        </div>
+        <SongProfileSidebar 
+          song={song}
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
       </div>
     </div>
   )

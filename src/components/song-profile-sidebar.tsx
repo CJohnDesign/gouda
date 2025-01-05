@@ -21,20 +21,17 @@ export function SongProfileSidebar({
   return (
     <div 
       className={cn(
-        // Mobile: fullscreen overlay
-        "fixed inset-0 z-50 bg-background transform transition-all duration-300 ease-in-out",
-        // Desktop: static sidebar, always visible
-        "md:static md:h-screen md:w-64 md:translate-y-0 md:translate-x-0 md:block",
-        // Mobile: slide from top
-        isOpen ? "translate-y-0" : "-translate-y-full",
-        // Hide on mobile when closed
-        !isOpen && "invisible md:visible"
+        // Base styles
+        "fixed inset-y-0 right-0 z-50 bg-background w-full sm:w-96 lg:w-64",
+        "transform transition-transform duration-300 ease-in-out border-l border-primary/30",
+        // Slide transform for all screen sizes
+        !isOpen ? "translate-x-full" : "translate-x-0"
       )}
     >
       <Button
         variant="ghost"
         size="icon"
-        className="absolute top-4 right-4 z-50 sm:hidden text-foreground hover:text-primary"
+        className="absolute top-4 right-4 z-50 lg:hidden text-foreground hover:text-primary"
         onClick={onClose}
       >
         <X className="h-6 w-6" />
@@ -45,7 +42,7 @@ export function SongProfileSidebar({
         {/* Cover Box */}
         <div className="w-full aspect-square bg-muted border-b border-border" />
 
-        <div className="p-6 md:p-4 space-y-6">
+        <div className="p-6 lg:p-4 space-y-6">
           {/* Key Music Theory */}
           <div className="space-y-2">
             <h3 className="text-xs uppercase tracking-widest mb-3 text-primary border-b border-primary/20 pb-2">

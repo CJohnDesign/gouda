@@ -28,9 +28,9 @@ export function ChordSheet({ song }: ChordSheetProps) {
               {section.section}
             </h3>
             <div>
-              <div className="space-y-2 mb-4">
+              <div className="space-y-4 mb-4">
                 {section.lyrics.map((line, lineIndex) => (
-                  <p key={lineIndex} className="text-xl font-mono text-muted-foreground leading-relaxed tracking-wide whitespace-pre-wrap max-w-[65ch] mx-auto text-center">
+                  <p key={lineIndex} className="text-xl font-mono text-muted-foreground leading-snug tracking-wide whitespace-pre-wrap max-w-[65ch]">
                     {line}
                   </p>
                 ))}
