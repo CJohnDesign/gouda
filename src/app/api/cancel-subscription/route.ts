@@ -1,9 +1,7 @@
 import { NextResponse } from 'next/server'
-import { auth } from '@/lib/firebase-admin'
 import { stripe } from '@/lib/stripe'
-import { getProfileByUid, updateProfile } from '@/lib/firestore/profile'
+import { adminAuth, adminDb } from '@/lib/firebase-admin'
 import Stripe from 'stripe'
-import { getFirestore } from 'firebase-admin/firestore'
 
 export async function POST(request: Request) {
   try {
@@ -18,16 +16,14 @@ export async function POST(request: Request) {
 
     // Verify the Firebase token
     const token = authHeader.split('Bearer ')[1]
-    const decodedToken = await auth.verifyIdToken(token)
+    const decodedToken = await adminAuth.verifyIdToken(token)
     const uid = decodedToken.uid
 
     console.log('Getting profile for uid:', uid)
-    // Get the user's profile to find their customer ID
-    const db = getFirestore()
     
     // Check both users and profiles collections
-    const userDoc = await db.collection('users').doc(uid).get()
-    const profileDoc = await db.collection('profiles').doc(uid).get()
+    const userDoc = await adminDb.collection('users').doc(uid).get()
+    const profileDoc = await adminDb.collection('profiles').doc(uid).get()
     
     let stripeCustomerId: string | undefined
     
@@ -99,7 +95,7 @@ export async function POST(request: Request) {
       console.log('Subscription canceled:', canceledSubscription.id)
 
       // Update both user and profile documents if they exist
-      const batch = db.batch()
+      const batch = adminDb.batch()
       
       if (userDoc.exists) {
         batch.update(userDoc.ref, {
@@ -123,15 +119,15 @@ export async function POST(request: Request) {
         subscription: canceledSubscription,
         message: 'Subscription successfully canceled'
       })
-    } catch (stripeError) {
-      if (stripeError instanceof Stripe.errors.StripeError) {
+    } catch (error) {
+      if (error instanceof Stripe.errors.StripeError) {
         console.error('Stripe error:', {
-          type: stripeError.type,
-          message: stripeError.message,
-          code: stripeError.code
+          type: error.type,
+          message: error.message,
+          code: error.code
         })
         
-        switch (stripeError.type) {
+        switch (error.type) {
           case 'StripeInvalidRequestError':
             return NextResponse.json(
               { error: { message: 'Invalid subscription or customer ID' } },
@@ -144,12 +140,12 @@ export async function POST(request: Request) {
             )
           default:
             return NextResponse.json(
-              { error: { message: stripeError.message } },
+              { error: { message: error.message } },
               { status: 500 }
             )
         }
       }
-      throw stripeError // Re-throw if it's not a Stripe error
+      throw error // Re-throw if it's not a Stripe error
     }
   } catch (error) {
     console.error('Error in cancel-subscription:', error)

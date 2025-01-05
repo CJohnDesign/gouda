@@ -1,99 +1,61 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { getAuth } from 'firebase-admin/auth';
+import { adminAuth, adminDb } from '@/lib/firebase-admin';
 import type { NextRequest } from 'next/server';
-import { initializeApp, getApps, cert } from 'firebase-admin/app';
-
-// Initialize Firebase Admin if not already initialized
-if (!getApps().length) {
-  try {
-    console.log('Initializing Firebase Admin...');
-    const certConfig = {
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-    };
-    
-    initializeApp({
-      credential: cert(certConfig),
-    });
-  } catch (error) {
-    console.error('Error initializing Firebase Admin:', error);
-  }
-}
 
 export async function GET(request: NextRequest) {
   try {
-    const authHeader = request.headers.get('Authorization');
+    // Get the authorization header
+    const authHeader = request.headers.get('authorization');
     if (!authHeader?.startsWith('Bearer ')) {
-      return new NextResponse(
-        JSON.stringify({ error: 'Unauthorized' }),
-        { 
-          status: 401,
-          headers: { 'Content-Type': 'application/json' }
-        }
+      return NextResponse.json(
+        { error: { message: 'Missing authorization header' } },
+        { status: 401 }
       );
     }
 
+    // Verify the Firebase token
     const token = authHeader.split('Bearer ')[1];
+    const decodedToken = await adminAuth.verifyIdToken(token);
+    const uid = decodedToken.uid;
+
+    // Check both users and profiles collections
+    const userDoc = await adminDb.collection('users').doc(uid).get();
+    const profileDoc = await adminDb.collection('profiles').doc(uid).get();
     
-    // Verify Firebase token
-    let decodedToken;
-    try {
-      const auth = getAuth();
-      decodedToken = await auth.verifyIdToken(token);
-    } catch (error) {
-      console.error('Error verifying token:', error);
-      return new NextResponse(
-        JSON.stringify({ error: 'Invalid token' }),
-        { 
-          status: 401,
-          headers: { 'Content-Type': 'application/json' }
-        }
+    let stripeCustomerId: string | undefined;
+    
+    if (userDoc.exists) {
+      stripeCustomerId = userDoc.data()?.stripeCustomerId;
+    }
+    
+    if (!stripeCustomerId && profileDoc.exists) {
+      stripeCustomerId = profileDoc.data()?.stripeCustomerId;
+    }
+
+    if (!stripeCustomerId) {
+      return NextResponse.json(
+        { error: { message: 'No Stripe customer found' } },
+        { status: 404 }
       );
     }
 
-    // Find Stripe customer
-    const customerData = await stripe.customers.list({
-      email: decodedToken.email,
-      limit: 1,
-    });
-
-    if (!customerData.data.length) {
-      return new NextResponse(
-        JSON.stringify({ isSubscribed: false }),
-        { 
-          status: 200,
-          headers: { 'Content-Type': 'application/json' }
-        }
-      );
-    }
-
-    // Check for active subscriptions
+    // Get active subscriptions
     const subscriptions = await stripe.subscriptions.list({
-      customer: customerData.data[0].id,
+      customer: stripeCustomerId,
       status: 'active',
       limit: 1,
     });
 
-    return new NextResponse(
-      JSON.stringify({ isSubscribed: subscriptions.data.length > 0 }),
-      { 
-        status: 200,
-        headers: { 'Content-Type': 'application/json' }
-      }
-    );
+    return NextResponse.json({
+      active: subscriptions.data.length > 0,
+      subscription: subscriptions.data[0] || null,
+    });
   } catch (error) {
-    console.error('Error checking subscription status:', error);
-    return new NextResponse(
-      JSON.stringify({ 
-        error: 'Error checking subscription status',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      }),
-      { 
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      }
+    console.error('Error in check-subscription:', error);
+    return NextResponse.json(
+      { error: { message: error instanceof Error ? error.message : 'Failed to check subscription' } },
+      { status: 500 }
     );
   }
 } 

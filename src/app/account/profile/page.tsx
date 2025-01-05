@@ -1,14 +1,27 @@
 'use client'
 
+import { Suspense } from 'react'
 import { useState, useEffect } from 'react'
 import type { UserProfile } from '@/types/user'
 import { ToastProvider, ToastViewport, Toast, ToastTitle, ToastDescription } from '@/components/ui/toast'
 import { useUserProfile } from '@/contexts/UserProfileContext'
 import { useSearchParams } from 'next/navigation'
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { Rocket } from 'lucide-react'
 
 export default function ProfilePage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-foreground">Loading...</div>
+      </div>
+    }>
+      <ProfileContent />
+    </Suspense>
+  )
+}
+
+function ProfileContent() {
   const { user, profile, loading, refreshProfile } = useUserProfile();
   const [localProfile, setLocalProfile] = useState<UserProfile | null>(null);
   const [showToast, setShowToast] = useState(false);

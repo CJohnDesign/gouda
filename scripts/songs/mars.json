@@ -1,0 +1,169 @@
+{
+    "id": "life-on-mars-david-bowie",
+    "title": "Life on Mars",
+    "artist": "David Bowie",
+    "featuring": [],
+    "artistId": "david-bowie",
+    "album": "Hunky Dory",
+    "albumId": "hunky-dory",
+    "writer": "David Bowie",
+    "coverUrl": "/images/placeholder.jpg",
+    "description": "A classic song by David Bowie, known for its poetic lyrics and emotive melody.",
+    "releaseYear": 1971,
+    "genre": ["Rock", "Art Rock", "Pop"],
+    "mood": ["Melancholic", "Reflective", "Nostalgic"],
+    "duration": "3:48",
+    "structure": [
+      {
+        "section": "Verse 1",
+        "lyrics": [
+          "It's a god-awful small affair",
+          "To the girl with the mousy hair",
+          "But her mummy is yelling \"No\"",
+          "And her daddy has told her to go",
+          "But her friend is nowhere to be seen",
+          "Now she walks through her sunken dream.",
+          "To the seat with the clearest view",
+          "And she's hooked to the silver screen"
+        ],
+        "chords": [
+          "F", "Am", "Cm/Eb", "D7",
+          "Gm", "Bb", "C7", "F",
+          "F", "Am", "Cm/Eb", "D7",
+          "Gm", "Bb", "C7"
+        ]
+      },
+      {
+        "section": "Pre-Chorus",
+        "lyrics": [
+          "But the film is a saddening bore",
+          "For she's lived it ten times or more",
+          "She could spit in the eyes of fools",
+          "As they ask her to focus on"
+        ],
+        "chords": [
+          "Ab", "Eaug", "Fm", "Ab7",
+          "Db", "Aaug", "Bbm", "Db7"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "Sailors fighting in the dance hall",
+          "Oh man! look at those cavemen go",
+          "It's the freakiest show",
+          "Take a look at the lawman",
+          "Beating up the wrong guy",
+          "Oh man! Wonder if he'll ever know",
+          "He's in the best selling show",
+          "Is there life on Mars?"
+        ],
+        "chords": [
+          "Bb", "Eb", "Gm7", "Gbaug",
+          "F", "Fm", "Cm7", "Ebm7",
+          "Bb", "Gm", "Gbaug", "Bb/F", "C/E"
+        ]
+      },
+      {
+        "section": "Bridge",
+        "lyrics": [],
+        "chords": [
+          "F", "Gbdim", "Gm", "Ddim",
+          "Am", "Bb", "Bbm"
+        ]
+      },
+      {
+        "section": "Verse 2",
+        "lyrics": [
+          "It's on Amerika's tortured brow",
+          "That Mickey Mouse has grown up a cow",
+          "Now the workers have struck for fame",
+          "'Cause Lennon's on sale again",
+          "See the mice in their million hordes",
+          "From Ibeza to the norfolk broads",
+          "Rule Britannia is out of bounds",
+          "To my mother, my dog, and clowns"
+        ],
+        "chords": [
+          "F", "Am", "Cm/Eb", "D7",
+          "Gm", "Bb", "C7", "F",
+          "F", "Am", "Cm/Eb", "D7",
+          "Gm", "Bb", "C7"
+        ]
+      },
+      {
+        "section": "Pre-Chorus",
+        "lyrics": [
+          "But the film is a saddening bore",
+          "For I've writ it ten times or more",
+          "It's about to be writ again",
+          "As I ask you to focus on"
+        ],
+        "chords": [
+          "Ab", "Eaug", "Fm", "Ab7",
+          "Db", "Aaug", "Bbm", "Db7"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "Sailors fighting in the dance hall",
+          "Oh man! look at those cavemen go",
+          "It's the freakiest show",
+          "Take a look at the lawman",
+          "Beating up the wrong guy",
+          "Oh man! Wonder if he'll ever know",
+          "He's in the best selling show",
+          "Is there life on Mars?"
+        ],
+        "chords": [
+          "Bb", "Eb", "Gm7", "Gbaug",
+          "F", "Fm", "Cm7", "Ebm7",
+          "Bb", "Gm", "Gbaug", "Bb/F", "C/E"
+        ]
+      }
+    ],
+    "theory": {
+      "key": "F",
+      "scale": "major",
+      "mode": "ionian",
+      "tempoMarking": "Moderato",
+      "timeSignature": [4, 4],
+      "bpm": 100,
+      "harmonicAnalysis": {
+        "chordProgression": "I-vi-ii-V progression with variations",
+        "secondaryDominants": [],
+        "borrowedChords": ["Gbaug", "Eaug"],
+        "modulationSections": []
+      },
+      "melodicAnalysis": {
+        "vocalRange": "Bb3-Eb5",
+        "vocalTechniques": ["Belt", "Head Voice", "Emotive Phrasing"],
+        "motifs": ["Syncopated Rhythm", "Emotive Inflections"],
+        "phrasingPatterns": ["4-bar phrases"]
+      }
+    },
+    "chartPerformance": [
+      {
+        "chartName": "UK Singles Chart",
+        "position": 3
+      }
+    ],
+    "hasMaleVocals": true,
+    "hasFemaleVocals": false,
+    "hasGuitarSolo": false,
+    "metadata": {
+      "isPublished": true,
+      "isFeatured": true,
+      "isPrivate": false,
+      "isDeleted": false,
+      "isDraft": false,
+      "isPending": false,
+      "isApproved": true,
+      "isRejected": false,
+      "isHidden": false
+    },
+    "createdAt": "2023-10-05T12:00:00Z",
+    "updatedAt": "2023-10-05T12:00:00Z"
+  }
+  

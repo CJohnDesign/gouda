@@ -35,7 +35,7 @@ export function ChordSheet({ song }: ChordSheetProps) {
                   </p>
                 ))}
               </div>
-              <div className="rounded-md overflow-hidden border border-[0.75px] border-primary/20">
+              <div className="rounded-md">
                 <ChordGrid 
                   chords={section.chords} 
                   bars={Math.ceil(section.chords.length / 4)}

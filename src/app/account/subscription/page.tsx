@@ -68,6 +68,7 @@ export default function SubscriptionPage() {
         }
       } catch (parseError) {
         // If we can't parse the JSON, use the response status text
+        console.log('Parse error:', parseError);
         if (!response.ok) {
           errorMessage = `Request failed: ${response.statusText || errorMessage}`;
           throw new Error(errorMessage);
@@ -133,7 +134,7 @@ export default function SubscriptionPage() {
   const buttonText = isActive ? 'Manage Billing' : 'Subscribe Now';
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="mx-auto">
       <div className="mb-8">
         <h1 className="text-2xl font-semibold text-foreground">Subscription</h1>
         <p className="text-sm text-muted-foreground">Manage your subscription and billing details</p>
@@ -175,7 +176,7 @@ export default function SubscriptionPage() {
                   <AlertDialogHeader>
                     <AlertDialogTitle>Are you sure you want to cancel?</AlertDialogTitle>
                     <AlertDialogDescription>
-                      You'll lose access to all premium features, including the Telegram community and future updates. 
+                      You&apos;ll lose access to all premium features, including the Telegram community and future updates. 
                       Your subscription will remain active until the end of your current billing period.
                     </AlertDialogDescription>
                   </AlertDialogHeader>

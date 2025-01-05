@@ -1,0 +1,204 @@
+{
+    "id": "last-dance-donna-summer",
+    "title": "Last Dance",
+    "artist": "Donna Summer",
+    "featuring": [],
+    "artistId": "donna-summer",
+    "album": "Bad Girls",
+    "albumId": "bad-girls",
+    "writer": "Paul Jabara",
+    "coverUrl": "/images/placeholder.jpg",
+    "description": "A classic disco track by Donna Summer, known for its emotive vocals and infectious rhythm.",
+    "releaseYear": 1978,
+    "genre": ["Disco", "Pop", "Dance"],
+    "mood": ["Energetic", "Emotional", "Nostalgic"],
+    "duration": "8:09",
+    "structure": [
+      {
+        "section": "Intro",
+        "lyrics": [
+          "Oooooohhh…",
+          "Oooooohhh…"
+        ],
+        "chords": [
+          "Ebmaj7", "Ab"
+        ]
+      },
+      {
+        "section": "Verse 1",
+        "lyrics": [
+          "Last dance, Last dance for love",
+          "Yes, it's my last chance",
+          "For romance tonight",
+          "I need you by me, beside me, to guide me",
+          "To hold me, to scold me, cause when I'm bad,",
+          "I'm so, so bad"
+        ],
+        "chords": [
+          "Ebmaj7", "Fm/Eb", "Ebmaj7", "Bb",
+          "Ebmaj7", "Fm/Eb", "Db/Eb", "Eb7",
+          "Abmaj7", "Bb/Ab", "Gm7", "Cm7",
+          "Abmaj7", "Bb/Ab", "Gsus7", "Cm", "F9"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "So let's dance the last dance",
+          "Let's dance the last dance",
+          "Let's dance this last dance tonight"
+        ],
+        "chords": [
+          "Eb/Bb", "Ab/Bb",
+          "Eb/Bb", "Ab/Bb",
+          "Eb/Bb", "Ab/Bb", "Am7-5"
+        ]
+      },
+      {
+        "section": "Verse 2",
+        "lyrics": [
+          "Last dance, Last dance for love",
+          "Yes, it's my last chance",
+          "For romance tonight",
+          "I need you by me, beside me, to guide me",
+          "To hold me, to scold me, cause when I'm bad,",
+          "I'm so, so bad"
+        ],
+        "chords": [
+          "Ebmaj7", "Fm/Eb", "Ebmaj7", "Bb",
+          "Ebmaj7", "Fm/Eb", "Db/Eb", "Eb7",
+          "Abmaj7", "Bb/Ab", "Gm7", "Cm7",
+          "Abmaj7", "Bb/Ab", "Gsus7", "Cm", "F9"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "So let's dance the last dance",
+          "Let's dance the last dance",
+          "Let's dance this last dance tonight",
+          "I can be sure",
+          "that your'e the one for me",
+          "all that i ask is that you dance with me",
+          "dance with me",
+          "dance with me",
+          "yea"
+        ],
+        "chords": [
+          "Eb/Bb", "Ab/Bb",
+          "Eb/Bb", "Ab/Bb",
+          "Eb/Bb", "Ab/Bb",
+          "Cm", "Cm/Bb", "Abmaj7",
+          "Fm9", "Gm7",
+          "Abmaj7", "Fm9", "Gm7", "Ebmaj7",
+          "Cm9", "Abmaj", "Ab/Bb"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "Oh-ho,I need you by me, beside me, to guide me",
+          "To hold me, to scold me, cause when I'm bad,",
+          "I'm so, so bad"
+        ],
+        "chords": [
+          "Emaj7", "F#m/E", "Emaj7", "B",
+          "Emaj7", "F#m/E", "D/E", "E7",
+          "Amaj7", "B/A", "Ab7", "Dbm7",
+          "Amaj7", "B/A", "Absus7", "Dbm", "F#"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "So let's dance the last dance",
+          "Let's dance the last dance",
+          "So let's dance the last dance",
+          "Let's dance the last dance",
+          "tonight",
+          "Ahhh"
+        ],
+        "chords": [
+          "E/B", "A/B",
+          "E/B", "A/B",
+          "F/C", "Bb/C",
+          "F/C", "Bb/C",
+          "Bdim", "Bb", "F/A", "Bb/C"
+        ]
+      },
+      {
+        "section": "Interlude",
+        "lyrics": [
+          "Oh-ho,I need you by me, beside me, to guide me",
+          "To hold me, to scold me, cause when I'm bad,",
+          "I'm so, so bad",
+          "So, come on baby, dance that dance",
+          "Come on baby, dance that dance",
+          "Come on baby...  let's dance",
+          "tonight"
+        ],
+        "chords": [
+          "Fmaj7", "Gm/F", "Fmaj7", "C",
+          "Fmaj7", "Gm/F", "Eb/F", "F7",
+          "Bbmaj7", "C/Bb", "Am7", "Dm7",
+          "Bbmaj7", "C/Bb", "Asus7", "Dm", "G",
+          "F/C", "Bb/C",
+          "F/C", "Bb/C",
+          "F/C", "Bb/C",
+          "F/C", "Bb/C",
+          "Bdim", "Bb", "F/A", "Bb/C", "Bb/C",
+          "Fmaj7", "Gm/F", "Fmaj7", "C",
+          "Fmaj7", "Gm/F", "Eb/F", "F7",
+          "Bbmaj7", "C/Bb", "Am7", "Dm7",
+          "Bbmaj7", "C/Bb", "Asus7", "Dm", "G",
+          "F/C", "Bb/C",
+          "F/C", "Bb/C",
+          "F/C", "Bb/C",
+          "Bdim", "Bb", "F/A", "Bb/C", "C", "F9"
+        ]
+      }
+    ],
+    "theory": {
+      "key": "Eb",
+      "scale": "major",
+      "mode": "ionian",
+      "tempoMarking": "Moderato",
+      "timeSignature": [4, 4],
+      "bpm": 116,
+      "harmonicAnalysis": {
+        "chordProgression": "I-ii-V-iv progression with disco variations",
+        "secondaryDominants": [],
+        "borrowedChords": ["Gm"],
+        "modulationSections": []
+      },
+      "melodicAnalysis": {
+        "vocalRange": "Bb3-Eb5",
+        "vocalTechniques": ["Belt", "Head Voice", "Disco Runs"],
+        "motifs": ["Syncopated Rhythm", "Disco Inflections"],
+        "phrasingPatterns": ["4-bar phrases"]
+      }
+    },
+    "chartPerformance": [
+      {
+        "chartName": "Billboard Hot 100",
+        "position": 3
+      }
+    ],
+    "hasMaleVocals": false,
+    "hasFemaleVocals": true,
+    "hasGuitarSolo": false,
+    "metadata": {
+      "isPublished": true,
+      "isFeatured": true,
+      "isPrivate": false,
+      "isDeleted": false,
+      "isDraft": false,
+      "isPending": false,
+      "isApproved": true,
+      "isRejected": false,
+      "isHidden": false
+    },
+    "createdAt": "2023-10-05T12:00:00Z",
+    "updatedAt": "2023-10-05T12:00:00Z"
+  }
+  

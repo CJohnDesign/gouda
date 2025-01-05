@@ -2,14 +2,16 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Button } from "@/components/ui/button"
 import { Navbar } from "@/components/ui/Navbar"
 import { useUserProfile } from '@/contexts/UserProfileContext'
-import { collection, query, orderBy, getDocs } from 'firebase/firestore'
-import { db } from '@/firebase/firebase'
+import { getAllSongs } from '@/lib/firestore/songs'
+import type { Song } from '@/types/music/song'
+import { Montserrat } from 'next/font/google'
+
+const montserrat = Montserrat({ subsets: ['latin'] })
 
 // Base unit is 2 columns × 3 rows, scales with breakpoints
-const getCardStyle = (index: number, hasDescription: boolean) => {
+const getCardStyle = (index: number) => {
   // Large feature (4×9) - 2×3 units
   if (index === 0) {
     return {
@@ -67,22 +69,6 @@ const getCardStyle = (index: number, hasDescription: boolean) => {
   }
 }
 
-interface Song {
-  id: string
-  title: string
-  artist: string
-  coverUrl: string
-  bpm: number
-  key: string
-  genre: string
-  mood: string
-  duration: string
-  releaseYear: number
-  description?: string | null
-  createdAt: any
-  updatedAt: any
-}
-
 export default function SongbookPage() {
   const router = useRouter()
   const { user, loading } = useUserProfile()
@@ -99,15 +85,7 @@ export default function SongbookPage() {
     // Fetch songs if user is authenticated
     async function fetchSongs() {
       try {
-        const songsQuery = query(
-          collection(db, 'songs'),
-          orderBy('createdAt', 'desc')
-        )
-        const querySnapshot = await getDocs(songsQuery)
-        const songsData = querySnapshot.docs.map(doc => ({
-          ...doc.data(),
-          id: doc.id,
-        })) as Song[]
+        const songsData = await getAllSongs()
         setSongs(songsData)
       } catch (error) {
         console.error('Error fetching songs:', error)
@@ -141,7 +119,7 @@ export default function SongbookPage() {
       <div className="pt-20 z-10 max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-12 sm:grid-cols-16 md:grid-cols-24 lg:grid-cols-24 auto-rows-[50px] gap-1 p-2 grid-flow-dense">
           {songs.map((song, index) => {
-            const style = getCardStyle(index, !!song.description)
+            const style = getCardStyle(index)
             
             return (
               <div
@@ -149,7 +127,7 @@ export default function SongbookPage() {
                 className={`
                   ${style.className}
                   bg-card hover:bg-muted
-                  transition-all hover:scale-[1.01]
+                  transition-all hover:scale-[1.05]
                   overflow-hidden
                 `}
               >
@@ -177,16 +155,16 @@ function SongCard({ song, size }: SongCardProps) {
   return (
     <button 
       onClick={() => router.push(`/song/${song.id}`)}
-      className="h-full w-full p-4 flex flex-col text-left"
+      className={`h-full w-full p-4 flex flex-col text-left ${montserrat.className}`}
     >
       {/* Genre and key */}
       <div className="text-xs uppercase tracking-widest mb-2 text-muted-foreground">
-        {song.genre} • {song.key}
+        {song.genre[0]} • {song.theory.key}
       </div>
 
       {/* Title and Artist */}
       <div className="mb-auto">
-        <h3 className={`font-bold ${size === 'large' ? 'text-xl mb-2' : 'text-base mb-1'} text-foreground`}>
+        <h3 className={`font-mono font-normal ${size === 'large' ? 'text-xl mb-2' : 'text-base mb-1'} text-foreground`}>
           {song.title}
         </h3>
         <p className={`text-muted-foreground ${size === 'large' ? 'text-base' : 'text-sm'}`}>
@@ -205,8 +183,8 @@ function SongCard({ song, size }: SongCardProps) {
       <div className="mt-2 space-y-1 text-sm text-muted-foreground">
         {size === 'large' ? (
           <>
-            <p>{song.bpm} BPM • {song.duration}</p>
-            <p>{song.mood}</p>
+            <p>{song.theory.bpm} BPM • {song.duration}</p>
+            <p>{song.mood[0]}</p>
             <p>{song.releaseYear}</p>
           </>
         ) : (

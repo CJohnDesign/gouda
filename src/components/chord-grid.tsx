@@ -13,7 +13,7 @@ interface ProcessedChord {
 function processChords(chords: string[]): ProcessedChord[] {
   const processed: ProcessedChord[] = [];
   
-  chords.forEach((chord, index) => {
+  chords.forEach((chord) => {
     if (chord.startsWith('(')) {
       // If this is a parenthetical chord, add it to the previous chord
       if (processed.length > 0) {
@@ -32,37 +32,52 @@ function processChords(chords: string[]): ProcessedChord[] {
 }
 
 export function ChordGrid({ chords }: ChordGridProps) {
-  // Process chords and split into groups of 4
   const processedChords = processChords(chords);
+  const chordsPerRow = processedChords.length <= 2 ? 2 : 4;
   const chordRows = processedChords.reduce((rows: ProcessedChord[][], chord: ProcessedChord, index: number) => {
-    if (index % 4 === 0) rows.push([]);
+    if (index % chordsPerRow === 0) rows.push([]);
     rows[rows.length - 1].push(chord);
     return rows;
   }, []);
 
   return (
-    <div className="grid gap-px bg-border">
+    <div>
       {chordRows.map((row, rowIndex) => (
-        <div key={rowIndex} className="grid grid-cols-4 gap-px">
+        <div 
+          key={rowIndex} 
+          className={`grid`}
+          style={{ gridTemplateColumns: `repeat(${chordsPerRow}, 1fr)` }}
+        >
           {row.map((chord, colIndex) => (
-            <div key={colIndex} className="bg-background p-2 flex items-center justify-center h-16 gap-1.5">
-              <span className="font-mono text-xl text-foreground">
-                {chord.main}
-              </span>
-              {chord.parentheticals.map((passing, i) => (
-                <span key={i} className="font-mono text-sm text-foreground/65">
-                  ({passing})
-                </span>
-              ))}
+            <div 
+              key={colIndex} 
+              className={`
+                bg-background p-4 flex items-center justify-center h-16
+                ${colIndex > 0 ? 'border-l border-muted-foreground/30 dark:border-primary/30' : ''}
+                ${rowIndex > 0 ? 'border-t border-muted-foreground/30 dark:border-primary/30' : ''}
+                transition-all hover:shadow-lg hover:shadow-primary/100 dark:hover:shadow-primary/100
+                hover:bg-muted/100
+              `}
+            >
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xl text-foreground">{chord.main}</span>
+                <div className={chord.parentheticals.length > 1 ? "flex flex-col" : "flex"}>
+                  {chord.parentheticals.map((passing, i) => (
+                    <span key={i} className="font-mono text-lg text-foreground/65">({passing})</span>
+                  ))}
+                </div>
+              </div>
             </div>
           ))}
-          {/* Fill empty spaces with blank cells to maintain grid */}
-          {[...Array(4 - row.length)].map((_, i) => (
-            <div key={`empty-${i}`} className="bg-background p-2 flex items-center justify-center h-16">
-              <span className="font-mono text-xl text-foreground">
-                {"\u00A0"}
-              </span>
-            </div>
+          {[...Array(chordsPerRow - row.length)].map((_, i) => (
+            <div 
+              key={`empty-${i}`} 
+              className={`
+                bg-background p-4 flex items-center justify-center h-16
+                ${row.length + i > 0 ? 'border-l border-muted-foreground/30 dark:border-primary/30' : ''}
+                ${rowIndex > 0 ? 'border-t border-muted-foreground/30 dark:border-primary/30' : ''}
+              `}
+            />
           ))}
         </div>
       ))}
