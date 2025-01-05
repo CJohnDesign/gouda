@@ -1,26 +1,9 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { getAuth } from 'firebase-admin/auth';
+import { getFirestore } from 'firebase-admin/firestore';
 import type { NextRequest } from 'next/server';
-import { initializeApp, getApps, cert } from 'firebase-admin/app';
-
-// Initialize Firebase Admin if not already initialized
-if (!getApps().length) {
-  try {
-    console.log('Initializing Firebase Admin...');
-    const certConfig = {
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-    };
-    
-    initializeApp({
-      credential: cert(certConfig),
-    });
-  } catch (error) {
-    console.error('Error initializing Firebase Admin:', error);
-  }
-}
+import { adminApp } from '@/firebase/admin';
 
 export async function POST(request: NextRequest) {
   try {
@@ -74,10 +57,30 @@ export async function POST(request: NextRequest) {
       console.log('Created new customer:', customerId);
     }
 
+    // Create or update user document in Firestore
+    const db = getFirestore(adminApp);
+    const userRef = db.collection('users').doc(decodedToken.uid);
+    const userDoc = await userRef.get();
+
+    if (!userDoc.exists) {
+      await userRef.set({
+        email: decodedToken.email,
+        stripeCustomerId: customerId,
+        subscriptionStatus: 'Unpaid',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+    } else if (!userDoc.data()?.stripeCustomerId) {
+      await userRef.update({
+        stripeCustomerId: customerId,
+        updatedAt: new Date(),
+      });
+    }
+
     // Get the price ID for the product
-    console.log('Fetching prices for product: prod_RW0QPkePG6OxYK');
+    console.log('Fetching prices for product: prod_RW6cDkUSlGu6jj');
     const prices = await stripe.prices.list({
-      product: 'prod_RW0QPkePG6OxYK',
+      product: 'prod_RW6cDkUSlGu6jj',
       active: true,
       limit: 1,
     });
@@ -107,8 +110,8 @@ export async function POST(request: NextRequest) {
         },
       ],
       mode: 'subscription',
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/studio?success=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/studio?canceled=true`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/api/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/account/subscription?canceled=true`,
       allow_promotion_codes: true,
       billing_address_collection: 'required',
       subscription_data: {},

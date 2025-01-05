@@ -22,7 +22,7 @@ export function SongProfileSidebar({
     <div 
       className={cn(
         // Mobile: fullscreen overlay
-        "fixed inset-0 z-50 bg-[#f1e0b4] transform transition-all duration-300 ease-in-out",
+        "fixed inset-0 z-50 bg-background transform transition-all duration-300 ease-in-out",
         // Desktop: static sidebar, always visible
         "md:static md:h-screen md:w-64 md:translate-y-0 md:translate-x-0 md:block",
         // Mobile: slide from top
@@ -34,7 +34,7 @@ export function SongProfileSidebar({
       <Button
         variant="ghost"
         size="icon"
-        className="absolute top-4 right-4 z-50 sm:hidden text-[#262223] hover:text-[#de9c0e]"
+        className="absolute top-4 right-4 z-50 sm:hidden text-foreground hover:text-primary"
         onClick={onClose}
       >
         <X className="h-6 w-6" />
@@ -43,47 +43,47 @@ export function SongProfileSidebar({
 
       <ScrollArea className="h-screen">
         {/* Cover Box */}
-        <div className="w-full aspect-square bg-[#262223]/5 border-b border-[#262223]/10" />
+        <div className="w-full aspect-square bg-muted border-b border-border" />
 
         <div className="p-6 md:p-4 space-y-6">
           {/* Key Music Theory */}
           <div className="space-y-2">
-            <h3 className="text-xs uppercase tracking-widest mb-3 text-[#262223]/75">
+            <h3 className="text-xs uppercase tracking-widest mb-3 text-primary border-b border-primary/20 pb-2">
               Music Theory
             </h3>
             <div className="space-y-2 text-sm">
-              <p><span className="text-[#262223]/75">Key:</span> {song.theory?.key}</p>
-              <p><span className="text-[#262223]/75">Time:</span> {song.theory?.timeSignature?.join('/')}</p>
-              <p><span className="text-[#262223]/75">Tempo:</span> {song.theory?.bpm} BPM</p>
-              <p><span className="text-[#262223]/75">Mode:</span> {song.theory?.mode}</p>
-              <p><span className="text-[#262223]/75">Scale:</span> {song.theory?.scale}</p>
+              <p><span className="text-muted-foreground">Key:</span> <span className="text-foreground">{song.theory?.key}</span></p>
+              <p><span className="text-muted-foreground">Time:</span> <span className="text-foreground">{song.theory?.timeSignature?.join('/')}</span></p>
+              <p><span className="text-muted-foreground">Tempo:</span> <span className="text-foreground">{song.theory?.bpm} BPM</span></p>
+              <p><span className="text-muted-foreground">Mode:</span> <span className="text-foreground">{song.theory?.mode}</span></p>
+              <p><span className="text-muted-foreground">Scale:</span> <span className="text-foreground">{song.theory?.scale}</span></p>
             </div>
           </div>
 
           {/* Song Details */}
           <div className="space-y-2">
-            <h3 className="text-xs uppercase tracking-widest mb-3 text-[#262223]/75">
+            <h3 className="text-xs uppercase tracking-widest mb-3 text-primary border-b border-primary/20 pb-2">
               Song Details
             </h3>
             <div className="space-y-2 text-sm">
-              <p><span className="text-[#262223]/75">Artist:</span> {song.artist}</p>
-              <p><span className="text-[#262223]/75">Album:</span> {song.album}</p>
-              <p><span className="text-[#262223]/75">Duration:</span> {song.duration}</p>
-              <p><span className="text-[#262223]/75">Year:</span> {song.releaseYear}</p>
-              <p><span className="text-[#262223]/75">Writer:</span> {song.writer}</p>
+              <p><span className="text-muted-foreground">Artist:</span> <span className="text-foreground">{song.artist}</span></p>
+              <p><span className="text-muted-foreground">Album:</span> <span className="text-foreground">{song.album}</span></p>
+              <p><span className="text-muted-foreground">Duration:</span> <span className="text-foreground">{song.duration}</span></p>
+              <p><span className="text-muted-foreground">Year:</span> <span className="text-foreground">{song.releaseYear}</span></p>
+              <p><span className="text-muted-foreground">Writer:</span> <span className="text-foreground">{song.writer}</span></p>
             </div>
           </div>
 
           {/* Vocal & Performance */}
           <div className="space-y-2">
-            <h3 className="text-xs uppercase tracking-widest mb-3 text-[#262223]/75">
+            <h3 className="text-xs uppercase tracking-widest mb-3 text-primary border-b border-primary/20 pb-2">
               Vocal & Performance
             </h3>
             <div className="space-y-2 text-sm">
-              <p><span className="text-[#262223]/75">Range:</span> {song.theory?.melodicAnalysis.vocalRange}</p>
-              <p><span className="text-[#262223]/75">Techniques:</span> {song.theory?.melodicAnalysis.vocalTechniques.join(', ')}</p>
-              <p><span className="text-[#262223]/75">Vocals:</span> {song.hasFemaleVocals ? 'Female' : song.hasMaleVocals ? 'Male' : 'None'}</p>
-              <p><span className="text-[#262223]/75">Guitar Solo:</span> {song.hasGuitarSolo ? 'Yes' : 'No'}</p>
+              <p><span className="text-muted-foreground">Range:</span> <span className="text-foreground">{song.theory?.melodicAnalysis.vocalRange}</span></p>
+              <p><span className="text-muted-foreground">Techniques:</span> <span className="text-foreground">{song.theory?.melodicAnalysis.vocalTechniques.join(', ')}</span></p>
+              <p><span className="text-muted-foreground">Vocals:</span> <span className="text-foreground">{song.hasFemaleVocals ? 'Female' : song.hasMaleVocals ? 'Male' : 'None'}</span></p>
+              <p><span className="text-muted-foreground">Guitar Solo:</span> <span className="text-foreground">{song.hasGuitarSolo ? 'Yes' : 'No'}</span></p>
             </div>
           </div>
         </div>

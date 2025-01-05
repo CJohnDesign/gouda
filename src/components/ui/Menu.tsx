@@ -34,17 +34,19 @@ export function Menu() {
         }
     }
 
+    const menuLinkClasses = "text-3xl font-bold text-white hover:text-primary transition-colors"
+
     return (
         <>
             <button
-                className="p-2 hover:bg-black/5 rounded-lg transition-colors z-50 relative"
+                className="p-2 hover:bg-muted rounded-lg transition-colors z-50 relative"
                 onClick={toggleMenu}
                 aria-label={isOpen ? "Close menu" : "Open menu"}
             >
                 {isOpen ? (
-                    <X className="h-6 w-6 text-white" />
+                    <X className="h-6 w-6 text-foreground" />
                 ) : (
-                    <MenuIcon className="h-7 w-7 text-[#262223] font-bold " />
+                    <MenuIcon className="h-6 w-6 text-foreground" />
                 )}
             </button>
             <AnimatePresence>
@@ -54,37 +56,28 @@ export function Menu() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed inset-0 bg-[#272322] bg-opacity-96 z-40 flex items-center justify-center"
+                        className="fixed inset-0 bg-[hsl(220,13%,8%)] z-40 flex items-center justify-center"
                     >
                         <nav className="flex flex-col gap-8 items-center">
                             {user ? (
                                 <>
                                     <Link 
                                         href="/songbook" 
-                                        className="text-3xl font-bold text-white hover:text-[#de9c0e] transition-colors"
+                                        className={menuLinkClasses}
                                         onClick={toggleMenu}
                                     >
                                         Songbook
                                     </Link>
                                     <Link
-                                        href="/studio"
-                                        className="text-3xl font-bold text-white hover:text-[#de9c0e] transition-colors"
-                                        onClick={toggleMenu}
-                                    >
-                                        Studio
-                                    </Link>
-                                    <Link
                                         href="/account/profile"
-                                        className="text-3xl font-bold text-white hover:text-[#de9c0e] transition-colors"
+                                        className={menuLinkClasses}
                                         onClick={toggleMenu}
                                     >
                                         Account
                                     </Link>
                                     <button
-                                        onClick={() => {
-                                            handleLogout()
-                                        }}
-                                        className="text-3xl font-bold text-white hover:text-[#de9c0e] transition-colors"
+                                        onClick={handleLogout}
+                                        className={menuLinkClasses}
                                     >
                                         Sign Out
                                     </button>
@@ -93,22 +86,21 @@ export function Menu() {
                                 <div className="flex flex-col gap-8 items-center">
                                     <Link 
                                         href="/songbook" 
-                                        className="text-3xl font-bold text-white hover:text-[#de9c0e] transition-colors"
+                                        className={menuLinkClasses}
                                         onClick={toggleMenu}
                                     >
                                         Songbook
                                     </Link>
                                     <Link 
                                         href="/" 
-                                        className="text-3xl font-bold text-white hover:text-[#de9c0e] transition-colors"
+                                        className={menuLinkClasses}
                                         onClick={toggleMenu}
                                     >
                                         Home
                                     </Link>
-                                    
                                     <Link 
                                         href="/login" 
-                                        className="text-3xl font-bold text-white hover:text-[#de9c0e] transition-colors"
+                                        className={menuLinkClasses}
                                         onClick={toggleMenu}
                                     >
                                         Login

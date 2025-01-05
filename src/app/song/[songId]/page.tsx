@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Music, ArrowLeft } from "lucide-react"
 import type { Song } from "@/types/music/song"
 import { cn } from "@/lib/utils"
+import { Navbar } from "@/components/ui/Navbar"
 
 export default function SongPage() {
   const router = useRouter()
@@ -59,123 +60,126 @@ export default function SongPage() {
 
   if (isLoading || !song) {
     return (
-      <div className="min-h-screen bg-[#f1e0b4] flex items-center justify-center">
-        <p className="text-[#262223]">Loading...</p>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-foreground">Loading...</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-[#f1e0b4]">
-      {/* Mobile Header */}
-      <header className="fixed top-0 left-0 right-0 z-40 bg-[#f1e0b4] border-b border-[#262223]/10 md:hidden">
-        <div className="px-4 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-background">
+        {/* Mobile Header */}
+        <header className="fixed top-16 left-0 right-0 z-40 bg-background border-b-[0.75px] border-primary/30 md:hidden">
+          <div className="px-4 py-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-foreground hover:text-primary"
+                  onClick={() => router.push('/songbook')}
+                >
+                  <ArrowLeft className="h-6 w-6" />
+                </Button>
+                <div>
+                <h1 className="text-xl font-semibold leading-tight text-foreground">{song.title}</h1>
+                  <p className="text-sm text-muted-foreground">{song.artist}</p>
+                  {song.featuring && song.featuring.length > 0 && (
+                    <p className="text-xs text-muted-foreground/75">feat. {song.featuring.join(', ')}</p>
+                  )}
+                </div>
+              </div>
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-[#262223] hover:text-[#de9c0e]"
-                onClick={() => router.push('/songbook')}
+                className="text-foreground hover:text-primary ml-3"
+                aria-label="Toggle sidebar"
+                onClick={() => setSidebarOpen(!sidebarOpen)}
               >
-                <ArrowLeft className="h-6 w-6" />
+                <Music className="h-6 w-6" />
               </Button>
-              <div>
-                <h1 className="text-xl font-semibold leading-tight">{song.title}</h1>
-                <p className="text-sm text-[#262223]/75">{song.artist}</p>
-                {song.featuring && song.featuring.length > 0 && (
-                  <p className="text-xs text-[#262223]/60">feat. {song.featuring.join(', ')}</p>
-                )}
-              </div>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-[#262223] hover:text-[#de9c0e] ml-3"
-              aria-label="Toggle sidebar"
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-            >
-              <Music className="h-6 w-6" />
-            </Button>
-          </div>
 
-          <div className="flex justify-start md:justify-end flex-wrap gap-2 mt-2">
-            {song.genre?.map((genre) => (
-              <span
-                key={genre}
-                className="px-3 py-1 text-xs rounded-full border border-[#262223]/20 text-[#262223]/75"
-              >
-                {genre}
-              </span>
-            ))}
-            {song.mood?.map((mood) => (
-              <span
-                key={mood}
-                className="px-3 py-1 text-xs rounded-full border border-[#de9c0e]/30 text-[#de9c0e]"
-              >
-                {mood}
-              </span>
-            ))}
+            <div className="flex justify-start md:justify-end flex-wrap gap-2 mt-2">
+              {song.genre?.map((genre) => (
+                <span
+                  key={genre}
+                  className="px-3 py-1 text-xs rounded-full border border-border text-muted-foreground"
+                >
+                  {genre}
+                </span>
+              ))}
+              {song.mood?.map((mood) => (
+                <span
+                  key={mood}
+                  className="px-3 py-1 text-xs rounded-full border border-primary/30 text-muted-foreground"
+                >
+                  {mood}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <div className="flex flex-col md:flex-row">
-        {/* Sidebar */}
-        <div data-sidebar className="md:w-64 flex-shrink-0">
-          <SongProfileSidebar 
-            song={song}
-            isOpen={sidebarOpen}
-            onClose={() => setSidebarOpen(false)}
-          />
-        </div>
-        
-        {/* Main Content */}
-        <main className="flex-1 pt-24 md:pt-0">
-          {/* Desktop Header */}
-          <header className="hidden md:block px-6 py-4 border-b border-[#262223]/10">
-            <div className="grid grid-cols-12 gap-4">
-              <div className="col-span-8">
-                <div className="flex items-center gap-3">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-[#262223] hover:text-[#de9c0e]"
-                    onClick={() => router.push('/songbook')}
-                  >
-                    <ArrowLeft className="h-6 w-6" />
-                  </Button>
-                  <div className="min-w-0">
-                    <h1 className="text-2xl font-semibold leading-tight truncate">{song.title}</h1>
-                    <p className="text-lg text-[#262223]/75 truncate">{song.artist}</p>
-                    {song.featuring && song.featuring.length > 0 && (
-                      <p className="text-sm text-[#262223]/60 truncate">feat. {song.featuring.join(', ')}</p>
-                    )}
+        <div className="flex flex-col md:flex-row">
+          {/* Sidebar */}
+          <div data-sidebar className="md:w-64 flex-shrink-0">
+            <SongProfileSidebar 
+              song={song}
+              isOpen={sidebarOpen}
+              onClose={() => setSidebarOpen(false)}
+            />
+          </div>
+          
+          {/* Main Content */}
+          <main className="flex-1 md:pt-2">
+            {/* Desktop Header */}
+            <header className="hidden md:block px-6 py-4 border-b-[0.75px] border-primary/30">
+              <div className="grid grid-cols-12 gap-4">
+                <div className="col-span-6">
+                  <div className="flex items-center gap-3">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-foreground hover:text-primary"
+                      onClick={() => router.push('/songbook')}
+                    >
+                      <ArrowLeft className="h-6 w-6" />
+                    </Button>
+                    <div className="min-w-0">
+                      <h1 className="text-2xl font-semibold leading-tight truncate text-foreground">{song.title}</h1>
+                      <p className="text-lg text-muted-foreground truncate">{song.artist}</p>
+                      {song.featuring && song.featuring.length > 0 && (
+                        <p className="text-sm text-muted-foreground/75 truncate">feat. {song.featuring.join(', ')}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="col-span-6">
+                  <div className="flex flex-wrap justify-end gap-2">
+                    {song.genre?.map((genre) => (
+                      <span key={genre} className="px-3 py-1 text-sm rounded-full border border-[0.75px] border-border text-muted-foreground">
+                        {genre}
+                      </span>
+                    ))}
+                    {song.mood?.map((mood) => (
+                      <span key={mood} className="px-3 py-1 text-sm rounded-full border border-[0.75px] border-border text-muted-foreground">
+                        {mood}
+                      </span>
+                    ))}
                   </div>
                 </div>
               </div>
-              <div className="col-span-4">
-                <div className="flex flex-wrap justify-end gap-2">
-                  {song.genre?.map((genre) => (
-                    <span key={genre} className="px-3 py-1 text-sm rounded-full border border-[#262223]/20 text-[#262223]/75">
-                      {genre}
-                    </span>
-                  ))}
-                  {song.mood?.map((mood) => (
-                    <span key={mood} className="px-3 py-1 text-sm rounded-full border border-[#de9c0e]/30 text-[#de9c0e]">
-                      {mood}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </header>
+            </header>
 
-          <div className="px-4 py-6 md:p-6">
-            <ChordSheet song={song} />
-          </div>
-        </main>
+            <div className="px-4 py-6 md:p-6">
+              <ChordSheet song={song} />
+            </div>
+          </main>
+        </div>
       </div>
-    </div>
+    </>
   )
 } 

@@ -9,6 +9,7 @@ import { Navbar } from '@/components/ui/Navbar'
 import { Corners } from '@/components/ui/borders'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { useUserProfile } from '@/contexts/UserProfileContext'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -19,17 +20,22 @@ export default function LoginPage() {
   const [isProcessingLink, setIsProcessingLink] = useState(false)
   const router = useRouter()
   const auth = getAuth(app)
+  const { profile, loading } = useUserProfile()
 
   useEffect(() => {
-    // Check if user is already logged in
+    // Check if user is already logged in and redirect based on subscription status
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        router.push('/account/subscription')
+      if (user && profile) {
+        if (profile.subscriptionStatus === 'Active') {
+          router.push('/songbook')
+        } else {
+          router.push('/account/subscription')
+        }
       }
     })
 
     return () => unsubscribe()
-  }, [auth, router])
+  }, [auth, router, profile])
 
   useEffect(() => {
     // Check if the URL contains a sign-in link
@@ -49,8 +55,7 @@ export default function LoginPage() {
           .then(() => {
             // Clear the email from storage
             window.localStorage.removeItem('emailForSignIn')
-            // Redirect to subscription page after successful sign-in
-            router.push('/account/subscription')
+            // Redirect will be handled by the first useEffect
           })
           .catch((error) => {
             setError(error.message)
@@ -88,26 +93,34 @@ export default function LoginPage() {
 
   if (isProcessingLink) {
     return (
-      <main className={`min-h-screen bg-[#f1e0b4] flex flex-col items-center justify-center ${montserrat.className}`}>
-        <div>Completing sign in...</div>
+      <main className={`min-h-screen bg-background flex flex-col items-center justify-center ${montserrat.className}`}>
+        <div className="text-foreground">Completing sign in...</div>
+      </main>
+    )
+  }
+
+  if (loading) {
+    return (
+      <main className={`min-h-screen bg-background flex flex-col items-center justify-center ${montserrat.className}`}>
+        <div className="text-foreground">Loading...</div>
       </main>
     )
   }
 
   return (
-    <main className={`min-h-screen bg-[#f1e0b4] flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
+    <main className={`min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
       <Navbar />
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
-        <h1 className="text-3xl font-bold text-[#262223] mb-4">Login</h1>
-        <p className="text-[#262223] text-lg mb-8">Sign in or create an account</p>
-        
+        <h1 className="text-3xl font-bold text-foreground mb-4">Login</h1>
+        <p className="text-foreground text-lg mb-8">Sign in or create an account</p>
+
         {emailSent ? (
           <div className="space-y-4">
-            <div className="text-[#262223] text-lg">
+            <div className="text-foreground text-lg">
               Check your email! We&apos;ve sent you a magic link to sign in.
             </div>
-            <div className="text-[#262223] text-sm mt-2">
+            <div className="text-muted-foreground text-sm mt-2">
               The link will expire in 15 minutes for security.
             </div>
           </div>
@@ -119,24 +132,24 @@ export default function LoginPage() {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-                className="w-full h-[48px] text-[18px] bg-white border-[#de9c0e] focus:border-[#de9c0e] focus:ring-[#de9c0e]"
+                className="w-full h-[48px] text-[18px] bg-input border-primary focus:border-primary focus:ring-primary"
               />
               
               {error && (
-                <div className="text-red-500 text-sm text-center">
+                <div className="text-destructive text-sm text-center">
                   {error}
                 </div>
               )}
 
               <Button 
                 type="submit"
-                className="w-full h-[48px] text-[21px] leading-[32px] font-bold bg-[#de9c0e] hover:bg-[#de9c0e]/90 text-black"
+                className="w-full h-[48px] text-[21px] leading-[32px] font-bold bg-primary hover:bg-primary/90 text-primary-foreground"
               >
                 SEND MAGIC LINK
               </Button>
             </form>
 
-            <div className="mt-8 space-y-4 text-[#262223]">
+            <div className="mt-8 space-y-4 text-foreground">
               <h2 className="font-bold text-sm">How it works</h2>
               <div className="text-xs space-y-2">
                 <p>1. Enter your email address above</p>

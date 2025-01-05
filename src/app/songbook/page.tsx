@@ -3,28 +3,10 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
-import { Corners } from "@/components/ui/borders"
-import { Montserrat } from 'next/font/google'
 import { Navbar } from "@/components/ui/Navbar"
 import { useUserProfile } from '@/contexts/UserProfileContext'
 import { collection, query, orderBy, getDocs } from 'firebase/firestore'
 import { db } from '@/firebase/firebase'
-
-const montserrat = Montserrat({ 
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  display: 'swap',
-})
-
-// Color palette - warm theme
-const cardColors = {
-  dark: 'bg-[#262223]',
-  primary: 'bg-[#262223]',
-  accent1: 'bg-[#262223]',
-  accent2: 'bg-[#262223]',
-  accent3: 'bg-[#262223]',
-  light: 'bg-[#262223]'
-}
 
 // Base unit is 2 columns × 3 rows, scales with breakpoints
 const getCardStyle = (index: number, hasDescription: boolean) => {
@@ -32,7 +14,7 @@ const getCardStyle = (index: number, hasDescription: boolean) => {
   if (index === 0) {
     return {
       className: 'col-span-12 row-span-9 sm:col-span-8 md:col-span-6 lg:col-span-4',
-      color: cardColors.dark
+      color: 'bg-card'
     }
   }
 
@@ -40,7 +22,7 @@ const getCardStyle = (index: number, hasDescription: boolean) => {
   if (index % 13 === 1) {
     return {
       className: 'col-span-12 row-span-6 sm:col-span-8 md:col-span-6 lg:col-span-4',
-      color: cardColors.primary
+      color: 'bg-card'
     }
   }
 
@@ -48,7 +30,7 @@ const getCardStyle = (index: number, hasDescription: boolean) => {
   if (index % 7 === 2) {
     return {
       className: 'col-span-6 row-span-9 sm:col-span-4 md:col-span-3 lg:col-span-2',
-      color: cardColors.accent1
+      color: 'bg-card'
     }
   }
 
@@ -56,7 +38,7 @@ const getCardStyle = (index: number, hasDescription: boolean) => {
   if (index % 5 === 0) {
     return {
       className: 'col-span-6 row-span-6 sm:col-span-4 md:col-span-3 lg:col-span-2',
-      color: cardColors.accent2
+      color: 'bg-card'
     }
   }
 
@@ -64,7 +46,7 @@ const getCardStyle = (index: number, hasDescription: boolean) => {
   if (index % 6 === 4) {
     return {
       className: 'col-span-12 row-span-3 sm:col-span-8 md:col-span-6 lg:col-span-4',
-      color: cardColors.dark
+      color: 'bg-card'
     }
   }
 
@@ -81,7 +63,7 @@ const getCardStyle = (index: number, hasDescription: boolean) => {
   ]
   return {
     className: variations[index % variations.length],
-    color: index % 2 === 0 ? cardColors.light : cardColors.primary
+    color: 'bg-card'
   }
 }
 
@@ -141,43 +123,38 @@ export default function SongbookPage() {
 
   if (loading || isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-lg">Loading...</div>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-foreground">Loading...</p>
       </div>
     )
   }
-  
+   
   // Don't render anything while redirecting
   if (!user) {
     return null
   }
 
   return (
-    <main className={`min-h-screen bg-[#f1e0b4] flex flex-col ${montserrat.className}`}>
-      
+    <main className="min-h-screen bg-background">
       <Navbar />
       
       <div className="pt-20 z-10 max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-12 sm:grid-cols-16 md:grid-cols-24 lg:grid-cols-24 auto-rows-[50px] gap-1 p-2 grid-flow-dense">
           {songs.map((song, index) => {
             const style = getCardStyle(index, !!song.description)
-            const isDark = style.color === cardColors.dark
-            const isAccent = style.color !== cardColors.dark && style.color !== cardColors.light
             
             return (
-              <div 
-                key={song.id} 
+              <div
+                key={song.id}
                 className={`
                   ${style.className}
-                  ${style.color}
+                  bg-card hover:bg-muted
                   transition-all hover:scale-[1.01]
                   overflow-hidden
                 `}
               >
                 <SongCard 
                   song={song}
-                  isDark={isDark}
-                  isAccent={isAccent}
                   size={style.className.includes('row-span-9') ? 'large' : 'small'}
                 />
               </div>
@@ -185,53 +162,47 @@ export default function SongbookPage() {
           })}
         </div>
       </div>
-      <Corners />
     </main>
   )
 }
 
 interface SongCardProps {
   song: Song
-  isDark: boolean
-  isAccent: boolean
   size: 'large' | 'small'
 }
 
-function SongCard({ song, isDark, isAccent, size }: SongCardProps) {
+function SongCard({ song, size }: SongCardProps) {
   const router = useRouter()
-  // Always use white text since all cards are dark
-  const textColor = 'text-white'
-  const mutedTextColor = 'text-white/70'
   
   return (
     <button 
       onClick={() => router.push(`/song/${song.id}`)}
-      className="h-full w-full p-4 flex flex-col text-left hover:opacity-90 transition-opacity"
+      className="h-full w-full p-4 flex flex-col text-left"
     >
       {/* Genre and key */}
-      <div className={`text-xs uppercase tracking-wider mb-2 ${mutedTextColor}`}>
+      <div className="text-xs uppercase tracking-widest mb-2 text-muted-foreground">
         {song.genre} • {song.key}
       </div>
 
       {/* Title and Artist */}
       <div className="mb-auto">
-        <h3 className={`font-bold ${size === 'large' ? 'text-xl mb-2' : 'text-base mb-1'} ${textColor}`}>
+        <h3 className={`font-bold ${size === 'large' ? 'text-xl mb-2' : 'text-base mb-1'} text-foreground`}>
           {song.title}
         </h3>
-        <p className={`${mutedTextColor} ${size === 'large' ? 'text-base' : 'text-sm'}`}>
+        <p className={`text-muted-foreground ${size === 'large' ? 'text-base' : 'text-sm'}`}>
           {song.artist}
         </p>
       </div>
       
       {/* Description - only on large cards */}
       {size === 'large' && song.description && (
-        <p className={`${mutedTextColor} text-sm mb-4 line-clamp-3`}>
+        <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
           {song.description}
         </p>
       )}
       
       {/* Metadata */}
-      <div className={`mt-2 space-y-1 text-sm ${mutedTextColor}`}>
+      <div className="mt-2 space-y-1 text-sm text-muted-foreground">
         {size === 'large' ? (
           <>
             <p>{song.bpm} BPM • {song.duration}</p>
