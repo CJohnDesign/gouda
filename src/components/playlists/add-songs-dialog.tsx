@@ -144,16 +144,20 @@ export function AddSongsDialog({ playlistId, userId, existingSongs }: AddSongsDi
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <Button size="sm" className="gap-2">
+        <Button 
+          variant="default"
+          size="sm" 
+          className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
+        >
           <Plus className="h-4 w-4" />
           Add Songs
         </Button>
       </Dialog.Trigger>
       
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/90" />
-        <Dialog.Content className="fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-[90vw] max-w-[600px] bg-[#121212] rounded-lg shadow-lg p-6 border border-border">
-          <Dialog.Title className="text-lg font-semibold mb-1">
+        <Dialog.Overlay className="fixed inset-0 bg-background/80 backdrop-blur-sm" />
+        <Dialog.Content className="fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-[90vw] max-w-[600px] bg-card rounded-lg shadow-lg p-6 border border-border">
+          <Dialog.Title className="text-lg font-semibold mb-1 text-foreground">
             Manage Songs
           </Dialog.Title>
           <Dialog.Description className="text-sm text-muted-foreground mb-4">
