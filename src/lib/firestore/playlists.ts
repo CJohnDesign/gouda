@@ -284,4 +284,22 @@ export async function updatePlaylistSongPositions(
     console.error('Error updating song positions:', error)
     throw error
   }
+}
+
+// Update playlist details
+export async function updatePlaylist(
+  playlistId: string,
+  updates: Partial<Omit<Playlist, 'id' | 'createdAt' | 'updatedAt'>>
+): Promise<void> {
+  const playlistRef = doc(db, 'playlists', playlistId)
+  
+  try {
+    await updateDoc(playlistRef, {
+      ...updates,
+      updatedAt: serverTimestamp()
+    })
+  } catch (error) {
+    console.error('Error updating playlist:', error)
+    throw error
+  }
 } 

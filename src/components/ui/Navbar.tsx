@@ -4,6 +4,8 @@ import Link from "next/link"
 import { Book, Sparkles, ExternalLink, ListMusic } from "lucide-react"
 import { Button } from "./button"
 import { ProfileMenu } from "./profile-menu"
+import { useUserProfile } from '@/contexts/UserProfileContext'
+import { FounderBadge } from './FounderBadge'
 
 export function Navbar() {
   return (
@@ -89,6 +91,19 @@ export function Navbar() {
         <ProfileMenu />
       </div>
     </nav>
+  )
+}
+
+export function ProfileMenu() {
+  const { user, profile } = useUserProfile()
+  
+  if (!user) return null
+
+  return (
+    <div className="flex items-center gap-2">
+      <FounderBadge />
+      {/* Existing profile menu content */}
+    </div>
   )
 }
 

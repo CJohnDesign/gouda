@@ -8,6 +8,7 @@ import { getAllSongs } from '@/lib/firestore/songs'
 import type { Song } from '@/types/music/song'
 import { Montserrat } from 'next/font/google'
 import { Button } from '@/components/ui/button'
+import { RequestSongDialog } from '@/components/songs/request-song-dialog'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -117,14 +118,18 @@ export default function SongbookPage() {
     <main className="min-h-screen bg-background">
       <Navbar />
       
-      <div className="pt-20 z-10 max-w-6xl mx-auto px-4 justify-between">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className={`text-2xl font-semibold ${montserrat.className}`}>Songbook</h1>
-          <Button variant="default">
-            Add Song
-          </Button>
+      <div className="container py-20">
+        <div className="flex flex-row justify-between space-y-4 md:space-y-0 mb-8 w-full">
+          <div className="flex flex-col justify-end mb-[-6px]">
+            <h1 className={`scroll-m-20 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight ${montserrat.className}`}>
+              Songbook
+            </h1>
+          </div>
+          <div className="flex justify-end">
+            <RequestSongDialog />
+          </div>
         </div>
-        <div className="grid grid-cols-12 sm:grid-cols-16 md:grid-cols-24 lg:grid-cols-24 auto-rows-[50px] gap-1 grid-flow-dense">
+        <div className="grid grid-cols-12 sm:grid-cols-16 md:grid-cols-24 lg:grid-cols-24 auto-rows-[50px] gap-4 grid-flow-dense justify-center">
           {songs.map((song, index) => {
             const style = getCardStyle(index)
             

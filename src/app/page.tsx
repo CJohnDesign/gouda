@@ -6,7 +6,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { useUserProfile } from '@/contexts/UserProfileContext'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
@@ -27,7 +26,7 @@ export default function Home() {
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
         <div className="mb-8">
           <Image
-            src="/images/GOUDA_Logo.png"
+            src="/images/GOUDA_Logo.webp"
             alt="Gouda"
             width={300}
             height={300}

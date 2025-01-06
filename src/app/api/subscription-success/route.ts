@@ -1,50 +1,75 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { getFirestore } from 'firebase-admin/firestore';
-import { adminApp } from '@/firebase/admin';
+import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { app } from '@/firebase/firebase';
+import { getAuth } from 'firebase-admin/auth';
+import Stripe from 'stripe';
 
-export async function GET(request: Request) {
+export async function POST(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const sessionId = searchParams.get('session_id');
+    // Get the authorization header
+    const authHeader = request.headers.get('authorization');
+    if (!authHeader?.startsWith('Bearer ')) {
+      return NextResponse.json(
+        { error: { message: 'Missing or invalid authorization header' } },
+        { status: 401 }
+      );
+    }
+
+    // Verify the Firebase ID token
+    const token = authHeader.split('Bearer ')[1];
+    const decodedToken = await getAuth().verifyIdToken(token);
+    const userId = decodedToken.uid;
+
+    // Get the request body
+    const body = await request.json();
+    const { sessionId } = body;
 
     if (!sessionId) {
-      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_APP_URL}/account/subscription?error=missing_session`);
+      return NextResponse.json(
+        { error: { message: 'Missing session ID' } },
+        { status: 400 }
+      );
     }
 
     // Retrieve the checkout session
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
-    console.log('Retrieved checkout session:', session.id);
+    const session = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ['subscription'],
+    });
 
-    if (!session.customer) {
-      return NextResponse.redirect(`${process.env.NEXT_PUBLIC_APP_URL}/account/subscription?error=missing_customer`);
+    const subscription = session.subscription as Stripe.Subscription;
+    if (!subscription) {
+      return NextResponse.json(
+        { error: { message: 'No subscription found in session' } },
+        { status: 400 }
+      );
     }
 
-    // Get subscription details
-    const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
-    console.log('Retrieved subscription:', subscription.id);
+    // Get the user's document from Firestore
+    const db = getFirestore(app);
+    const userDoc = await getDoc(doc(db, 'users', userId));
 
-    // Update Firestore
-    const db = getFirestore(adminApp);
-    const usersSnapshot = await db
-      .collection('users')
-      .where('stripeCustomerId', '==', session.customer)
-      .get();
-
-    if (!usersSnapshot.empty) {
-      const userDoc = usersSnapshot.docs[0];
-      await userDoc.ref.update({
-        subscriptionStatus: 'Active',
-        subscriptionId: subscription.id,
-        updatedAt: new Date()
-      });
-      console.log('Updated user subscription status:', userDoc.id);
+    if (!userDoc.exists()) {
+      return NextResponse.json(
+        { error: { message: 'User not found' } },
+        { status: 404 }
+      );
     }
 
-    // Redirect back to subscription page
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_APP_URL}/account/profile?subscription=active`);
+    // Update the user's subscription status
+    await updateDoc(doc(db, 'users', userId), {
+      isSubscribed: true,
+      subscriptionId: subscription.id,
+      subscriptionStatus: subscription.status,
+      updatedAt: new Date(),
+    });
+
+    return NextResponse.json({ status: 'success' });
   } catch (error) {
     console.error('Error handling subscription success:', error);
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_APP_URL}/account/subscription?error=unknown`);
+    return NextResponse.json(
+      { error: { message: 'Internal server error' } },
+      { status: 500 }
+    );
   }
 } 

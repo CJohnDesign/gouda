@@ -1,94 +1,61 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
-import { getAuth, User } from 'firebase/auth';
-import { app } from '@/firebase/firebase';
-import type { UserProfile } from '@/types/user';
-import { useRouter, usePathname } from 'next/navigation';
+import { createContext, useContext, useEffect, useState } from 'react'
+import { getAuth, onAuthStateChanged, User, signOut as firebaseSignOut } from 'firebase/auth'
+import { app } from '@/firebase/firebase'
+import { doc, getDoc, getFirestore } from 'firebase/firestore'
+
+interface UserProfile {
+  name?: string
+  avatarUrl?: string
+  stripeCustomerId?: string
+  isSubscribed?: boolean
+}
 
 interface UserProfileContextType {
-  user: User | null;
-  profile: UserProfile | null;
-  loading: boolean;
-  error: string | null;
-  refreshProfile: () => Promise<void>;
+  user: User | null
+  profile: UserProfile | null
+  signOut: () => Promise<void>
 }
 
-const UserProfileContext = createContext<UserProfileContextType | undefined>(undefined);
+const UserProfileContext = createContext<UserProfileContextType>({
+  user: null,
+  profile: null,
+  signOut: async () => {},
+})
 
-// List of public routes that don't require authentication
-const publicRoutes = ['/', '/join', '/login'];
-
-export function UserProfileProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const auth = getAuth(app);
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const fetchProfile = useCallback(async (user: User) => {
-    try {
-      const token = await user.getIdToken();
-      const response = await fetch('/api/user-profile', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        if (response.status === 404) {
-          router.push('/account/profile');
-          return;
-        }
-        throw new Error(errorData.error?.message || 'Failed to fetch profile');
-      }
-
-      const profileData = await response.json();
-      setProfile(profileData);
-      setError(null);
-    } catch (error) {
-      setError(error instanceof Error ? error.message : 'Failed to fetch profile');
-    }
-  }, [router]);
-
-  const refreshProfile = async () => {
-    if (user) {
-      await fetchProfile(user);
-    }
-  };
+export function UserProfileProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<User | null>(null)
+  const [profile, setProfile] = useState<UserProfile | null>(null)
+  const auth = getAuth(app)
+  const db = getFirestore(app)
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setUser(user)
       if (user) {
-        setUser(user);
-        await fetchProfile(user);
-      } else {
-        setUser(null);
-        setProfile(null);
-        if (!publicRoutes.includes(pathname)) {
-          router.push('/login');
+        const docRef = doc(db, 'users', user.uid)
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+          setProfile(docSnap.data() as UserProfile)
         }
+      } else {
+        setProfile(null)
       }
-      setLoading(false);
-    });
+    })
 
-    return () => unsubscribe();
-  }, [auth, router, pathname, fetchProfile]);
+    return () => unsubscribe()
+  }, [auth, db])
+
+  const signOut = async () => {
+    await firebaseSignOut(auth)
+  }
 
   return (
-    <UserProfileContext.Provider value={{ user, profile, loading, error, refreshProfile }}>
+    <UserProfileContext.Provider value={{ user, profile, signOut }}>
       {children}
     </UserProfileContext.Provider>
-  );
+  )
 }
 
-export function useUserProfile() {
-  const context = useContext(UserProfileContext);
-  if (context === undefined) {
-    throw new Error('useUserProfile must be used within a UserProfileProvider');
-  }
-  return context;
-} 
+export const useUserProfile = () => useContext(UserProfileContext) 

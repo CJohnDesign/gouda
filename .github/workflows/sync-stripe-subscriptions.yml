@@ -1,0 +1,33 @@
+name: Sync Stripe Subscriptions
+
+on:
+  schedule:
+    # Run every day at 00:00 UTC
+    - cron: '0 0 * * *'
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run sync script
+        env:
+          GOUDA_PROJECT_ID: ${{ secrets.GOUDA_PROJECT_ID }}
+          GOUDA_CLIENT_EMAIL: ${{ secrets.GOUDA_CLIENT_EMAIL }}
+          GOUDA_PRIVATE_KEY: ${{ secrets.GOUDA_PRIVATE_KEY }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+        run: npx tsx scripts/sync-stripe-subscriptions.ts 

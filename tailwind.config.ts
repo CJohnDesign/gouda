@@ -18,11 +18,51 @@ const config: Config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-montserrat)'],
+      },
+      fontSize: {
+        // Base mobile-first typography scale
+        xs: ['0.75rem', { lineHeight: '1rem' }],                    // 12px
+        sm: ['0.875rem', { lineHeight: '1.25rem' }],                // 14px
+        base: ['1rem', { lineHeight: '1.5rem' }],                   // 16px
+        lg: ['1.125rem', { lineHeight: '1.75rem' }],                // 18px
+        xl: ['1.25rem', { lineHeight: '1.75rem' }],                 // 20px
+        '2xl': ['1.5rem', { lineHeight: '2rem', letterSpacing: '-0.01em' }],        // 24px
+        '3xl': ['1.875rem', { lineHeight: '2.25rem', letterSpacing: '-0.02em' }],   // 30px
+        '4xl': ['2.25rem', { lineHeight: '2.5rem', letterSpacing: '-0.02em' }],     // 36px
+        '5xl': ['3rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],           // 48px
+      },
+      letterSpacing: {
+        tightest: '-0.03em',
+        tighter: '-0.02em',
+        tight: '-0.01em',
+        normal: '0em',
+        wide: '0.01em',
+        wider: '0.02em',
+        widest: '0.03em',
+      },
+      fontWeight: {
+        light: '300',
+        normal: '400',
+        medium: '500',
+        semibold: '600',
+        bold: '700',
+        extrabold: '800',
+      },
+      lineHeight: {
+        none: '1',
+        tight: '1.2',
+        snug: '1.375',
+        normal: '1.5',
+        relaxed: '1.625',
+        loose: '2',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "var(--background)", // hsl(var()
+        background: "var(--background)",
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -52,17 +92,6 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        success: "hsl(var(--success))",
-        warning: "hsl(var(--warning))",
-        error: "hsl(var(--error))",
-        info: "hsl(var(--info))",
-        text: {
-          primary: "hsl(var(--text-primary))",
-          secondary: "hsl(var(--text-secondary))",
-          tertiary: "hsl(var(--text-tertiary))",
-        },
-        hover: "hsl(var(--hover))",
-        focus: "hsl(var(--focus))",
       },
       borderRadius: {
         lg: "var(--radius)",

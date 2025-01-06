@@ -36,4 +36,17 @@ export interface Song extends MetadataEntity {
 export interface ChartPerformance {
   chartName: string;
   position: number;
+}
+
+// Song request interface
+export interface SongRequest extends MetadataEntity {
+  id: string;
+  title: string;
+  artist: string;
+  requestedBy: string;
+  status: 'pending' | 'approved' | 'rejected';
+  notes?: string;
+  genre?: string[];
+  createdAt: string;
+  updatedAt?: string | null;
 } 

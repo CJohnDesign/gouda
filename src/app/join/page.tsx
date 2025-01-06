@@ -9,21 +9,47 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { getPlatform, getEmailService } from '@/lib/platform'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
+
+const EMAIL_LINKS = {
+  desktop: [
+    { name: 'Gmail', url: 'https://mail.google.com', platform: 'desktop', service: 'gmail' },
+    { name: 'Outlook', url: 'https://outlook.com', platform: 'desktop', service: 'outlook' },
+    { name: 'ProtonMail', url: 'https://mail.protonmail.com', platform: 'desktop', service: 'proton' },
+  ],
+  mobile: [
+    { name: 'Apple Mail', url: 'message://', platform: 'apple' },
+    { name: 'Gmail App', url: 'googlegmail://', platform: 'android', service: 'gmail' },
+    { name: 'Android Mail', url: 'content://com.android.email', platform: 'android' },
+  ]
+}
 
 export default function JoinPage() {
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
   const [emailSent, setEmailSent] = useState(false)
+  const [platform, setPlatform] = useState('unknown')
+  const [emailService, setEmailService] = useState('gmail')
   const auth = getAuth(app)
   const router = useRouter()
+
+  useEffect(() => {
+    setPlatform(getPlatform())
+  }, [])
+
+  // Update email service whenever email changes
+  useEffect(() => {
+    setEmailService(getEmailService(email))
+  }, [email])
 
   useEffect(() => {
     // Check if user is already logged in
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        router.push('/account/subscription')
+        router.push('/songbook')
       }
     })
 
@@ -58,12 +84,52 @@ export default function JoinPage() {
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
         <h1 className="text-3xl font-bold text-[#262223] mb-8">Learn Music Better</h1>
-        <p className="text-[#262223] text-lg mb-8">Sign up for Gouda & Company to get <strong>weekly group lessons</strong>, instructional videos and a helpful community.</p>
+        <p className="text-[#262223] text-lg mb-8">Sign up for Gouda &amp; Company to get <strong>weekly group lessons</strong>, instructional videos and a helpful community.</p>
         {emailSent ? (
           <div className="space-y-4">
-            <div className="text-[#262223] text-lg">
-              Check your email! We&apos;ve sent you a magic link to sign up.
-            </div>
+            <Alert className="border-green-500 bg-green-50 dark:bg-green-900/10">
+              <AlertDescription className="text-[#262223]">
+                <div className="text-lg mb-4">
+                  Check your email!<br/>There&apos;s a link to get in!
+                </div>
+                <div className="hidden md:block">
+                  <div className="text-sm font-bold mb-2">Open your email:</div>
+                  <div className="flex gap-2 justify-center flex-wrap">
+                    {EMAIL_LINKS.desktop.map((link) => (
+                      <Button
+                        key={link.name}
+                        variant={emailService === link.service ? 'default' : 'outline'}
+                        asChild
+                      >
+                        <a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {link.name}
+                        </a>
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+                <div className="md:hidden">
+                  <div className="text-sm font-bold mb-2">Open email in:</div>
+                  <div className="flex gap-2 flex-wrap justify-center">
+                    {EMAIL_LINKS.mobile.map((link) => (
+                      <Button
+                        key={link.name}
+                        variant={platform === link.platform ? 'default' : 'outline'}
+                        asChild
+                      >
+                        <a href={link.url}>
+                          {link.name}
+                        </a>
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              </AlertDescription>
+            </Alert>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">

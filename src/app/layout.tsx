@@ -1,14 +1,16 @@
-import { Inter } from 'next/font/google'
-import './globals.css'
-import { UserProfileProvider } from '@/contexts/UserProfileContext'
+import { Montserrat as FontSans } from 'next/font/google'
+import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/theme-provider'
+import { Toaster } from '@/components/ui/toaster'
+import { WelcomeTopBar } from '@/components/ui/WelcomeTopBar'
+import { Navbar } from '@/components/ui/Navbar'
+import { Footer } from '@/components/ui/Footer'
+import { UserProfileProvider } from '@/contexts/UserProfileContext'
 
-const inter = Inter({ subsets: ['latin'] })
-
-export const metadata = {
-  title: 'Gouda',
-  description: 'Gouda - Your Music Community',
-}
+const fontSans = FontSans({
+  subsets: ['latin'],
+  variable: '--font-sans',
+})
 
 export default function RootLayout({
   children,
@@ -17,14 +19,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-        >
+      <body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <UserProfileProvider>
-            {children}
+            <WelcomeTopBar />
+            <div className="relative flex min-h-screen flex-col">
+              <Navbar />
+              <div className="flex-1">{children}</div>
+              <Footer />
+            </div>
+            <Toaster />
           </UserProfileProvider>
         </ThemeProvider>
       </body>

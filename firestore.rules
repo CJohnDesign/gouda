@@ -16,6 +16,13 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // Song requests collection - authenticated users can create and read their own requests
+    match /songRequests/{requestId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.resource.data.requestedBy == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.requestedBy == request.auth.uid;
+    }
+
     // Playlists collection
     match /playlists/{playlistId} {
       allow read: if request.auth != null && (

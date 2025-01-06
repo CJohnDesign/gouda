@@ -11,7 +11,7 @@ import { getAllSongs } from '@/lib/firestore/songs'
 import { PlaylistSongs } from '@/components/playlists/playlist-songs'
 import type { Playlist } from '@/types/music/playlist'
 import type { Song } from '@/types/music/song'
-import { AddSongsDialog } from '@/components/playlists/add-songs-dialog'
+import { EditPlaylistDialog } from '@/components/playlists/edit-playlist-dialog'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -110,7 +110,7 @@ export default function PlaylistPage() {
               </div>
               
               <div className="flex items-center">
-                <AddSongsDialog
+                <EditPlaylistDialog
                   playlistId={playlist.id}
                   userId={user.uid}
                   existingSongs={songs.map(song => song.id)}
