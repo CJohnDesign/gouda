@@ -1,0 +1,156 @@
+{
+    "id": "give-me-one-reason-tracy-chapman",
+    "title": "Give Me One Reason",
+    "artist": "Tracy Chapman",
+    "featuring": [],
+    "artistId": "tracy-chapman",
+    "album": "New Beginning",
+    "albumId": "new-beginning",
+    "writer": "Tracy Chapman",
+    "coverUrl": "/images/placeholder.jpg",
+    "description": "A soulful blues-rock song from Tracy Chapman's 1995 album New Beginning",
+    "releaseYear": 1995,
+    "genre": [
+        "Blues-Rock",
+        "Soul",
+        "Folk"
+    ],
+    "mood": [
+        "Introspective",
+        "Longing",
+        "Soulful"
+    ],
+    "duration": "4:28",
+    "structure": [
+        {
+            "section": "Verse 1",
+            "lyrics": [
+                "Give me one reason to stay here, and I'll turn right back around",
+                "Give me one reason to stay here, and I'll turn right back around",
+                "Said I don't want leave you lonely",
+                "You got to make me change my mind"
+            ],
+            "chords": [
+                "E",
+                "A",
+                "(B7)",
+                "E",
+                "E7",
+                "A",
+                "A7",
+                "(B7)",
+                "E",
+                "E7",
+                "B7",
+                "A",
+                "E",
+                "E7"
+            ]
+        },
+        {
+            "section": "Verse 2",
+            "lyrics": [
+                "Baby I got your number, oh and I know that you got mine",
+                "You know that I called you, I called too many times",
+                "You can call me baby you can call me anytime",
+                "But you got to call me"
+            ],
+            "chords": [
+                "E",
+                "A",
+                "(B7)",
+                "E",
+                "E7",
+                "A",
+                "A7",
+                "(B7)",
+                "E",
+                "E7",
+                "B7",
+                "A",
+                "E",
+                "E7"
+            ]
+        },
+        {
+            "section": "Verse 3",
+            "lyrics": [
+                "I don't want no one to squeeze me they might take away my life",
+                "I don't want no one to squeeze me they might take away my life",
+                "I just want someone to hold me oh and rock me through the night"
+            ],
+            "chords": [
+                "E",
+                "A",
+                "(B7)",
+                "E",
+                "E7",
+                "A",
+                "A7",
+                "(B7)",
+                "E",
+                "E7",
+                "B7",
+                "A",
+                "E",
+                "E7"
+            ]
+        }
+    ],
+    "theory": {
+        "key": "F#",
+        "scale": "major",
+        "mode": "ionian",
+        "tempoMarking": "Moderato",
+        "timeSignature": [
+            4,
+            4
+        ],
+        "bpm": 96,
+        "harmonicAnalysis": {
+            "chordProgression": "I-vi-IV-V progression with blues variations",
+            "secondaryDominants": [],
+            "borrowedChords": [
+                "A7"
+            ],
+            "modulationSections": []
+        },
+        "melodicAnalysis": {
+            "vocalRange": "C4-E5",
+            "vocalTechniques": [
+                "Belt",
+                "Head Voice",
+                "Soul Runs"
+            ],
+            "motifs": [
+                "Syncopated Rhythm",
+                "Soul Inflections"
+            ],
+            "phrasingPatterns": [
+                "4-bar phrases"
+            ]
+        }
+    },
+    "chartPerformance": [
+        {
+            "chartName": "Billboard Hot 100",
+            "position": 3
+        }
+    ],
+    "hasMaleVocals": false,
+    "hasFemaleVocals": true,
+    "hasGuitarSolo": false,
+    "metadata": {
+        "isPublished": true,
+        "isFeatured": true,
+        "isPrivate": false,
+        "isDeleted": false,
+        "isDraft": false,
+        "isPending": false,
+        "isApproved": true,
+        "isRejected": false,
+        "isHidden": false
+    },
+    "createdAt": "2024-11-06T00:00:00.000Z",
+    "updatedAt": "2024-11-06T00:00:00.000Z"
+}

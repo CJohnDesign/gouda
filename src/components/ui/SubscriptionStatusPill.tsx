@@ -3,7 +3,7 @@ import { CheckCircle, AlertCircle, XCircle, Clock } from 'lucide-react';
 
 type StatusConfig = {
   color: string;
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   label: string;
 };
 

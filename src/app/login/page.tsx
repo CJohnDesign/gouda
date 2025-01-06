@@ -5,7 +5,6 @@ import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailL
 import { app } from '@/firebase/firebase'
 import { useRouter } from 'next/navigation'
 import { Montserrat } from 'next/font/google'
-import { Navbar } from '@/components/ui/Navbar'
 import { Corners } from '@/components/ui/borders'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -109,7 +108,6 @@ export default function LoginPage() {
 
   return (
     <main className={`min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
-      <Navbar />
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
         <h1 className="text-3xl font-bold text-foreground mb-4">Login</h1>

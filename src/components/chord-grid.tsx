@@ -55,8 +55,7 @@ export function ChordGrid({ chords }: ChordGridProps) {
                 bg-background p-4 flex items-center justify-center h-16
                 ${colIndex > 0 ? 'border-l border-muted-foreground/30 dark:border-primary/30' : ''}
                 ${rowIndex > 0 ? 'border-t border-muted-foreground/30 dark:border-primary/30' : ''}
-                transition-all hover:shadow-lg hover:shadow-primary/100 dark:hover:shadow-primary/100
-                hover:bg-muted/100
+                transition-all
               `}
             >
               <div className="flex items-center gap-2">

@@ -7,6 +7,7 @@ import { useUserProfile } from '@/contexts/UserProfileContext'
 import { getAllSongs } from '@/lib/firestore/songs'
 import type { Song } from '@/types/music/song'
 import { Montserrat } from 'next/font/google'
+import { Button } from '@/components/ui/button'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -116,8 +117,14 @@ export default function SongbookPage() {
     <main className="min-h-screen bg-background">
       <Navbar />
       
-      <div className="pt-20 z-10 max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-12 sm:grid-cols-16 md:grid-cols-24 lg:grid-cols-24 auto-rows-[50px] gap-1 p-2 grid-flow-dense">
+      <div className="pt-20 z-10 max-w-6xl mx-auto px-4 justify-between">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className={`text-2xl font-semibold ${montserrat.className}`}>Songbook</h1>
+          <Button variant="default">
+            Add Song
+          </Button>
+        </div>
+        <div className="grid grid-cols-12 sm:grid-cols-16 md:grid-cols-24 lg:grid-cols-24 auto-rows-[50px] gap-1 grid-flow-dense">
           {songs.map((song, index) => {
             const style = getCardStyle(index)
             

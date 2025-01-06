@@ -1,12 +1,12 @@
 'use client'
 
 import { Montserrat } from 'next/font/google'
-import { Navbar } from '@/components/ui/Navbar'
 import { Corners } from '@/components/ui/borders'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { useUserProfile } from '@/contexts/UserProfileContext'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
@@ -23,7 +23,6 @@ export default function Home() {
 
   return (
     <main className={`min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
-      <Navbar />
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
         <div className="mb-8">

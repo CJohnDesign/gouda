@@ -5,7 +5,7 @@
 @layer base {
   :root {
     /* Light theme - warm beige background */
-    --background: 45 52% 83%;  /* #F0E2B7 */
+    --background: #F0E2B7 ;  /* 45 52% 83%  */
     --foreground: 220 13% 13%;
     
     --card: 0 0% 100%;
