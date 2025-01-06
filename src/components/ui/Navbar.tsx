@@ -94,16 +94,3 @@ export function Navbar() {
   )
 }
 
-export function ProfileMenu() {
-  const { user, profile } = useUserProfile()
-  
-  if (!user) return null
-
-  return (
-    <div className="flex items-center gap-2">
-      <FounderBadge />
-      {/* Existing profile menu content */}
-    </div>
-  )
-}
-
