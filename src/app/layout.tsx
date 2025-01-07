@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/toaster'
 import { WelcomeTopBar } from '@/components/ui/WelcomeTopBar'
-import { Navbar } from '@/components/ui/Navbar'
 import { Footer } from '@/components/ui/Footer'
 import { UserProfileProvider } from '@/contexts/UserProfileContext'
 
