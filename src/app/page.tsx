@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { useUserProfile } from '@/contexts/UserProfileContext'
+import { useRouter } from 'next/navigation'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -14,6 +15,7 @@ export default function Home() {
   const { setTheme } = useTheme()
   const { user } = useUserProfile()
   const [isMounted, setIsMounted] = useState(false)
+  const router = useRouter()
 
   // Handle initial mount
   useEffect(() => {
@@ -25,8 +27,10 @@ export default function Home() {
     if (!isMounted) return
     if (!user) {
       setTheme('light')
+    } else {
+      router.push('/songbook')
     }
-  }, [user, setTheme, isMounted])
+  }, [user, setTheme, isMounted, router])
 
   return (
     <main className={`min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`} suppressHydrationWarning>

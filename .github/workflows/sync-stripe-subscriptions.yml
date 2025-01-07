@@ -25,9 +25,9 @@ jobs:
         
       - name: Run sync script
         env:
-          GOUDA_PROJECT_ID: ${{ secrets.GOUDA_PROJECT_ID }}
-          GOUDA_CLIENT_EMAIL: ${{ secrets.GOUDA_CLIENT_EMAIL }}
-          GOUDA_PRIVATE_KEY: ${{ secrets.GOUDA_PRIVATE_KEY }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
         run: npx tsx scripts/sync-stripe-subscriptions.ts 

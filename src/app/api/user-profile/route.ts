@@ -19,6 +19,7 @@ export async function GET() {
     const token = headersList.get('authorization')?.split('Bearer ')[1];
 
     if (!token) {
+      console.error('No authorization token provided');
       return new NextResponse(
         JSON.stringify({ 
           error: { 
@@ -30,38 +31,58 @@ export async function GET() {
       );
     }
 
-    // Verify token and get user ID
-    const decodedToken = await auth.verifyIdToken(token);
-    const userId = decodedToken.uid;
+    try {
+      // Verify token and get user ID
+      const decodedToken = await auth.verifyIdToken(token);
+      const userId = decodedToken.uid;
+      console.log('Token verified for user:', userId);
 
-    // Get user document
-    const userDoc = await db.collection('users').doc(userId).get();
-    const userData = userDoc.data();
-    
-    if (!userData) {
+      // Get user document
+      const userDoc = await db.collection('users').doc(userId).get();
+      console.log('Firestore query completed, document exists:', userDoc.exists);
+      
+      const userData = userDoc.data();
+      
+      if (!userData) {
+        console.error('No user data found for ID:', userId);
+        return new NextResponse(
+          JSON.stringify({ 
+            error: { 
+              message: 'User data not found',
+              details: 'No user profile exists for this account'
+            } 
+          }),
+          { status: 404, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+
+      return new NextResponse(
+        JSON.stringify(userData),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+
+    } catch (tokenError) {
+      console.error('Error verifying token:', tokenError);
       return new NextResponse(
         JSON.stringify({ 
           error: { 
-            message: 'User data not found',
-            details: 'No user profile exists for this account'
+            message: 'Invalid token',
+            details: tokenError instanceof Error ? tokenError.message : 'Token verification failed'
           } 
         }),
-        { status: 404, headers: { 'Content-Type': 'application/json' } }
+        { status: 401, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    return new NextResponse(
-      JSON.stringify(userData),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
-
   } catch (error: unknown) {
+    console.error('Unhandled error in user profile API:', error);
     const apiError = error as ApiError;
     return new NextResponse(
       JSON.stringify({ 
         error: { 
           message: 'Internal server error',
-          details: apiError.message || 'An unexpected error occurred'
+          details: apiError.message || 'An unexpected error occurred',
+          code: apiError.code
         } 
       }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { getAuth, sendSignInLinkToEmail } from 'firebase/auth'
+import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, onAuthStateChanged } from 'firebase/auth'
 import { app } from '@/firebase/firebase'
 import { Montserrat } from 'next/font/google'
 import { Corners } from '@/components/ui/borders'
@@ -36,6 +36,7 @@ export default function JoinPage() {
   const [emailService, setEmailService] = useState('gmail')
   const auth = getAuth(app)
   const router = useRouter()
+  const [isProcessingLink, setIsProcessingLink] = useState(false)
 
   useEffect(() => {
     setPlatform(getPlatform())
@@ -47,21 +48,54 @@ export default function JoinPage() {
   }, [email])
 
   useEffect(() => {
-    // Check if user is already logged in
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        router.push('/songbook')
+    // Check if the URL contains a sign-in link
+    if (isSignInWithEmailLink(auth, window.location.href)) {
+      setIsProcessingLink(true)
+      
+      // Get the email from localStorage
+      let emailForSignIn = window.localStorage.getItem('emailForSignIn')
+      
+      if (!emailForSignIn) {
+        // If email is not in storage, prompt user for it
+        emailForSignIn = window.prompt('Please provide your email for confirmation')
       }
-    })
 
-    return () => unsubscribe()
+      if (emailForSignIn) {
+        signInWithEmailLink(auth, emailForSignIn, window.location.href)
+          .then(() => {
+            window.localStorage.removeItem('emailForSignIn')
+            return new Promise((resolve) => {
+              const unsubscribe = onAuthStateChanged(auth, (user) => {
+                if (user) {
+                  unsubscribe()
+                  resolve(user)
+                }
+              })
+            })
+          })
+          .then(() => {
+            // Now that we're sure the auth state is updated, redirect
+            router.replace('/songbook')
+          })
+          .catch((error) => {
+            console.error('Error signing in:', error)
+            setError(error.message)
+          })
+          .finally(() => {
+            setIsProcessingLink(false)
+          })
+      } else {
+        setError('Please provide your email to complete sign in')
+        setIsProcessingLink(false)
+      }
+    }
   }, [auth, router])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       const actionCodeSettings = {
-        url: window.location.origin + '/login',
+        url: window.location.origin + '/join',
         handleCodeInApp: true
       }
 
@@ -89,7 +123,9 @@ export default function JoinPage() {
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
         <h1 className="text-3xl font-bold text-foreground mb-8">Learn Music Better</h1>
         <p className="text-foreground text-lg mb-8">Sign up for Gouda &amp; Company to get <strong>weekly group lessons</strong>, instructional videos and a helpful community.</p>
-        {emailSent ? (
+        {isProcessingLink ? (
+          <div className="text-foreground">Completing sign in...</div>
+        ) : emailSent ? (
           <div className="space-y-4">
             <Alert className="border-green-500 bg-green-50 dark:bg-green-900/10">
               <AlertDescription className="text-foreground">

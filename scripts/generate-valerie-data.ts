@@ -8,19 +8,19 @@ import type { Song } from '@/types/music/song';
 config({ path: path.resolve(process.cwd(), '.env.local') });
 
 // Initialize Firebase Admin
-const certConfig = {
-  projectId: process.env.GOUDA_PROJECT_ID,
-  clientEmail: process.env.GOUDA_CLIENT_EMAIL,
-  privateKey: process.env.GOUDA_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+const serviceAccount = {
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+  privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
 };
 
-if (!certConfig.projectId || !certConfig.clientEmail || !certConfig.privateKey) {
+if (!serviceAccount.projectId || !serviceAccount.clientEmail || !serviceAccount.privateKey) {
   console.error('Missing required Firebase credentials in .env file');
   process.exit(1);
 }
 
 admin.initializeApp({
-  credential: admin.credential.cert(certConfig as admin.ServiceAccount),
+  credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
 });
 
 const db = getFirestore();

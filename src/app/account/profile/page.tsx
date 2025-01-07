@@ -50,6 +50,14 @@ function ProfilePageContent() {
     return null
   }
 
+  const formatDate = (timestamp: string | { _seconds: number; _nanoseconds: number } | undefined) => {
+    if (!timestamp) return 'Not available'
+    if (typeof timestamp === 'object' && '_seconds' in timestamp) {
+      return new Date(timestamp._seconds * 1000).toLocaleDateString()
+    }
+    return new Date(timestamp).toLocaleDateString()
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -63,13 +71,33 @@ function ProfilePageContent() {
             <p className="mt-1">{profile.email}</p>
           </div>
           <div>
-            <h3 className="text-sm font-medium text-muted-foreground">Display Name</h3>
-            <p className="mt-1">{profile.displayName || 'Not set'}</p>
+            <h3 className="text-sm font-medium text-muted-foreground">First Name</h3>
+            <p className="mt-1">{profile.firstName || 'Not set'}</p>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-muted-foreground">Last Name</h3>
+            <p className="mt-1">{profile.lastName || 'Not set'}</p>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-muted-foreground">Telegram Username</h3>
+            <p className="mt-1">{profile.telegramUsername || 'Not set'}</p>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-muted-foreground">Phone Number</h3>
+            <p className="mt-1">{profile.phoneNumber || 'Not set'}</p>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-muted-foreground">Location</h3>
+            <p className="mt-1">{profile.location || 'Not set'}</p>
+          </div>
+          <div>
+            <h3 className="text-sm font-medium text-muted-foreground">Bio</h3>
+            <p className="mt-1">{profile.bio || 'Not set'}</p>
           </div>
           <div>
             <h3 className="text-sm font-medium text-muted-foreground">Member Since</h3>
             <p className="mt-1" suppressHydrationWarning>
-              {isMounted ? new Date(profile.createdAt).toLocaleDateString() : profile.createdAt}
+              {isMounted ? formatDate(profile.createdAt) : 'Loading...'}
             </p>
           </div>
         </div>

@@ -1,14 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth'
+import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, onAuthStateChanged } from 'firebase/auth'
 import { app } from '@/firebase/firebase'
 import { useRouter } from 'next/navigation'
 import { Montserrat } from 'next/font/google'
 import { Corners } from '@/components/ui/borders'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { useUserProfile } from '@/contexts/UserProfileContext'
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { getPlatform, getEmailService } from '@/lib/platform'
 
@@ -36,50 +35,58 @@ export default function LoginPage() {
   const [emailService, setEmailService] = useState('gmail')
   const router = useRouter()
   const auth = getAuth(app)
-  const { profile, loading } = useUserProfile()
 
   useEffect(() => {
     setPlatform(getPlatform())
   }, [])
 
-  // Update email service whenever email changes
   useEffect(() => {
     setEmailService(getEmailService(email))
   }, [email])
 
   useEffect(() => {
-    // Check if user is already logged in and redirect to songbook
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user && profile) {
-        router.push('/songbook')
-      }
-    })
-
-    return () => unsubscribe()
-  }, [auth, router, profile])
-
-  useEffect(() => {
-    // Check if the URL contains a sign-in link
     if (isSignInWithEmailLink(auth, window.location.href)) {
       setIsProcessingLink(true)
+      console.log('Processing sign-in link...')
       
-      // Get the email from localStorage
       let emailForSignIn = window.localStorage.getItem('emailForSignIn')
       
       if (!emailForSignIn) {
-        // If email is not in storage, prompt user for it
+        console.log('No email found in localStorage, prompting user...')
         emailForSignIn = window.prompt('Please provide your email for confirmation')
       }
 
       if (emailForSignIn) {
+        console.log('Attempting to sign in with email link...')
         signInWithEmailLink(auth, emailForSignIn, window.location.href)
           .then(() => {
-            // Clear the email from storage
+            console.log('Sign in successful, waiting for auth state...')
             window.localStorage.removeItem('emailForSignIn')
-            // Redirect will be handled by the first useEffect
+            return new Promise((resolve) => {
+              const unsubscribe = onAuthStateChanged(auth, (user) => {
+                if (user) {
+                  console.log('Auth state updated, user signed in')
+                  unsubscribe()
+                  resolve(user)
+                }
+              })
+            })
+          })
+          .then(() => {
+            console.log('Redirecting to songbook...')
+            router.replace('/songbook')
           })
           .catch((error) => {
+            console.error('Error signing in:', error)
+            console.error('Error details:', {
+              code: error.code,
+              message: error.message,
+              email: emailForSignIn,
+              url: window.location.href
+            })
             setError(error.message)
+          })
+          .finally(() => {
             setIsProcessingLink(false)
           })
       } else {
@@ -93,13 +100,12 @@ export default function LoginPage() {
     e.preventDefault()
     try {
       const actionCodeSettings = {
-        url: window.location.origin + '/login',
+        url: `${process.env.NEXT_PUBLIC_APP_URL}/login`,
         handleCodeInApp: true
       }
 
       await sendSignInLinkToEmail(auth, email, actionCodeSettings)
       
-      // Save the email for later use
       window.localStorage.setItem('emailForSignIn', email)
       setEmailSent(true)
       setError('')
@@ -116,14 +122,6 @@ export default function LoginPage() {
     return (
       <main className={`min-h-screen bg-background flex flex-col items-center justify-center ${montserrat.className}`}>
         <div className="text-foreground">Completing sign in...</div>
-      </main>
-    )
-  }
-
-  if (loading) {
-    return (
-      <main className={`min-h-screen bg-background flex flex-col items-center justify-center ${montserrat.className}`}>
-        <div className="text-foreground">Loading...</div>
       </main>
     )
   }

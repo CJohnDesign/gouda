@@ -7,32 +7,32 @@ import { getFirestore } from 'firebase-admin/firestore';
 config({ path: path.resolve(process.cwd(), '.env.local') });
 
 // Initialize Firebase Admin
-const certConfig = {
-  projectId: process.env.GOUDA_PROJECT_ID,
-  clientEmail: process.env.GOUDA_CLIENT_EMAIL,
-  privateKey: process.env.GOUDA_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+const serviceAccount = {
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+  privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
 };
 
-// Debug log to see what we're getting
-console.log('Environment variables loaded:', {
-  GOUDA_PROJECT_ID: process.env.GOUDA_PROJECT_ID,
-  GOUDA_CLIENT_EMAIL: process.env.GOUDA_CLIENT_EMAIL,
-  GOUDA_PRIVATE_KEY_LENGTH: process.env.GOUDA_PRIVATE_KEY?.length,
+// Debug info
+console.log('Environment variables:', {
+  FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
+  FIREBASE_CLIENT_EMAIL: process.env.FIREBASE_CLIENT_EMAIL,
+  FIREBASE_PRIVATE_KEY_LENGTH: process.env.FIREBASE_PRIVATE_KEY?.length,
 });
 
 console.log('Using Firebase config:', {
-  projectId: certConfig.projectId,
-  clientEmail: certConfig.clientEmail,
-  hasPrivateKey: !!certConfig.privateKey,
+  projectId: serviceAccount.projectId,
+  clientEmail: serviceAccount.clientEmail,
+  hasPrivateKey: !!serviceAccount.privateKey,
 });
 
-if (!certConfig.projectId || !certConfig.clientEmail || !certConfig.privateKey) {
+if (!serviceAccount.projectId || !serviceAccount.clientEmail || !serviceAccount.privateKey) {
   console.error('Missing required Firebase credentials in .env file');
   process.exit(1);
 }
 
 admin.initializeApp({
-  credential: admin.credential.cert(certConfig as admin.ServiceAccount),
+  credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
 });
 
 const db = getFirestore();

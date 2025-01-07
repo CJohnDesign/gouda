@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply transition-colors duration-200;
+  }
+  
+  .no-transitions * {
+    transition: none !important;
+  }
+
   :root {
     /* Light theme - warm beige background */
     --background: #F0E2B7 ;  /* 45 52% 83%  */

@@ -12,10 +12,18 @@ export default function AuthLayout({
 
   // Force light mode for auth pages
   useEffect(() => {
+    // Set theme without transition to avoid flash
+    document.documentElement.classList.add('no-transitions')
     setTheme('light')
+    
+    // Remove the no-transitions class after a short delay
+    const timeout = setTimeout(() => {
+      document.documentElement.classList.remove('no-transitions')
+    }, 100)
+
     return () => {
-      // Reset to system theme when leaving auth pages
-      setTheme('system')
+      clearTimeout(timeout)
+      document.documentElement.classList.remove('no-transitions')
     }
   }, [setTheme])
 

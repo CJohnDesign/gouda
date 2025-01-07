@@ -72,35 +72,36 @@ const getCardStyle = (index: number) => {
 
 export default function SongbookPage() {
   const router = useRouter()
-  const { user, loading } = useUserProfile()
+  const { user, isLoading } = useUserProfile()
   const [songs, setSongs] = useState<Song[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoadingSongs, setIsLoadingSongs] = useState(true)
 
   useEffect(() => {
     // Handle authentication check
-    if (!loading && !user) {
+    if (!isLoading && !user) {
       router.push('/')
       return
     }
 
-    // Fetch songs if user is authenticated
-    async function fetchSongs() {
-      try {
-        const songsData = await getAllSongs()
-        setSongs(songsData)
-      } catch (error) {
-        console.error('Error fetching songs:', error)
-      } finally {
-        setIsLoading(false)
+    // Fetch songs if user is authenticated and not loading
+    if (user && !isLoading) {
+      async function fetchSongs() {
+        try {
+          const songsData = await getAllSongs()
+          setSongs(songsData)
+        } catch (error) {
+          console.error('Error fetching songs:', error)
+        } finally {
+          setIsLoadingSongs(false)
+        }
       }
-    }
 
-    if (user) {
       fetchSongs()
     }
-  }, [loading, user, router])
+  }, [isLoading, user, router])
 
-  if (loading || isLoading) {
+  // Show loading state while checking auth or fetching songs
+  if (isLoading || (user && isLoadingSongs)) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <p className="text-foreground">Loading...</p>
@@ -108,7 +109,7 @@ export default function SongbookPage() {
     )
   }
    
-  // Don't render anything while redirecting
+  // Don't render anything if no user (will redirect)
   if (!user) {
     return null
   }
