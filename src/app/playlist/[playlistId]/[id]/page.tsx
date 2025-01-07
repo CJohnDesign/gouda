@@ -17,10 +17,10 @@ const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function PlaylistPage({ params }: { params: { playlistId: string } }) {
   const router = useRouter()
-  const { user, loading } = useUserProfile()
+  const { user, isLoading } = useUserProfile()
   const [playlist, setPlaylist] = useState<Playlist | null>(null)
   const [songs, setSongs] = useState<Song[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoadingData, setIsLoadingData] = useState(true)
 
   // Fetch all songs and set up playlist subscription
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function PlaylistPage({ params }: { params: { playlistId: string 
       } catch (error) {
         console.error('Error initializing playlist:', error)
       } finally {
-        setIsLoading(false)
+        setIsLoadingData(false)
       }
     }
 
@@ -91,12 +91,12 @@ export default function PlaylistPage({ params }: { params: { playlistId: string 
 
   // Handle authentication check
   useEffect(() => {
-    if (!loading && !user) {
+    if (!isLoading && !user) {
       router.push('/')
     }
-  }, [loading, user, router])
+  }, [isLoading, user, router])
 
-  if (loading || isLoading) {
+  if (isLoading || isLoadingData) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <p className="text-foreground">Loading...</p>
@@ -140,7 +140,6 @@ export default function PlaylistPage({ params }: { params: { playlistId: string 
         {/* Songs List */}
         <PlaylistSongs
           playlistId={playlist.id}
-          userId={user.uid}
           songs={songs}
         />
       </div>

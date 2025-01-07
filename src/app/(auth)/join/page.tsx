@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, getAdditionalUserInfo } from 'firebase/auth'
 import { app } from '@/firebase/firebase'
+import { FirebaseError } from 'firebase/app'
 import { Montserrat } from 'next/font/google'
 import { Corners } from '@/components/ui/borders'
 import { Input } from '@/components/ui/input'
@@ -115,15 +116,19 @@ export default function JoinPage() {
       window.localStorage.setItem('emailForSignIn', email)
       setEmailSent(true)
       setError('')
-    } catch (error: any) { // Firebase errors have a code property
+    } catch (error) {
       console.error('Error sending magic link:', error)
       // Handle specific error codes
-      if (error?.code === 'auth/invalid-email') {
-        setError('Please enter a valid email address.')
-      } else if (error?.code === 'auth/unauthorized-domain') {
-        setError('This domain is not authorized for email sign-in.')
+      if (error instanceof FirebaseError) {
+        if (error.code === 'auth/invalid-email') {
+          setError('Please enter a valid email address.')
+        } else if (error.code === 'auth/unauthorized-domain') {
+          setError('This domain is not authorized for email sign-in.')
+        } else {
+          setError(error.message)
+        }
       } else {
-        setError(error instanceof Error ? error.message : 'An unexpected error occurred')
+        setError('An unexpected error occurred')
       }
     }
   }

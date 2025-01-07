@@ -4,7 +4,6 @@ import { createContext, useContext, useEffect, useState, useCallback, useRef } f
 import { User, onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@/firebase/client'
 import { db } from '@/firebase/firebase'
-import analytics from '@/lib/analytics'
 import { usePathname } from 'next/navigation'
 import { doc, onSnapshot } from 'firebase/firestore'
 
@@ -131,11 +130,10 @@ export function UserProfileProvider({ children }: { children: React.ReactNode })
       const unsubscribe = onSnapshot(userRef, (doc) => {
         if (doc.exists()) {
           const userData = doc.data()
-          // Update profile without changing isDarkMode
+          // Update profile
           setProfile(prev => {
             if (!prev) return null
-            const { isDarkMode, ...rest } = userData
-            return { ...prev, ...rest }
+            return { ...prev, ...userData }
           })
         }
       })

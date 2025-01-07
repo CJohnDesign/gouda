@@ -12,7 +12,6 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { getAllSongs } from '@/lib/firestore/songs'
 import { addSongToPlaylist, removeSongFromPlaylist, subscribeToPlaylist, updatePlaylist, deletePlaylist } from '@/lib/firestore/playlists'
-import { deleteField } from 'firebase/firestore'
 import {
   DndContext,
   closestCenter,

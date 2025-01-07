@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { getPlatform, getEmailService } from '@/lib/platform'
+import { FirebaseError } from 'firebase/app'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -114,15 +115,19 @@ export default function LoginPage() {
       window.localStorage.setItem('emailForSignIn', email)
       setEmailSent(true)
       setError('')
-    } catch (error: any) { // Firebase errors have a code property
+    } catch (error) {
       console.error('Error sending magic link:', error)
       // Handle specific error codes
-      if (error?.code === 'auth/invalid-email') {
-        setError('Please enter a valid email address.')
-      } else if (error?.code === 'auth/unauthorized-domain') {
-        setError('This domain is not authorized for email sign-in.')
+      if (error instanceof FirebaseError) {
+        if (error.code === 'auth/invalid-email') {
+          setError('Please enter a valid email address.')
+        } else if (error.code === 'auth/unauthorized-domain') {
+          setError('This domain is not authorized for email sign-in.')
+        } else {
+          setError(error.message)
+        }
       } else {
-        setError(error instanceof Error ? error.message : 'An unexpected error occurred')
+        setError('An unexpected error occurred')
       }
     }
   }
