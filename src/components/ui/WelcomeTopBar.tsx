@@ -15,14 +15,14 @@ function WelcomeTopBarContent() {
   if (!isNewUser || !isVisible) return null
 
   return (
-    <Alert className="rounded-none border-t-0 border-x-0">
-      <AlertDescription className="flex items-center justify-between">
-        <span>Welcome to Gouda! We&apos;re excited to have you here.</span>
+    <Alert className="rounded-none border-t-0 border-x-0 bg-primary py-1">
+      <AlertDescription className="flex items-center justify-between text-[hsl(var(--hover-foreground))] font-semibold">
+        <span>Let&apos;s Jam 🎸</span>
         <Button
           variant="ghost"
           size="icon"
           onClick={() => setIsVisible(false)}
-          className="h-4 w-4"
+          className="h-4 w-4 text-[hsl(var(--hover-foreground))] hover:text-[hsl(var(--hover-foreground))] hover:bg-primary/90"
         >
           <X className="h-4 w-4" />
         </Button>

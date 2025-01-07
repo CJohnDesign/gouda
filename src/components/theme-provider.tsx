@@ -7,9 +7,9 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="system"
-      enableSystem={true}
-      disableTransitionOnChange
+      defaultTheme="light"
+      enableSystem={false}
+      storageKey="gouda-theme"
       {...props}
     >
       {children}

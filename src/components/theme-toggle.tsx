@@ -2,19 +2,42 @@
 
 import * as React from "react"
 import { Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
+import { useUserProfile } from "@/contexts/UserProfileContext"
+import { doc, updateDoc } from "firebase/firestore"
+import { db } from "@/firebase/firebase"
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { user, profile } = useUserProfile()
   const [mounted, setMounted] = React.useState(false)
+  const [localIsDark, setLocalIsDark] = React.useState(profile?.isDarkMode ?? true)
 
-  // useEffect only runs on the client, so now we can safely show the UI
   React.useEffect(() => {
     setMounted(true)
-  }, [])
+    setLocalIsDark(profile?.isDarkMode ?? true)
+  }, [profile?.isDarkMode])
 
-  if (!mounted) {
+  const toggleTheme = React.useCallback(async () => {
+    if (!user) return
+
+    const newIsDarkMode = !localIsDark
+    setLocalIsDark(newIsDarkMode) // Update local state immediately
+    document.documentElement.classList.toggle('dark', newIsDarkMode) // Update DOM immediately
+
+    const userRef = doc(db, 'users', user.uid)
+    try {
+      await updateDoc(userRef, {
+        isDarkMode: newIsDarkMode
+      })
+    } catch (error) {
+      // Revert on error
+      setLocalIsDark(!newIsDarkMode)
+      document.documentElement.classList.toggle('dark', !newIsDarkMode)
+      console.error('Error updating theme preference:', error)
+    }
+  }, [user, localIsDark])
+
+  if (!mounted || !user) {
     return null
   }
 
@@ -22,11 +45,11 @@ export function ThemeToggle() {
     <Button
       variant="ghost"
       size="icon"
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      onClick={toggleTheme}
       className="relative h-10 w-10"
     >
-      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <Sun className={`h-[1.2rem] w-[1.2rem] transition-transform ${localIsDark ? 'rotate-90 scale-0' : 'rotate-0 scale-100'}`} />
+      <Moon className={`absolute h-[1.2rem] w-[1.2rem] transition-transform ${localIsDark ? 'rotate-0 scale-100' : 'rotate-90 scale-0'}`} />
       <span className="sr-only">Toggle theme</span>
     </Button>
   )

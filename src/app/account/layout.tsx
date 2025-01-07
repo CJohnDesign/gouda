@@ -26,7 +26,7 @@ export default function AccountLayout({
                 className={cn(
                   "flex items-center px-4 py-2 text-sm font-medium rounded-md",
                   pathname === '/account/profile'
-                    ? "bg-primary text-primary-foreground"
+                    ? "bg-primary text-primary-foreground hover:text-primary-foreground"
                     : "text-foreground hover:bg-muted"
                 )}
               >
@@ -37,7 +37,7 @@ export default function AccountLayout({
                 className={cn(
                   "flex items-center px-4 py-2 text-sm font-medium rounded-md",
                   pathname === '/account/subscription'
-                    ? "bg-primary text-primary-foreground"
+                    ? "bg-primary text-primary-foreground hover:text-primary-foreground"
                     : "text-foreground hover:bg-muted"
                 )}
               >
@@ -48,7 +48,7 @@ export default function AccountLayout({
                 className={cn(
                   "flex items-center px-4 py-2 text-sm font-medium rounded-md",
                   pathname === '/account/settings'
-                    ? "bg-primary text-primary-foreground"
+                    ? "bg-primary text-primary-foreground hover:text-primary-foreground"
                     : "text-foreground hover:bg-muted"
                 )}
               >

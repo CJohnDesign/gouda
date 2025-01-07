@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink } from 'firebase/auth'
+import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, getAdditionalUserInfo } from 'firebase/auth'
 import { app } from '@/firebase/firebase'
 import { Montserrat } from 'next/font/google'
 import { Corners } from '@/components/ui/borders'
@@ -37,6 +37,53 @@ export default function JoinPage() {
   const router = useRouter()
 
   useEffect(() => {
+    // Check if this is a sign-in with email link.
+    if (isSignInWithEmailLink(auth, window.location.href)) {
+      // Get the email if available. This should be available if the user completes
+      // the flow on the same device where they started it.
+      let email = window.localStorage.getItem('emailForSignIn');
+      if (!email) {
+        // User opened the link on a different device. To prevent session fixation
+        // attacks, ask the user to provide the associated email again.
+        email = window.prompt('Please provide your email for confirmation');
+      }
+      // Ensure we have an email before attempting sign in
+      if (email) {
+        // The client SDK will parse the code from the link for you.
+        signInWithEmailLink(auth, email, window.location.href)
+          .then((result) => {
+            // Clear email from storage.
+            window.localStorage.removeItem('emailForSignIn');
+            
+            // Use getAdditionalUserInfo to check new user status
+            const additionalInfo = getAdditionalUserInfo(result);
+            const isNewUser = additionalInfo?.isNewUser ?? false;
+            
+            // Only add newUser flag if they are actually new
+            const redirectUrl = isNewUser 
+              ? '/songbook?newUser=true'
+              : '/songbook';
+              
+            console.log('Sign in successful:', {
+              isNewUser,
+              email: result.user.email,
+              uid: result.user.uid
+            });
+            
+            // Redirect to app
+            router.push(redirectUrl);
+          })
+          .catch((error) => {
+            console.error('Error signing in with email link:', error);
+            setError('Error signing in. Please try again.');
+          });
+      } else {
+        setError('Email is required to complete sign in.');
+      }
+    }
+  }, [auth, router]);
+
+  useEffect(() => {
     setPlatform(getPlatform())
   }, [])
 
@@ -44,34 +91,22 @@ export default function JoinPage() {
     setEmailService(getEmailService(email))
   }, [email])
 
-  // Check for sign-in link
-  useEffect(() => {
-    const checkSignInLink = async () => {
-      try {
-        if (isSignInWithEmailLink(auth, window.location.href)) {
-          console.log('Detected sign-in link, redirecting to auth handler...')
-          router.push(`/auth/handler${window.location.search}`)
-        }
-      } catch (error) {
-        console.error('Error checking sign-in link:', error)
-      }
-    }
-
-    checkSignInLink()
-  }, [auth, router])
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
       console.log('Attempting to send magic link to:', email)
-      console.log('Using app URL:', process.env.NEXT_PUBLIC_APP_URL)
+      
+      // Must be absolute URL
+      const url = `${window.location.origin}/join`  // Handle auth here in the join page
+      console.log('Using callback URL:', url)
       
       const actionCodeSettings = {
-        url: `${process.env.NEXT_PUBLIC_APP_URL}/auth/handler`,
-        handleCodeInApp: true
+        // URL you want to redirect back to. The domain (www.example.com) for this
+        // URL must be in the authorized domains list in the Firebase Console.
+        url: url,
+        // This must be true for email link sign-in
+        handleCodeInApp: true,
       }
-
-      console.log('Action code settings:', actionCodeSettings)
 
       await sendSignInLinkToEmail(auth, email, actionCodeSettings)
       console.log('Magic link sent successfully')
@@ -80,9 +115,16 @@ export default function JoinPage() {
       window.localStorage.setItem('emailForSignIn', email)
       setEmailSent(true)
       setError('')
-    } catch (error) {
+    } catch (error: any) { // Firebase errors have a code property
       console.error('Error sending magic link:', error)
-      setError(error instanceof Error ? error.message : 'An unexpected error occurred')
+      // Handle specific error codes
+      if (error?.code === 'auth/invalid-email') {
+        setError('Please enter a valid email address.')
+      } else if (error?.code === 'auth/unauthorized-domain') {
+        setError('This domain is not authorized for email sign-in.')
+      } else {
+        setError(error instanceof Error ? error.message : 'An unexpected error occurred')
+      }
     }
   }
 

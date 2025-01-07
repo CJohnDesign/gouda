@@ -24,7 +24,7 @@ export function ChordSheet({ song }: ChordSheetProps) {
       <div className="max-w-4xl mx-auto space-y-16 px-2 md:px-4 lg:px-8">
         {song.structure.map((section, index) => (
           <div key={index}>
-            <h3 className="text-xs uppercase tracking-widest mb-6 text-primary">
+            <h3 className="text-xs uppercase tracking-widest mb-6 text-foreground dark:text-primary">
               {section.section}
             </h3>
             <div>

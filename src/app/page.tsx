@@ -7,6 +7,9 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useUserProfile } from '@/contexts/UserProfileContext'
 import { useRouter } from 'next/navigation'
+import { useTheme } from 'next-themes'
+import { Button } from '@/components/ui/button'
+import { Loader2 } from 'lucide-react'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -14,11 +17,13 @@ export default function Home() {
   const { user, isLoading } = useUserProfile()
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
+  const { setTheme } = useTheme()
 
-  // Handle mounting
+  // Handle mounting and force light theme
   useEffect(() => {
     setMounted(true)
-  }, [])
+    setTheme('light')
+  }, [setTheme])
 
   // Only redirect to songbook if user is logged in
   useEffect(() => {
@@ -27,14 +32,18 @@ export default function Home() {
     }
   }, [user, isLoading, router, mounted])
 
-  // Don't render anything until mounted
-  if (!mounted) {
-    return null
+  // Show loading state until mounted
+  if (!mounted || isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    )
   }
 
   // Show landing page for non-logged in users
   return (
-    <main className={`min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
+    <main className={`min-h-screen flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
         <div className="mb-8">
@@ -50,12 +59,14 @@ export default function Home() {
         <h1 className="text-3xl font-bold text-foreground mb-4">Learn Music Better</h1>
         <p className="text-foreground text-lg mb-8">Join Gouda & Company to get <strong>weekly group lessons</strong>, instructional videos and a helpful community.</p>
         <div className="space-y-4">
-          <Link 
-            href="/join" 
-            className="block w-full h-[48px] text-[21px] leading-[48px] font-bold bg-primary hover:bg-primary/90 hover:text-black text-primary-foreground rounded-md transition-colors"
+          <Button 
+            variant="filled"
+            size="lg"
+            className="w-full text-[21px] leading-[32px] font-bold"
+            asChild
           >
-            Join Now
-          </Link>
+            <Link href="/join">Join Now</Link>
+          </Button>
           
           <p className="text-[14px] text-muted-foreground">
             Already have an account? <Link href="/login" className="text-primary hover:underline">Login</Link>

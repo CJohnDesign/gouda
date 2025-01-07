@@ -49,7 +49,7 @@ export function SongProfileSidebar({
         <div className="p-6 lg:p-4 space-y-6">
           {/* Key Music Theory */}
           <div className="space-y-2">
-            <h3 className="text-xs uppercase tracking-widest mb-3 text-primary border-b border-primary/20 pb-2">
+            <h3 className="text-xs uppercase tracking-widest mb-3 text-foreground dark:text-primary border-b border-primary/20 pb-2">
               Music Theory
             </h3>
             <div className="space-y-2 text-sm">
@@ -63,7 +63,7 @@ export function SongProfileSidebar({
 
           {/* Genre */}
           <div className="space-y-2">
-            <h3 className="text-xs uppercase tracking-widest mb-3 text-primary border-b border-primary/20 pb-2">
+            <h3 className="text-xs uppercase tracking-widest mb-3 text-foreground dark:text-primary border-b border-primary/20 pb-2">
               Genre
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -77,7 +77,7 @@ export function SongProfileSidebar({
 
           {/* Mood */}
           <div className="space-y-2">
-            <h3 className="text-xs uppercase tracking-widest mb-3 text-primary border-b border-primary/20 pb-2">
+            <h3 className="text-xs uppercase tracking-widest mb-3 text-foreground dark:text-primary border-b border-primary/20 pb-2">
               Mood
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -91,7 +91,7 @@ export function SongProfileSidebar({
 
           {/* Vocal & Performance */}
           <div className="space-y-2">
-            <h3 className="text-xs uppercase tracking-widest mb-3 text-primary border-b border-primary/20 pb-2">
+            <h3 className="text-xs uppercase tracking-widest mb-3 text-foreground dark:text-primary border-b border-primary/20 pb-2">
               Vocal & Performance
             </h3>
             <div className="space-y-2 text-sm">

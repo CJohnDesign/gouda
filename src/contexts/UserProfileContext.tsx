@@ -3,8 +3,10 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { User, onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@/firebase/client'
+import { db } from '@/firebase/firebase'
 import analytics from '@/lib/analytics'
 import { usePathname } from 'next/navigation'
+import { doc, onSnapshot } from 'firebase/firestore'
 
 interface UserProfile {
   // Core identity fields
@@ -23,6 +25,7 @@ interface UserProfile {
   profilePicUrl?: string
   phoneNumber?: string
   telegramUsername?: string
+  isDarkMode?: boolean
 
   // Collections/Lists
   playlists: string[]
@@ -114,6 +117,15 @@ export function UserProfileProvider({ children }: { children: React.ReactNode })
 
       setProfile(data)
 
+      // Set up real-time listener for theme updates
+      const userRef = doc(db, 'users', user.uid)
+      const unsubscribe = onSnapshot(userRef, (doc) => {
+        if (doc.exists()) {
+          const userData = doc.data()
+          setProfile(prev => prev ? { ...prev, isDarkMode: userData.isDarkMode } : null)
+        }
+      })
+
       // Track user identification in analytics
       analytics.identify(user.uid, {
         email_domain: user.email?.split('@')[1],
@@ -124,6 +136,7 @@ export function UserProfileProvider({ children }: { children: React.ReactNode })
         metadata: data.metadata
       })
 
+      return unsubscribe
     } catch (err) {
       console.error('Error fetching user profile:', err)
       // Create a minimal profile if fetch fails
@@ -163,7 +176,10 @@ export function UserProfileProvider({ children }: { children: React.ReactNode })
         // Don't fetch profile on public routes
         if (!PUBLIC_ROUTES.includes(pathname || '')) {
           setIsLoading(true)
-          await fetchProfile(user)
+          const unsubscribeProfile = await fetchProfile(user)
+          return () => {
+            unsubscribeProfile?.()
+          }
         } else {
           setProfile(null)
           setIsLoading(false)
