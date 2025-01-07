@@ -14,7 +14,7 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="sm"
-              className="hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
+              className="hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors"
               asChild
             >
               <Link href="/songbook" className="nav-link">
@@ -36,7 +36,7 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="sm"
-              className="hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
+              className="hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors"
               asChild
             >
               <Link href="/playlists" className="nav-link">
@@ -58,7 +58,7 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="sm"
-              className="hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
+              className="hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors"
               asChild
             >
               <Link 

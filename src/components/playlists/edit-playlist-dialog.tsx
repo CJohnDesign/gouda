@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Search, Pencil, Loader2, X, Plus } from 'lucide-react'
+import { Search, Pencil, Loader2, X, Plus, Trash2 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
 import * as Tabs from '@radix-ui/react-tabs'
 import * as Select from '@radix-ui/react-select'
@@ -11,7 +12,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Switch } from '@/components/ui/switch'
 import { getAllSongs } from '@/lib/firestore/songs'
-import { addSongToPlaylist, removeSongFromPlaylist, subscribeToPlaylist, updatePlaylist } from '@/lib/firestore/playlists'
+import { addSongToPlaylist, removeSongFromPlaylist, subscribeToPlaylist, updatePlaylist, deletePlaylist } from '@/lib/firestore/playlists'
 import {
   DndContext,
   closestCenter,
@@ -39,8 +40,9 @@ interface EditPlaylistDialogProps {
 }
 
 export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPlaylistDialogProps) {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
-  const [activeTab, setActiveTab] = useState('songs')
+  const [activeTab, setActiveTab] = useState('details')
   const [songs, setSongs] = useState<Song[]>([])
   const [filteredSongs, setFilteredSongs] = useState<Song[]>([])
   const [existingSongsList, setExistingSongsList] = useState<Song[]>([])
@@ -63,8 +65,11 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
     const unsubscribe = subscribeToPlaylist(playlistId, (updatedPlaylist) => {
       if (!updatedPlaylist) return
       setPlaylist(updatedPlaylist)
-      setName(updatedPlaylist.name)
-      setDescription(updatedPlaylist.description || '')
+      // Only set initial values when opening the dialog
+      if (name === '') {
+        setName(updatedPlaylist.name)
+        setDescription(updatedPlaylist.description || '')
+      }
       setCurrentPlaylistSongs(updatedPlaylist.songs)
       
       // Update existing songs list
@@ -81,7 +86,15 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
     })
 
     return () => unsubscribe()
-  }, [open, playlistId, songs])
+  }, [open, playlistId, songs, name])
+
+  // Reset form when dialog closes
+  useEffect(() => {
+    if (!open) {
+      setName('')
+      setDescription('')
+    }
+  }, [open])
 
   // Fetch songs on mount
   useEffect(() => {
@@ -200,10 +213,21 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
         description: description || undefined
       })
       showMessage('Success', 'Playlist details updated successfully.')
-      setActiveTab('playlist')
     } catch (error) {
       console.error('Error updating playlist:', error)
       showMessage('Error', 'Failed to update playlist details.', 'error')
+    }
+  }
+
+  const handleDeletePlaylist = async () => {
+    try {
+      await deletePlaylist(playlistId)
+      setOpen(false)
+      router.push('/playlists')
+      showMessage('Success', 'Playlist deleted successfully.')
+    } catch (error) {
+      console.error('Error deleting playlist:', error)
+      showMessage('Error', 'Failed to delete playlist.', 'error')
     }
   }
 
@@ -229,7 +253,7 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
       
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/80 backdrop-blur-sm" />
-        <Dialog.Content className="fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-[90vw] max-w-[600px] bg-background rounded-lg shadow-lg p-6 border border-border">
+        <Dialog.Content className="fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-[90vw] max-w-[600px] bg-card rounded-lg shadow-lg p-6 border border-border">
           <Dialog.Title className="text-lg font-semibold mb-1 text-foreground">
             Edit Playlist
           </Dialog.Title>
@@ -241,21 +265,27 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
             <Tabs.List className="flex space-x-1 border-b border-border mb-4">
               <Tabs.Trigger
                 value="details"
-                className="px-4 py-2 text-sm font-medium data-[state=active]:border-b-2 data-[state=active]:border-primary"
+                className="px-4 py-2 text-sm text-muted-foreground data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
                 Details
               </Tabs.Trigger>
               <Tabs.Trigger
-                value="playlist"
-                className="px-4 py-2 text-sm font-medium data-[state=active]:border-b-2 data-[state=active]:border-primary"
+                value="songs"
+                className="px-4 py-2 text-sm text-muted-foreground data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
                 Playlist Songs
               </Tabs.Trigger>
               <Tabs.Trigger
                 value="library"
-                className="px-4 py-2 text-sm font-medium data-[state=active]:border-b-2 data-[state=active]:border-primary"
+                className="px-4 py-2 text-sm text-muted-foreground data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
                 Song Library
+              </Tabs.Trigger>
+              <Tabs.Trigger
+                value="delete"
+                className="px-4 py-2 text-sm text-destructive data-[state=active]:text-destructive data-[state=active]:border-b-2 data-[state=active]:border-destructive"
+              >
+                Delete
               </Tabs.Trigger>
             </Tabs.List>
 
@@ -268,6 +298,7 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Playlist name"
+                    className="bg-transparent text-card-foreground placeholder:text-muted-foreground"
                   />
                 </div>
                 <div className="grid gap-2">
@@ -277,15 +308,16 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Add an optional description"
+                    className="bg-transparent text-card-foreground placeholder:text-muted-foreground"
                   />
                 </div>
-                <Button onClick={handleUpdateDetails}>
+                <Button onClick={handleUpdateDetails} className="bg-primary text-primary-foreground hover:bg-primary/90">
                   Update Details
                 </Button>
               </div>
             </Tabs.Content>
 
-            <Tabs.Content value="playlist" className="space-y-4">
+            <Tabs.Content value="songs" className="space-y-4">
               {/* Current Songs List with Reordering */}
               <div className="border rounded-md">
                 <div className="p-4 border-b">
@@ -310,7 +342,7 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
                         <div className="divide-y">
                           {existingSongsList.map(song => (
                             <SortableItem key={song.id} id={song.id}>
-                              <div className="flex items-center gap-2 p-3 bg-card group">
+                              <div className="flex items-center gap-2 p-3 bg-transparent group">
                                 <GripVertical className="h-5 w-5 text-muted-foreground/40 group-hover:text-muted-foreground/70 transition-colors cursor-grab" />
                                 <div className="flex-1 min-w-0">
                                   <p className="font-medium truncate">{song.title}</p>
@@ -321,7 +353,7 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
                                 <Button
                                   size="sm"
                                   variant="ghost"
-                                  className="ml-2 text-destructive hover:text-destructive"
+                                  className="opacity-0 group-hover:opacity-100 transition-opacity"
                                   onClick={() => handleRemoveSong(song)}
                                   disabled={loadingStates[song.id]}
                                 >
@@ -343,88 +375,99 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
             </Tabs.Content>
 
             <Tabs.Content value="library" className="space-y-4">
-              {/* Search and Filter Controls */}
-              <div className="flex gap-2">
-                <div className="flex-1 relative">
-                  <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    placeholder="Search songs..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-8"
-                  />
-                </div>
-                <Select.Root value={genreFilter} onValueChange={setGenreFilter}>
-                  <Select.Trigger className="inline-flex items-center justify-between rounded-md px-3 py-2 text-sm bg-background border border-input hover:bg-accent hover:text-accent-foreground w-[180px]">
-                    <Select.Value placeholder="Genre" />
-                  </Select.Trigger>
-                  <Select.Portal>
-                    <Select.Content className="overflow-hidden bg-background rounded-md shadow-lg border border-border z-50">
-                      <Select.Viewport className="p-1">
-                        <Select.Item value="all" className="relative flex items-center px-8 py-2 text-sm rounded-sm data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground cursor-default">
-                          <Select.ItemText>All Genres</Select.ItemText>
-                        </Select.Item>
-                        {genres.map(genre => (
-                          <Select.Item
-                            key={genre}
-                            value={genre}
-                            className="relative flex items-center px-8 py-2 text-sm rounded-sm data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground cursor-default"
-                          >
-                            <Select.ItemText>{genre}</Select.ItemText>
+              {/* Song Library Content */}
+              <div className="space-y-4">
+                <div className="flex gap-2">
+                  <div className="flex-1">
+                    <Input
+                      type="search"
+                      placeholder="Search songs..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="bg-transparent text-card-foreground placeholder:text-muted-foreground"
+                    />
+                  </div>
+                  <Select.Root value={genreFilter} onValueChange={setGenreFilter}>
+                    <Select.Trigger className="w-[180px] bg-transparent text-card-foreground">
+                      <Select.Value placeholder="All Genres" />
+                    </Select.Trigger>
+                    <Select.Portal>
+                      <Select.Content>
+                        <Select.ScrollUpButton />
+                        <Select.Viewport>
+                          <Select.Item value="all">
+                            <Select.ItemText>All Genres</Select.ItemText>
                           </Select.Item>
-                        ))}
-                      </Select.Viewport>
-                    </Select.Content>
-                  </Select.Portal>
-                </Select.Root>
-              </div>
+                          {genres.map(genre => (
+                            <Select.Item key={genre} value={genre}>
+                              <Select.ItemText>{genre}</Select.ItemText>
+                            </Select.Item>
+                          ))}
+                        </Select.Viewport>
+                        <Select.ScrollDownButton />
+                      </Select.Content>
+                    </Select.Portal>
+                  </Select.Root>
+                </div>
 
-              {/* Available Songs List */}
-              <div className="border rounded-md">
-                <div className="p-4 border-b">
-                  <h3 className="font-medium">Available Songs</h3>
-                  <p className="text-sm text-muted-foreground">Click + to add songs to your playlist</p>
-                </div>
-                <div className="max-h-[400px] overflow-y-auto">
-                  {filteredSongs.length === 0 ? (
-                    <div className="p-4 text-center text-muted-foreground">
-                      No songs found
-                    </div>
-                  ) : (
-                    <div className="divide-y">
-                      {filteredSongs.map(song => (
-                        <div
-                          key={song.id}
-                          className={`
-                            flex items-center justify-between p-3 hover:bg-muted/50
-                            transition-all duration-300
-                            ${removedSongId === song.id ? 'animate-in fade-in slide-in-from-right' : ''}
-                          `}
-                        >
-                          <div className="flex-1 min-w-0">
-                            <p className="font-medium truncate">{song.title}</p>
-                            <p className="text-sm text-muted-foreground truncate">
-                              {song.artist} • {song.theory.key} • {song.theory.bpm} BPM
-                            </p>
-                          </div>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="ml-2"
-                            onClick={() => handleAddSong(song)}
-                            disabled={loadingStates[song.id]}
-                          >
-                            {loadingStates[song.id] ? (
-                              <Loader2 className="h-4 w-4 animate-spin" />
-                            ) : (
-                              <Plus className="h-4 w-4" />
-                            )}
-                          </Button>
+                <div className="border rounded-md">
+                  <div className="p-4 border-b">
+                    <h3 className="font-medium">Available Songs</h3>
+                    <p className="text-sm text-muted-foreground">Click + to add songs to your playlist</p>
+                  </div>
+                  <div className="max-h-[400px] overflow-y-auto divide-y">
+                    {filteredSongs.map(song => (
+                      <div
+                        key={song.id}
+                        className={`
+                          flex items-center justify-between p-3 hover:bg-muted/50
+                          transition-all duration-300
+                          ${addedSongId === song.id ? 'animate-in fade-in slide-in-from-left' : ''}
+                        `}
+                      >
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium truncate">{song.title}</p>
+                          <p className="text-sm text-muted-foreground truncate">
+                            {song.artist} • {song.theory.key} • {song.theory.bpm} BPM
+                          </p>
                         </div>
-                      ))}
-                    </div>
-                  )}
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="ml-2"
+                          onClick={() => handleAddSong(song)}
+                          disabled={loadingStates[song.id]}
+                        >
+                          {loadingStates[song.id] ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            <Plus className="h-4 w-4" />
+                          )}
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+              </div>
+            </Tabs.Content>
+
+            <Tabs.Content value="delete" className="space-y-4">
+              <div className="space-y-4 p-4 border border-destructive/20 rounded-lg bg-destructive/5">
+                <div className="flex items-center gap-2 text-destructive">
+                  <Trash2 className="h-5 w-5" />
+                  <h3 className="text-lg font-semibold">Delete Playlist</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Are you sure you want to delete this playlist? This action cannot be undone.
+                  All songs in the playlist will be removed, but they will remain in your library.
+                </p>
+                <Button
+                  variant="destructive"
+                  className="w-full"
+                  onClick={handleDeletePlaylist}
+                >
+                  Delete Playlist
+                </Button>
               </div>
             </Tabs.Content>
           </Tabs.Root>
@@ -442,7 +485,7 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
 
       {/* Toast Message */}
       {showToast && (
-        <div className={`fixed bottom-4 right-4 p-4 rounded-lg shadow-lg border border-border ${
+        <div className={`fixed bottom-4 right-4 p-4 rounded-lg shadow-lg border border-border z-[100] ${
           toastMessage.type === 'error' 
             ? 'bg-destructive text-destructive-foreground border-destructive/50' 
             : 'bg-background text-foreground'

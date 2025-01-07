@@ -1,22 +1,33 @@
 'use client'
 
 import { useState, useEffect } from "react"
-import { useParams, useRouter } from "next/navigation"
+import { useParams, useRouter, useSearchParams } from "next/navigation"
 import { getSongById } from "@/lib/firestore/songs"
 import { SongProfileSidebar } from "@/components/song-profile-sidebar"
 import { ChordSheet } from "@/components/chord-sheet"
 import { Button } from "@/components/ui/button"
-import { Music, ArrowLeft } from "lucide-react"
+import { Music, X } from "lucide-react"
 import type { Song } from "@/types/music/song"
 import { cn } from "@/lib/utils"
+import { PlaylistNavigation } from "@/components/songs/playlist-navigation"
 
 export default function SongPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [song, setSong] = useState<Partial<Song> | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const params = useParams()
   const songId = params.songId as string
+  const playlistId = searchParams.get('playlistId')
+
+  const handleClose = () => {
+    if (playlistId) {
+      router.push(`/playlist/${playlistId}`)
+    } else {
+      router.push('/songbook')
+    }
+  }
 
   const toggleSidebar = () => {
     setSidebarOpen(prev => !prev)
@@ -79,10 +90,10 @@ export default function SongPage() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-foreground hover:text-primary"
-                onClick={() => router.push('/songbook')}
+                className="text-foreground hover:text-black"
+                onClick={handleClose}
               >
-                <ArrowLeft className="h-6 w-6" />
+                <X className="h-6 w-6" />
               </Button>
               <div>
                 <h1 className="text-xl font-semibold leading-tight text-foreground">{song.title}</h1>
@@ -95,7 +106,7 @@ export default function SongPage() {
             <Button
               variant="ghost"
               size="icon"
-              className="text-foreground hover:text-primary ml-3"
+              className="text-foreground hover:text-black ml-3"
               aria-label="Toggle sidebar"
               onClick={toggleSidebar}
             >
@@ -121,10 +132,10 @@ export default function SongPage() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="text-foreground hover:text-primary"
-                  onClick={() => router.push('/songbook')}
+                  className="text-foreground hover:text-black"
+                  onClick={handleClose}
                 >
-                  <ArrowLeft className="h-6 w-6" />
+                  <X className="h-6 w-6" />
                 </Button>
                 <div className="min-w-0">
                   <h1 className="text-2xl font-semibold leading-tight truncate text-foreground">{song.title}</h1>
@@ -137,7 +148,7 @@ export default function SongPage() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-foreground hover:text-primary"
+                className="text-foreground hover:text-black"
                 aria-label="Toggle sidebar"
                 onClick={toggleSidebar}
               >
@@ -158,6 +169,9 @@ export default function SongPage() {
           onClose={() => setSidebarOpen(false)}
         />
       </div>
+
+      {/* Playlist Navigation */}
+      <PlaylistNavigation songId={songId} />
     </div>
   )
 } 

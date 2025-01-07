@@ -6,6 +6,7 @@ import { Navbar } from "@/components/ui/Navbar"
 import { useUserProfile } from '@/contexts/UserProfileContext'
 import { getUserPlaylists } from '@/lib/firestore/playlists'
 import { CreatePlaylistDialog } from '@/components/playlists/create-playlist-dialog'
+import { PlaylistCard } from '@/components/playlists/playlist-card'
 import type { Playlist } from '@/types/music/playlist'
 import { Montserrat } from 'next/font/google'
 import { Music4 } from 'lucide-react'
@@ -46,15 +47,14 @@ const getCardStyle = (index: number) => {
 }
 
 export default function PlaylistsPage() {
-  const router = useRouter()
   const { user, loading } = useUserProfile()
+  const router = useRouter()
   const [playlists, setPlaylists] = useState<Playlist[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Handle authentication check
     if (!loading && !user) {
-      router.push('/')
+      router.push('/login')
       return
     }
 
@@ -74,19 +74,14 @@ export default function PlaylistsPage() {
     if (user) {
       fetchPlaylists()
     }
-  }, [loading, user, router])
+  }, [user, loading, router])
 
-  if (loading || isLoading) {
+  if (loading || !user) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <p className="text-foreground">Loading...</p>
       </div>
     )
-  }
-   
-  // Don't render anything while redirecting
-  if (!user) {
-    return null
   }
 
   return (
@@ -96,7 +91,7 @@ export default function PlaylistsPage() {
       <div className="pt-20 z-10 max-w-6xl mx-auto px-4">
         {/* Header with Create Button */}
         <div className="flex justify-between items-center mb-8">
-          <h1 className={`text-2xl font-semibold ${montserrat.className}`}>Your Playlists</h1>
+          <h1 className={`scroll-m-20 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight ${montserrat.className}`}>Your Playlists</h1>
           <CreatePlaylistDialog />
         </div>
 
@@ -119,7 +114,7 @@ export default function PlaylistsPage() {
                     ${style.className}
                     bg-card hover:bg-muted
                     transition-all hover:scale-[1.02]
-                    overflow-hidden rounded-lg border shadow-sm
+                    shadow-sm
                   `}
                 >
                   <PlaylistCard 
@@ -133,52 +128,5 @@ export default function PlaylistsPage() {
         </div>
       </div>
     </main>
-  )
-}
-
-interface PlaylistCardProps {
-  playlist: Playlist
-  size: 'large' | 'small'
-}
-
-function PlaylistCard({ playlist, size }: PlaylistCardProps) {
-  const router = useRouter()
-  
-  return (
-    <button 
-      onClick={() => router.push(`/playlist/${playlist.id}`)}
-      className={`h-full w-full p-4 flex flex-col text-left ${montserrat.className}`}
-    >
-      {/* Visibility and Song Count */}
-      <div className="text-xs uppercase tracking-widest mb-2 text-muted-foreground">
-        {playlist.isPublic ? 'Public' : 'Private'} • {playlist.songs.length} songs
-      </div>
-
-      {/* Title */}
-      <div className="mb-auto">
-        <h3 className={`font-mono font-normal ${size === 'large' ? 'text-xl mb-2' : 'text-base mb-1'} text-foreground`}>
-          {playlist.name}
-        </h3>
-      </div>
-      
-      {/* Description - only on large cards */}
-      {size === 'large' && playlist.description && (
-        <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
-          {playlist.description}
-        </p>
-      )}
-      
-      {/* Metadata */}
-      <div className="mt-2 space-y-1 text-sm text-muted-foreground">
-        {size === 'large' ? (
-          <>
-            <p>{playlist.likeCount} likes • {playlist.shareCount} shares</p>
-            <p>Created {formatDate(playlist.createdAt)}</p>
-          </>
-        ) : (
-          <p>Updated {formatDate(playlist.updatedAt)}</p>
-        )}
-      </div>
-    </button>
   )
 } 

@@ -16,17 +16,20 @@ interface UserProfileContextType {
   user: User | null
   profile: UserProfile | null
   signOut: () => Promise<void>
+  loading: boolean
 }
 
 const UserProfileContext = createContext<UserProfileContextType>({
   user: null,
   profile: null,
   signOut: async () => {},
+  loading: true
 })
 
 export function UserProfileProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<UserProfile | null>(null)
+  const [loading, setLoading] = useState(true)
   const auth = getAuth(app)
   const db = getFirestore(app)
 
@@ -42,6 +45,7 @@ export function UserProfileProvider({ children }: { children: React.ReactNode })
       } else {
         setProfile(null)
       }
+      setLoading(false)
     })
 
     return () => unsubscribe()
@@ -52,7 +56,7 @@ export function UserProfileProvider({ children }: { children: React.ReactNode })
   }
 
   return (
-    <UserProfileContext.Provider value={{ user, profile, signOut }}>
+    <UserProfileContext.Provider value={{ user, profile, signOut, loading }}>
       {children}
     </UserProfileContext.Provider>
   )

@@ -8,10 +8,10 @@
     --background: #F0E2B7 ;  /* 45 52% 83%  */
     --foreground: 220 13% 13%;
     
-    --card: 0 0% 100%;
-    --card-foreground: 220 13% 13%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 13% 13%;
+    --card: 220 13% 13%;
+    --card-foreground: 0 0% 100%;
+    --popover: 220 13% 13%;
+    --popover-foreground: 0 0% 100%;
     
     /* Warm gold primary */
     --primary: 42 100% 55%;
@@ -29,10 +29,13 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     
-    --border: 220 13% 13%;
-    --input: 0 0% 100%;
-    --ring: 42 100% 55%;
+    --border: 220 13% 25%;
+    --input: 220 13% 25%;
+    --ring: var(--primary);
     --radius: 0.5rem;
+
+    /* Hover states */
+    --hover-foreground: 220 13% 13%;
   }
 
   .dark {
@@ -40,7 +43,7 @@
     --background: 220 13% 8%;
     --foreground: 0 0% 100%;
     
-    /* Slightly lighter charcoal for cards */
+    /* Darker charcoal for cards */
     --card: 220 13% 13%;
     --card-foreground: 0 0% 100%;
     --popover: 220 13% 13%;
@@ -67,18 +70,17 @@
     --destructive-foreground: 0 0% 100%;
     
     /* Subtle borders */
-    --border: 220 13% 18%;
-    --input: 220 13% 13%;
-    --ring: 42 100% 55%;
+    --border: 220 13% 25%;
+    --input: 220 13% 25%;
+    --ring: var(--primary);
 
     /* Text colors */
     --text-primary: 0 0% 100%;
     --text-secondary: 40 13% 85%;
     --text-tertiary: 40 13% 65%;
 
-    /* Hover and focus states */
-    --hover: 220 13% 13%;
-    --focus: 220 13% 18%;
+    /* Hover states */
+    --hover-foreground: 220 13% 13%;
   }
 
   /* Base typography styles */
@@ -90,8 +92,13 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground antialiased border-border;
     font-family: var(--font-montserrat), system-ui, sans-serif;
+  }
+
+  /* Add default border color */
+  * {
+    @apply border-border;
   }
 
   /* Typography Scale */
@@ -144,11 +151,11 @@
 
 @layer components {
   .nav-link {
-    @apply inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary;
+    @apply inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-secondary;
   }
 
   .nav-button {
-    @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 hover:text-secondary;
   }
 }
 

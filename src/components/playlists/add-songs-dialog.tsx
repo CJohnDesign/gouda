@@ -155,7 +155,7 @@ export function AddSongsDialog({ playlistId, userId, existingSongs }: AddSongsDi
       </Dialog.Trigger>
       
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-background/80 backdrop-blur-sm" />
+        <Dialog.Overlay className="fixed inset-0 bg-black/80 backdrop-blur-sm" />
         <Dialog.Content className="fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-[90vw] max-w-[600px] bg-card rounded-lg shadow-lg p-6 border border-border">
           <Dialog.Title className="text-lg font-semibold mb-1 text-foreground">
             Manage Songs

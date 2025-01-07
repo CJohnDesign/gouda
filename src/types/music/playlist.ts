@@ -4,16 +4,26 @@ import { MetadataEntity } from '../metadata';
 export type PlaylistRole = 'owner' | 'editor' | 'viewer';
 
 // Playlist interface
-export interface Playlist extends MetadataEntity {
+export interface Playlist {
   id: string;
   name: string;
   description?: string;
   ownerId: string;
   songs: string[];  // Array of song IDs
   isPublic: boolean;
-  tags?: string[];
-  likeCount: number;
-  shareCount: number;
+  createdAt: string | null;
+  updatedAt: string | null;
+  metadata?: {
+    isPublished: boolean;
+    isFeatured: boolean;
+    isPrivate: boolean;
+    isDeleted: boolean;
+    isDraft: boolean;
+    isPending: boolean;
+    isApproved: boolean;
+    isRejected: boolean;
+    isHidden: boolean;
+  };
 }
 
 // Playlist access interface
@@ -27,5 +37,5 @@ export interface PlaylistAccess {
 export interface UserPlaylist {
   id: string;
   role: PlaylistRole;
-  addedAt: string;
+  addedAt: string | null;
 } 

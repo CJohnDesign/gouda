@@ -77,8 +77,8 @@ export function RequestSongDialog({ className }: RequestSongDialogProps) {
     <div className="flex justify-end space-x-3 md:space-x-4">
       <Button variant="outline" size="default" asChild>
         <Link href="/requested-songs" className="flex items-center">
-          <ListMusic className="h-3.5 w-3.5 md:h-4 md:w-4 md:mr-2" />
-          <span className="hidden md:inline">Requested</span>
+          <ListMusic className="h-3.5 w-3.5 md:h-4 md:w-4 md:mr-2 text-muted-foreground" />
+          <span className="hidden md:inline text-muted-foreground">Requested</span>
         </Link>
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>

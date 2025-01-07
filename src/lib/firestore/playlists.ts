@@ -8,7 +8,10 @@ import {
   Timestamp,
   FieldValue,
   onSnapshot,
-  updateDoc
+  updateDoc,
+  deleteDoc,
+  QueryDocumentSnapshot,
+  DocumentData
 } from 'firebase/firestore'
 import { db } from '@/firebase/firebase'
 import type { Playlist, PlaylistRole, UserPlaylist } from '@/types/music/playlist'
@@ -103,20 +106,27 @@ export async function createPlaylist(
 
 // Get a playlist by ID
 export async function getPlaylist(playlistId: string): Promise<Playlist | null> {
-  const playlistRef = doc(db, 'playlists', playlistId)
-  const playlistSnap = await getDoc(playlistRef)
+  try {
+    // Get the playlist document
+    const playlistRef = doc(db, 'playlists', playlistId)
+    const playlistSnap = await getDoc(playlistRef)
 
-  if (!playlistSnap.exists()) {
-    return null
+    if (!playlistSnap.exists()) {
+      return null
+    }
+
+    const data = playlistSnap.data()
+    return {
+      ...data,
+      id: playlistSnap.id,
+      createdAt: data.createdAt ? (data.createdAt as Timestamp).toDate().toISOString() : null,
+      updatedAt: data.updatedAt ? (data.updatedAt as Timestamp).toDate().toISOString() : null,
+      songs: data.songs || []
+    } as Playlist
+  } catch (error) {
+    console.error('Error getting playlist:', error)
+    throw error
   }
-
-  const data = playlistSnap.data()
-  return {
-    ...data,
-    id: playlistSnap.id,
-    createdAt: data.createdAt ? (data.createdAt as Timestamp).toDate().toISOString() : null,
-    updatedAt: data.updatedAt ? (data.updatedAt as Timestamp).toDate().toISOString() : null
-  } as Playlist
 }
 
 // Get all playlists for a user
@@ -124,29 +134,64 @@ export async function getUserPlaylists(userId: string): Promise<{
   playlist: Playlist;
   userAccess: UserPlaylist;
 }[]> {
-  // Get user's playlist references
-  const userPlaylistsRef = collection(db, `users/${userId}/playlists`)
-  const userPlaylistsSnap = await getDocs(userPlaylistsRef)
-  
-  // Get full playlist data for each reference
-  const playlists = await Promise.all(
-    userPlaylistsSnap.docs.map(async (doc) => {
-      const userAccess = {
-        ...doc.data(),
-        addedAt: (doc.data().addedAt as Timestamp).toDate().toISOString()
-      } as UserPlaylist
+  try {
+    // Get user's playlist references
+    const userPlaylistsRef = collection(db, `users/${userId}/playlists`)
+    const userPlaylistsSnap = await getDocs(userPlaylistsRef)
+    
+    // Get full playlist data for each reference
+    const playlists = await Promise.all(
+      userPlaylistsSnap.docs.map(async (docSnap: QueryDocumentSnapshot<DocumentData>) => {
+        const userAccessData = docSnap.data() as { id: string; role: string; addedAt: Timestamp }
+        const userAccess = {
+          id: userAccessData.id,
+          role: userAccessData.role,
+          addedAt: userAccessData.addedAt ? userAccessData.addedAt.toDate().toISOString() : null
+        } as UserPlaylist
 
-      const playlist = await getPlaylist(doc.data().id)
-      if (!playlist) return null
+        // Get the playlist data from the main playlists collection
+        const playlistRef = doc(db, 'playlists', userAccessData.id)
+        const playlistSnap = await getDoc(playlistRef)
 
-      return {
-        playlist,
-        userAccess
-      }
-    })
-  )
+        if (!playlistSnap.exists()) {
+          return null
+        }
 
-  return playlists.filter((p): p is NonNullable<typeof p> => p !== null)
+        const playlistData = playlistSnap.data() as {
+          name: string;
+          description: string;
+          ownerId: string;
+          isPublic: boolean;
+          songs: string[];
+          shareCount: number;
+          createdAt: Timestamp;
+          updatedAt: Timestamp;
+        }
+
+        const playlist = {
+          id: playlistSnap.id,
+          name: playlistData.name,
+          description: playlistData.description,
+          ownerId: playlistData.ownerId,
+          isPublic: playlistData.isPublic,
+          songs: playlistData.songs || [],
+          shareCount: playlistData.shareCount || 0,
+          createdAt: playlistData.createdAt ? playlistData.createdAt.toDate().toISOString() : null,
+          updatedAt: playlistData.updatedAt ? playlistData.updatedAt.toDate().toISOString() : null
+        } as Playlist
+
+        return {
+          playlist,
+          userAccess
+        }
+      })
+    )
+
+    return playlists.filter((p): p is NonNullable<typeof p> => p !== null)
+  } catch (error) {
+    console.error('Error getting user playlists:', error)
+    throw error
+  }
 }
 
 // Add a song to a playlist
@@ -300,6 +345,48 @@ export async function updatePlaylist(
     })
   } catch (error) {
     console.error('Error updating playlist:', error)
+    throw error
+  }
+}
+
+export async function deletePlaylist(playlistId: string): Promise<void> {
+  try {
+    const playlistRef = doc(db, 'playlists', playlistId)
+    const playlistSnap = await getDoc(playlistRef)
+
+    if (!playlistSnap.exists()) {
+      throw new Error('Playlist not found')
+    }
+
+    const playlist = playlistSnap.data() as Playlist
+    
+    // Delete the playlist document
+    await deleteDoc(playlistRef)
+
+    // Delete the playlist reference from the owner's playlists collection
+    const userPlaylistRef = doc(db, `users/${playlist.ownerId}/playlists/${playlistId}`)
+    await deleteDoc(userPlaylistRef)
+
+    // Delete playlist access records if they exist
+    const accessRef = collection(db, `playlistAccess/${playlistId}/users`)
+    const accessSnap = await getDocs(accessRef)
+    
+    // Delete all access records in parallel
+    await Promise.all(
+      accessSnap.docs.map(async (docSnap) => {
+        // Delete from user's playlists collection
+        const userId = docSnap.id
+        const userPlaylistRef = doc(db, `users/${userId}/playlists/${playlistId}`)
+        await deleteDoc(userPlaylistRef)
+        
+        // Delete access record
+        const accessDocRef = doc(db, `playlistAccess/${playlistId}/users/${userId}`)
+        await deleteDoc(accessDocRef)
+      })
+    )
+
+  } catch (error) {
+    console.error('Error deleting playlist:', error)
     throw error
   }
 } 

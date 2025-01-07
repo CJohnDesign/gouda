@@ -117,7 +117,7 @@ export default function PlaylistPage({ params }: { params: { playlistId: string 
         <div className="mb-8">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h1 className={`text-3xl font-semibold ${montserrat.className} mb-2`}>
+              <h1 className={`scroll-m-20 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight ${montserrat.className}`}>
                 {playlist.name}
               </h1>
               {playlist.description && (

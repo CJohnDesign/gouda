@@ -38,10 +38,10 @@ export function ProfileMenu() {
       <FounderBadge />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-            <Avatar className="h-8 w-8">
+          <Button variant="ghost" className="relative h-8 w-8 rounded-full hover:bg-transparent">
+            <Avatar className="h-8 w-8 bg-secondary">
               <AvatarImage src={profile?.avatarUrl} alt={profile?.name || user.email || 'User'} />
-              <AvatarFallback>{initials}</AvatarFallback>
+              <AvatarFallback className="bg-secondary text-secondary-foreground">{initials}</AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>

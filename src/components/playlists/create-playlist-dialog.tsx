@@ -144,18 +144,18 @@ export function CreatePlaylistDialog({ className }: CreatePlaylistDialogProps) {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button size="sm" className={`gap-2 ${className}`}>
+        <Button variant="default" size="sm" className={`gap-2 ${className}`}>
           <Plus className="h-4 w-4" />
           <span>New Playlist</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="fixed left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] w-[90vw] max-w-[600px] bg-card rounded-lg shadow-lg p-6 border border-border">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>
+            <DialogTitle className="text-lg font-semibold mb-1 text-foreground">
               {step === 'details' ? 'Create Playlist' : 'Add Songs'}
             </DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="text-sm text-muted-foreground mb-4">
               {step === 'details' 
                 ? 'Create a new playlist to organize your songs.'
                 : 'Select songs to add to your playlist.'}

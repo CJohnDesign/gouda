@@ -25,11 +25,7 @@ service cloud.firestore {
 
     // Playlists collection
     match /playlists/{playlistId} {
-      allow read: if request.auth != null && (
-        resource.data.isPublic == true || 
-        resource.data.ownerId == request.auth.uid ||
-        exists(/databases/$(database)/documents/playlistAccess/$(playlistId)/users/$(request.auth.uid))
-      );
+      allow read: if request.auth != null;
       
       allow create: if request.auth != null && 
         request.resource.data.ownerId == request.auth.uid;
