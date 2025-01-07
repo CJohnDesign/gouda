@@ -121,8 +121,8 @@ export function UserProfileProvider({ children }: { children: React.ReactNode })
         data.email = user.email || '' // Use Firebase email if profile email is missing
       }
 
-      // Ensure isDarkMode is false by default
-      data.isDarkMode = false
+      // Ensure isDarkMode is false for public routes
+      data.isDarkMode = PUBLIC_ROUTES.includes(pathname || '') ? false : (data.isDarkMode ?? false)
       setProfile(data)
 
       // Set up real-time listener for profile updates

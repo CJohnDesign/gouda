@@ -7,7 +7,6 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useUserProfile } from '@/contexts/UserProfileContext'
 import { useRouter } from 'next/navigation'
-import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 
@@ -17,13 +16,11 @@ export default function Home() {
   const { user, isLoading } = useUserProfile()
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
-  const { setTheme } = useTheme()
 
-  // Handle mounting and force light theme
+  // Handle mounting
   useEffect(() => {
     setMounted(true)
-    setTheme('light')
-  }, [setTheme])
+  }, [])
 
   // Only redirect to songbook if user is logged in
   useEffect(() => {

@@ -21,13 +21,12 @@ const montserrat = Montserrat({
 const PUBLIC_ROUTES = ['/', '/login', '/join']
 
 function RootLayoutInner({ children }: { children: React.ReactNode }) {
-  const { profile, user } = useUserProfile()
+  const { profile } = useUserProfile()
   const pathname = usePathname()
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname || '')
 
-  // Default to light for public routes when not logged in
-  // Default to dark for logged in users if isDarkMode is not set
-  const isDark = isPublicRoute && !user ? false : (profile?.isDarkMode ?? true)
+  // Always use light theme for public routes
+  const isDark = isPublicRoute ? false : (profile?.isDarkMode ?? true)
 
   return (
     <html lang="en" suppressHydrationWarning className={`${montserrat.variable} ${isDark ? 'dark' : ''}`}>

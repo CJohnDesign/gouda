@@ -144,15 +144,18 @@ export default function JoinPage() {
             <Alert className="border-green-500 bg-green-50 dark:bg-green-900/10">
               <AlertDescription className="text-foreground">
                 <div className="text-lg mb-4">
-                  Check your email!<br/>There&apos;s a link to get in!
+                  Check your email!<br/><strong>There&apos;s a link to get in!</strong>
                 </div>
                 <div className="hidden md:block">
-                  <div className="text-sm font-bold mb-2">Open your email:</div>
+                  <div className="text-sm mb-2">Open your email:</div>
                   <div className="flex gap-2 justify-center flex-wrap">
                     {EMAIL_LINKS.desktop.map((link) => (
                       <Button
                         key={link.name}
                         variant={emailService === link.service ? 'default' : 'outline'}
+                        className={emailService === link.service 
+                          ? 'bg-primary hover:bg-primary/90 text-secondary hover:text-secondary border-primary' 
+                          : 'border-secondary text-secondary hover:border-primary hover:text-primary'}
                         asChild
                       >
                         <a
@@ -173,6 +176,9 @@ export default function JoinPage() {
                       <Button
                         key={link.name}
                         variant={platform === link.platform ? 'default' : 'outline'}
+                        className={platform === link.platform 
+                          ? 'bg-primary hover:bg-primary/90 text-secondary hover:text-secondary border-primary' 
+                          : 'border-secondary text-secondary hover:border-primary hover:text-primary'}
                         asChild
                       >
                         <a href={link.url}>
@@ -203,7 +209,7 @@ export default function JoinPage() {
 
             <Button 
               type="submit"
-              className="w-full h-[48px] text-[21px] leading-[32px] font-bold bg-primary hover:bg-primary/90 text-primary-foreground"
+              className="w-full h-[48px] text-[21px] leading-[32px] font-bold bg-primary hover:bg-primary/90 text-secondary hover:text-secondary"
             >
               Join Now
             </Button>

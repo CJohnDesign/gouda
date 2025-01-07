@@ -355,7 +355,11 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
                                   size="sm"
                                   variant="ghost"
                                   className="opacity-0 group-hover:opacity-100 transition-opacity"
-                                  onClick={() => handleRemoveSong(song)}
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    handleRemoveSong(song)
+                                  }}
                                   disabled={loadingStates[song.id]}
                                 >
                                   {loadingStates[song.id] ? (
