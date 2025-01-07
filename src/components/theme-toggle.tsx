@@ -10,20 +10,26 @@ import { db } from "@/firebase/firebase"
 export function ThemeToggle() {
   const { user, profile } = useUserProfile()
   const [mounted, setMounted] = React.useState(false)
-  const [localIsDark, setLocalIsDark] = React.useState(profile?.isDarkMode ?? true)
+  const [localIsDark, setLocalIsDark] = React.useState(profile?.isDarkMode ?? false)
 
   React.useEffect(() => {
     setMounted(true)
-    setLocalIsDark(profile?.isDarkMode ?? true)
+    if (profile?.isDarkMode !== undefined) {
+      setLocalIsDark(profile.isDarkMode)
+      document.documentElement.classList.toggle('dark', profile.isDarkMode)
+    }
   }, [profile?.isDarkMode])
 
   const toggleTheme = React.useCallback(async () => {
     if (!user) return
 
     const newIsDarkMode = !localIsDark
-    setLocalIsDark(newIsDarkMode) // Update local state immediately
-    document.documentElement.classList.toggle('dark', newIsDarkMode) // Update DOM immediately
+    
+    // Update local state and DOM immediately for responsive feel
+    setLocalIsDark(newIsDarkMode)
+    document.documentElement.classList.toggle('dark', newIsDarkMode)
 
+    // Update Firestore
     const userRef = doc(db, 'users', user.uid)
     try {
       await updateDoc(userRef, {
@@ -31,9 +37,9 @@ export function ThemeToggle() {
       })
     } catch (error) {
       // Revert on error
+      console.error('Error updating theme preference:', error)
       setLocalIsDark(!newIsDarkMode)
       document.documentElement.classList.toggle('dark', !newIsDarkMode)
-      console.error('Error updating theme preference:', error)
     }
   }, [user, localIsDark])
 

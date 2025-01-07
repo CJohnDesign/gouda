@@ -52,4 +52,39 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     )
   }
+}
+
+export async function PATCH(request: NextRequest) {
+  try {
+    // Get the authorization header
+    const authHeader = request.headers.get('Authorization')
+    if (!authHeader?.startsWith('Bearer ')) {
+      return NextResponse.json(
+        { error: 'Missing or invalid authorization header' },
+        { status: 401 }
+      )
+    }
+
+    // Verify the Firebase ID token
+    const idToken = authHeader.split('Bearer ')[1]
+    const decodedToken = await adminAuth.verifyIdToken(idToken)
+    const uid = decodedToken.uid
+
+    // Get the update data from request body
+    const updateData = await request.json()
+
+    // Update the user profile in Firestore
+    await adminDb.collection('users').doc(uid).update({
+      ...updateData,
+      updatedAt: new Date().toISOString()
+    })
+
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error('Error updating user profile:', error)
+    return NextResponse.json(
+      { error: 'Failed to update profile' },
+      { status: 500 }
+    )
+  }
 } 

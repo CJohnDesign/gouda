@@ -7,14 +7,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Alert, AlertDescription } from '@/components/ui/alert'
 import { toast } from '@/components/ui/use-toast'
-import { getUserId } from '@/lib/telegram'
 
 function ProfilePageContent() {
   const router = useRouter()
   const { user, profile, isLoading, refreshProfile } = useUserProfile()
-  const [isMounted, setIsMounted] = useState(false)
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -24,11 +21,6 @@ function ProfilePageContent() {
     bio: ''
   })
   const [isSaving, setIsSaving] = useState(false)
-  const [telegramError, setTelegramError] = useState('')
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
 
   useEffect(() => {
     if (profile) {
@@ -54,30 +46,14 @@ function ProfilePageContent() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
-
-    // Clear Telegram error when username is changed
-    if (name === 'telegramUsername') {
-      setTelegramError('')
-    }
   }
 
   const handleSubmit = async () => {
     if (!user) return
 
     setIsSaving(true)
-    setTelegramError('')
 
     try {
-      // Validate Telegram username if provided
-      if (formData.telegramUsername) {
-        const userId = await getUserId(formData.telegramUsername)
-        if (!userId) {
-          setTelegramError('Please start a chat with our bot first by clicking the link above.')
-          setIsSaving(false)
-          return
-        }
-      }
-
       const token = await user.getIdToken()
       const response = await fetch('/api/user-profile', {
         method: 'PATCH',
@@ -171,20 +147,18 @@ function ProfilePageContent() {
 
           <div>
             <h3 className="text-sm font-medium text-muted-foreground mb-2">Telegram Username</h3>
-            <Input
-              name="telegramUsername"
-              value={formData.telegramUsername}
-              onChange={handleInputChange}
-              placeholder="Enter your Telegram username"
-              className="bg-transparent"
-            />
-            {telegramError && (
-              <Alert className="mt-2">
-                <AlertDescription>
-                  {telegramError}
-                </AlertDescription>
-              </Alert>
-            )}
+            <div className="flex">
+              <div className="flex items-center justify-center px-3 border border-r-0 rounded-l-md bg-muted text-muted-foreground">
+                @
+              </div>
+              <Input
+                name="telegramUsername"
+                value={formData.telegramUsername}
+                onChange={handleInputChange}
+                placeholder="Enter your Telegram username"
+                className="bg-transparent rounded-l-none"
+              />
+            </div>
           </div>
 
           <div>
@@ -219,25 +193,10 @@ function ProfilePageContent() {
               className="bg-transparent"
             />
           </div>
-
-          <div>
-            <h3 className="text-sm font-medium text-muted-foreground mb-2">Member Since</h3>
-            <p suppressHydrationWarning>
-              {isMounted ? formatDate(profile.createdAt) : 'Loading...'}
-            </p>
-          </div>
         </div>
       </CardContent>
     </Card>
   )
-}
-
-function formatDate(timestamp: string | { _seconds: number; _nanoseconds: number } | undefined) {
-  if (!timestamp) return 'Not available'
-  if (typeof timestamp === 'object' && '_seconds' in timestamp) {
-    return new Date(timestamp._seconds * 1000).toLocaleDateString()
-  }
-  return new Date(timestamp).toLocaleDateString()
 }
 
 export default function ProfilePage() {

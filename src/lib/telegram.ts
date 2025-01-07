@@ -14,8 +14,6 @@ interface TelegramUpdate {
   message?: TelegramMessage;
 }
 
-// Note: User must start a chat with the bot first by sending /start
-// Then we can get updates to find their user ID
 export async function getUserId(username: string): Promise<number | null> {
   try {
     // Get updates to find the user
@@ -33,7 +31,6 @@ export async function getUserId(username: string): Promise<number | null> {
     }
 
     const data = await response.json();
-    console.log('Updates data:', data);
 
     // Find the user in recent updates by their username
     const cleanUsername = username.replace(/^@/, '');
@@ -42,7 +39,6 @@ export async function getUserId(username: string): Promise<number | null> {
     );
 
     if (!userUpdate?.message?.from?.id) {
-      console.error('User not found in recent updates. They need to send /start to the bot first');
       return null;
     }
 
@@ -58,7 +54,6 @@ export async function inviteUserToChannel(username: string, channelId: string): 
     // Get the user's ID first
     const userId = await getUserId(username);
     if (!userId) {
-      console.error('Could not get user ID. Make sure user has started the bot with /start');
       return false;
     }
 
@@ -121,7 +116,6 @@ export async function sendWelcomeMessage(username: string): Promise<boolean> {
     // Get the user's ID first
     const userId = await getUserId(username);
     if (!userId) {
-      console.error('Could not get user ID. Make sure user has started the bot with /start');
       return false;
     }
 
