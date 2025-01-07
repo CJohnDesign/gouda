@@ -4,91 +4,94 @@ import Link from "next/link"
 import { Book, Sparkles, ExternalLink, ListMusic } from "lucide-react"
 import { Button } from "./button"
 import { ProfileMenu } from "./profile-menu"
-import { useUserProfile } from '@/contexts/UserProfileContext'
-import { FounderBadge } from './FounderBadge'
 
 export function Navbar() {
   return (
-    <nav className="h-16 bg-background border-b border-primary/30">
-      <div className="h-full max-w-6xl mx-auto px-4 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="hidden md:flex gap-2"
-            asChild
-          >
-            <Link href="/songbook">
-              <Book className="h-5 w-5" />
-              <span>Songbook</span>
-            </Link>
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            asChild
-          >
-            <Link href="/songbook">
-              <Book className="h-5 w-5" />
-              <span className="sr-only">Songbook</span>
-            </Link>
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="hidden md:flex gap-2"
-            asChild
-          >
-            <Link href="/playlists">
-              <ListMusic className="h-5 w-5" />
-              <span>Playlists</span>
-            </Link>
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            asChild
-          >
-            <Link href="/playlists">
-              <ListMusic className="h-5 w-5" />
-              <span className="sr-only">Playlists</span>
-            </Link>
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="hidden md:flex gap-2"
-            asChild
-          >
-            <Link 
-              href="https://chatgpt.com/g/g-papOU9639-harmonyquill"
-              target="_blank"
-              rel="noopener noreferrer"
+    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 items-center">
+        <div className="flex flex-1 items-center justify-between">
+          <div className="flex items-center gap-1 md:gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
+              asChild
             >
-              <Sparkles className="h-5 w-5" />
-              <span>HarmonyQuill</span>
-              <ExternalLink className="h-4 w-4" />
-            </Link>
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            asChild
-          >
-            <Link 
-              href="https://chatgpt.com/g/g-papOU9639-harmonyquill"
-              target="_blank"
-              rel="noopener noreferrer"
+              <Link href="/songbook" className="nav-link">
+                <Book className="h-4 w-4" />
+                <span>Songbook</span>
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden nav-button"
+              asChild
             >
-              <Sparkles className="h-5 w-5" />
-              <span className="sr-only">HarmonyQuill</span>
-            </Link>
-          </Button>
+              <Link href="/songbook">
+                <Book className="h-4 w-4" />
+                <span className="sr-only">Songbook</span>
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
+              asChild
+            >
+              <Link href="/playlists" className="nav-link">
+                <ListMusic className="h-4 w-4" />
+                <span>Playlists</span>
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden nav-button"
+              asChild
+            >
+              <Link href="/playlists">
+                <ListMusic className="h-4 w-4" />
+                <span className="sr-only">Playlists</span>
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary"
+              asChild
+            >
+              <Link 
+                href="https://chatgpt.com/g/g-papOU9639-harmonyquill"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-link"
+              >
+                <Sparkles className="h-4 w-4" />
+                <span>HarmonyQuill</span>
+                <ExternalLink className="h-3 w-3 opacity-70" />
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden nav-button"
+              asChild
+            >
+              <Link 
+                href="https://chatgpt.com/g/g-papOU9639-harmonyquill"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Sparkles className="h-4 w-4" />
+                <span className="sr-only">HarmonyQuill</span>
+              </Link>
+            </Button>
+          </div>
+          <div className="flex items-center justify-end">
+            <ProfileMenu />
+          </div>
         </div>
-        <ProfileMenu />
       </div>
     </nav>
   )

@@ -112,9 +112,51 @@ const config: Config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: '65ch',
+            color: 'hsl(var(--foreground))',
+            a: {
+              color: 'hsl(var(--primary))',
+              '&:hover': {
+                color: 'hsl(var(--primary-foreground))',
+              },
+            },
+            strong: {
+              color: 'hsl(var(--foreground))',
+            },
+            h1: {
+              color: 'hsl(var(--foreground))',
+              fontWeight: '800',
+            },
+            h2: {
+              color: 'hsl(var(--foreground))',
+              fontWeight: '700',
+            },
+            h3: {
+              color: 'hsl(var(--foreground))',
+              fontWeight: '600',
+            },
+            h4: {
+              color: 'hsl(var(--foreground))',
+              fontWeight: '600',
+            },
+            code: {
+              color: 'hsl(var(--foreground))',
+            },
+            blockquote: {
+              color: 'hsl(var(--muted-foreground))',
+            },
+          },
+        },
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+  ],
 } satisfies Config;
 
 export default config;

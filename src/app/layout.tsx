@@ -1,6 +1,6 @@
 import '@/app/globals.css'
 
-import { Montserrat as FontSans } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/toaster'
@@ -9,9 +9,10 @@ import { Navbar } from '@/components/ui/Navbar'
 import { Footer } from '@/components/ui/Footer'
 import { UserProfileProvider } from '@/contexts/UserProfileContext'
 
-const fontSans = FontSans({
+const montserrat = Montserrat({
   subsets: ['latin'],
-  variable: '--font-sans',
+  variable: '--font-montserrat',
+  display: 'swap',
 })
 
 export default function RootLayout({
@@ -20,14 +21,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={cn('min-h-screen bg-background font-sans antialiased', fontSans.variable)}>
+    <html lang="en" suppressHydrationWarning className={montserrat.variable}>
+      <body className={cn('bg-background font-sans antialiased')}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <UserProfileProvider>
-            <WelcomeTopBar />
-            <div className="relative flex min-h-screen flex-col">
-              <Navbar />
-              <div className="flex-1">{children}</div>
+            <div className="relative min-h-screen flex flex-col">
+              <WelcomeTopBar />
+              <main className="flex-1">
+                {children}
+              </main>
               <Footer />
             </div>
             <Toaster />
