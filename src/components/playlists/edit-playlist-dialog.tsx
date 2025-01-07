@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { getAllSongs } from '@/lib/firestore/songs'
 import { addSongToPlaylist, removeSongFromPlaylist, subscribeToPlaylist, updatePlaylist, deletePlaylist } from '@/lib/firestore/playlists'
+import { deleteField } from 'firebase/firestore'
 import {
   DndContext,
   closestCenter,
@@ -204,10 +205,13 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
     if (!playlist) return
 
     try {
-      await updatePlaylist(playlistId, {
+      const trimmedDescription = description?.trim() ?? ''
+      const updates: Partial<Playlist> = {
         name,
-        description: description || undefined
-      })
+        description: trimmedDescription
+      }
+
+      await updatePlaylist(playlistId, updates)
       showMessage('Success', 'Playlist details updated successfully.')
     } catch (error) {
       console.error('Error updating playlist:', error)
@@ -217,7 +221,7 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
 
   const handleDeletePlaylist = async () => {
     try {
-      await deletePlaylist(playlistId)
+      await deletePlaylist(playlistId, userId)
       setOpen(false)
       router.push('/playlists')
       showMessage('Success', 'Playlist deleted successfully.')
@@ -277,12 +281,14 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
               >
                 Song Library
               </Tabs.Trigger>
-              <Tabs.Trigger
-                value="delete"
-                className="px-4 py-2 text-sm text-destructive data-[state=active]:text-destructive data-[state=active]:border-b-2 data-[state=active]:border-destructive"
-              >
-                Delete
-              </Tabs.Trigger>
+              {playlist?.ownerId === userId ? (
+                <Tabs.Trigger
+                  value="delete"
+                  className="px-4 py-2 text-sm text-destructive data-[state=active]:text-destructive data-[state=active]:border-b-2 data-[state=active]:border-destructive"
+                >
+                  Delete
+                </Tabs.Trigger>
+              ) : null}
             </Tabs.List>
 
             <Tabs.Content value="details" className="space-y-4">
@@ -447,25 +453,27 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
               </div>
             </Tabs.Content>
 
-            <Tabs.Content value="delete" className="space-y-4">
-              <div className="space-y-4 p-4 border border-destructive/20 rounded-lg bg-destructive/5">
-                <div className="flex items-center gap-2 text-destructive">
-                  <Trash2 className="h-5 w-5" />
-                  <h3 className="text-lg font-semibold">Delete Playlist</h3>
+            {playlist?.ownerId === userId ? (
+              <Tabs.Content value="delete" className="space-y-4">
+                <div className="space-y-4 p-4 border border-destructive/20 rounded-lg bg-destructive/5">
+                  <div className="flex items-center gap-2 text-destructive">
+                    <Trash2 className="h-5 w-5" />
+                    <h3 className="text-lg font-semibold">Delete Playlist</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Are you sure you want to delete this playlist? This action cannot be undone.
+                    All songs in the playlist will be removed, but they will remain in your library.
+                  </p>
+                  <Button
+                    variant="destructive"
+                    className="w-full"
+                    onClick={handleDeletePlaylist}
+                  >
+                    Delete Playlist
+                  </Button>
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  Are you sure you want to delete this playlist? This action cannot be undone.
-                  All songs in the playlist will be removed, but they will remain in your library.
-                </p>
-                <Button
-                  variant="destructive"
-                  className="w-full"
-                  onClick={handleDeletePlaylist}
-                >
-                  Delete Playlist
-                </Button>
-              </div>
-            </Tabs.Content>
+              </Tabs.Content>
+            ) : null}
           </Tabs.Root>
 
           <Dialog.Close asChild>

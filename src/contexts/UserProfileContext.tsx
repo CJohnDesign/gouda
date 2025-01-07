@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState, useCallback } from 'react'
+import { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react'
 import { User, onAuthStateChanged } from 'firebase/auth'
 import { auth } from '@/firebase/client'
 import { db } from '@/firebase/firebase'
@@ -87,9 +87,16 @@ export function UserProfileProvider({ children }: { children: React.ReactNode })
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
   const pathname = usePathname()
+  const themeUnsubscribeRef = useRef<(() => void) | null>(null)
 
   const fetchProfile = useCallback(async (user: User) => {
     try {
+      // Clean up any existing theme listener
+      if (themeUnsubscribeRef.current) {
+        themeUnsubscribeRef.current()
+        themeUnsubscribeRef.current = null
+      }
+
       // Don't fetch profile on public routes
       if (PUBLIC_ROUTES.includes(pathname || '')) {
         setProfile(null)
@@ -115,28 +122,27 @@ export function UserProfileProvider({ children }: { children: React.ReactNode })
         data.email = user.email || '' // Use Firebase email if profile email is missing
       }
 
+      // Ensure isDarkMode is false by default
+      data.isDarkMode = false
       setProfile(data)
 
-      // Set up real-time listener for theme updates
+      // Set up real-time listener for profile updates
       const userRef = doc(db, 'users', user.uid)
       const unsubscribe = onSnapshot(userRef, (doc) => {
         if (doc.exists()) {
           const userData = doc.data()
-          setProfile(prev => prev ? { ...prev, isDarkMode: userData.isDarkMode } : null)
+          // Update profile without changing isDarkMode
+          setProfile(prev => {
+            if (!prev) return null
+            const { isDarkMode, ...rest } = userData
+            return { ...prev, ...rest }
+          })
         }
       })
 
-      // Track user identification in analytics
-      analytics.identify(user.uid, {
-        email_domain: user.email?.split('@')[1],
-        subscription_status: data.subscriptionStatus || 'Unpaid',
-        display_name: data.name,
-        created_at: data.createdAt,
-        location: data.location,
-        metadata: data.metadata
-      })
+      // Store the unsubscribe function
+      themeUnsubscribeRef.current = unsubscribe
 
-      return unsubscribe
     } catch (err) {
       console.error('Error fetching user profile:', err)
       // Create a minimal profile if fetch fails
@@ -176,21 +182,30 @@ export function UserProfileProvider({ children }: { children: React.ReactNode })
         // Don't fetch profile on public routes
         if (!PUBLIC_ROUTES.includes(pathname || '')) {
           setIsLoading(true)
-          const unsubscribeProfile = await fetchProfile(user)
-          return () => {
-            unsubscribeProfile?.()
-          }
+          await fetchProfile(user)
         } else {
           setProfile(null)
           setIsLoading(false)
         }
       } else {
+        // Clean up any existing theme listener when user signs out
+        if (themeUnsubscribeRef.current) {
+          themeUnsubscribeRef.current()
+          themeUnsubscribeRef.current = null
+        }
         setProfile(null)
         setIsLoading(false)
       }
     })
 
-    return () => unsubscribe()
+    return () => {
+      // Clean up auth listener and theme listener
+      unsubscribe()
+      if (themeUnsubscribeRef.current) {
+        themeUnsubscribeRef.current()
+        themeUnsubscribeRef.current = null
+      }
+    }
   }, [pathname, fetchProfile])
 
   const refreshProfile = async () => {

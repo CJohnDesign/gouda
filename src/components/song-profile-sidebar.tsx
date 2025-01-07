@@ -27,7 +27,7 @@ export function SongProfileSidebar({
         "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
         "sm:bg-background sm:backdrop-blur-none",
         // Border and transform
-        "transform transition-transform duration-300 ease-in-out border-l border-primary/30",
+        "transform transition-transform duration-300 ease-in-out border-l border-foreground/20 dark:border-primary/30",
         // Slide transform for all screen sizes
         !isOpen ? "translate-x-full" : "translate-x-0"
       )}

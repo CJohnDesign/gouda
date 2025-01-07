@@ -16,9 +16,10 @@
     --background: 45 52% 83%;
     --foreground: 220 13% 13%;
     
-    --card: 0 0% 100%;
+    /* Slightly lighter than background for contrast */
+    --card: 45 52% 88%;
     --card-foreground: 220 13% 13%;
-    --popover: 0 0% 100%;
+    --popover: 45 52% 88%;
     --popover-foreground: 220 13% 13%;
     
     /* Warm gold primary */
@@ -28,7 +29,8 @@
     --secondary: 220 13% 13%;
     --secondary-foreground: 40 33% 93%;
     
-    --muted: 40 20% 85%;
+    /* Hover states with more contrast */
+    --muted: 40 20% 90%;
     --muted-foreground: 220 13% 35%;
     
     --accent: 42 100% 55%;

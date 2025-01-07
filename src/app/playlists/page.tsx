@@ -79,7 +79,7 @@ export default function PlaylistsPage() {
     <main className="min-h-screen bg-background">
       <Navbar />
       
-      <div className="pt-20 z-10 max-w-6xl mx-auto px-4">
+      <div className="container pt-16 pb-20 space-y-2">
         {/* Header with Create Button */}
         <div className="flex justify-between items-center mb-8">
           <h1 className={`scroll-m-20 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight ${montserrat.className}`}>Your Playlists</h1>

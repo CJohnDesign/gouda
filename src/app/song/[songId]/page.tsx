@@ -83,7 +83,7 @@ function SongPageContent() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Mobile Header */}
-      <header className="lg:hidden bg-background border-b-[0.75px] border-primary/30">
+      <header className="lg:hidden bg-background border-b-[0.75px] border-foreground/20 dark:border-primary/30">
         <div className="px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -126,7 +126,7 @@ function SongPageContent() {
           sidebarOpen && "lg:mr-64"
         )}>
           {/* Desktop Header */}
-          <header className="hidden lg:block px-6 py-4 border-b-[0.75px] border-primary/30">
+          <header className="hidden lg:block px-6 py-4 border-b-[0.75px] border-foreground/20 dark:border-primary/30">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Button

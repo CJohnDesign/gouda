@@ -11,6 +11,9 @@ export interface Playlist {
   isPublic: boolean;
   createdAt: string | null;
   updatedAt: string | null;
+  tags?: string[];
+  likeCount?: number;
+  shareCount?: number;
   metadata?: {
     isPublished: boolean;
     isFeatured: boolean;

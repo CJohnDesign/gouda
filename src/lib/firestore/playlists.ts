@@ -349,7 +349,7 @@ export async function updatePlaylist(
   }
 }
 
-export async function deletePlaylist(playlistId: string): Promise<void> {
+export async function deletePlaylist(playlistId: string, userId: string): Promise<void> {
   try {
     const playlistRef = doc(db, 'playlists', playlistId)
     const playlistSnap = await getDoc(playlistRef)
@@ -360,14 +360,12 @@ export async function deletePlaylist(playlistId: string): Promise<void> {
 
     const playlist = playlistSnap.data() as Playlist
     
-    // Delete the playlist document
-    await deleteDoc(playlistRef)
+    // Verify ownership
+    if (playlist.ownerId !== userId) {
+      throw new Error('Unauthorized: Only the owner can delete this playlist')
+    }
 
-    // Delete the playlist reference from the owner's playlists collection
-    const userPlaylistRef = doc(db, `users/${playlist.ownerId}/playlists/${playlistId}`)
-    await deleteDoc(userPlaylistRef)
-
-    // Delete playlist access records if they exist
+    // First, delete all access records if they exist
     const accessRef = collection(db, `playlistAccess/${playlistId}/users`)
     const accessSnap = await getDocs(accessRef)
     
@@ -384,6 +382,13 @@ export async function deletePlaylist(playlistId: string): Promise<void> {
         await deleteDoc(accessDocRef)
       })
     )
+
+    // Then delete the playlist reference from the owner's playlists collection
+    const ownerPlaylistRef = doc(db, `users/${playlist.ownerId}/playlists/${playlistId}`)
+    await deleteDoc(ownerPlaylistRef)
+
+    // Finally delete the main playlist document
+    await deleteDoc(playlistRef)
 
   } catch (error) {
     console.error('Error deleting playlist:', error)

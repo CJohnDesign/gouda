@@ -40,11 +40,17 @@ export async function POST(request: Request) {
           
           await db.collection('users').doc(userId).update({
             isSubscribed: subscription.status === 'active',
-            subscriptionStatus: subscription.status,
+            subscriptionStatus: subscription.status === 'active' ? 'Active' : 'Unpaid',
             subscriptionId: subscription.id,
             stripeCustomerId: subscription.customer as string,
             currentPeriodEnd: new Date(subscription.current_period_end * 1000).toISOString(),
             cancelAtPeriodEnd: subscription.cancel_at_period_end,
+            stripeBillingDetails: {
+              address: session.customer_details?.address || {},
+              email: session.customer_details?.email,
+              name: session.customer_details?.name,
+              phone: session.customer_details?.phone
+            },
             updatedAt: new Date().toISOString()
           });
           console.log('Updated user subscription status:', userId);
@@ -64,11 +70,20 @@ export async function POST(request: Request) {
           const userId = usersSnapshot.docs[0].id;
           console.log('Subscription updated for user:', userId);
 
+          // Get customer details
+          const customer = await stripe.customers.retrieve(subscription.customer as string);
+          
           await db.collection('users').doc(userId).update({
             isSubscribed: subscription.status === 'active',
-            subscriptionStatus: subscription.status,
+            subscriptionStatus: subscription.status === 'active' ? 'Active' : 'Unpaid',
             currentPeriodEnd: new Date(subscription.current_period_end * 1000).toISOString(),
             cancelAtPeriodEnd: subscription.cancel_at_period_end,
+            stripeBillingDetails: {
+              address: (customer as Stripe.Customer).address || {},
+              email: (customer as Stripe.Customer).email,
+              name: (customer as Stripe.Customer).name,
+              phone: (customer as Stripe.Customer).phone
+            },
             updatedAt: new Date().toISOString()
           });
           console.log('Updated subscription status:', subscription.status);
@@ -90,7 +105,7 @@ export async function POST(request: Request) {
 
           await db.collection('users').doc(userId).update({
             isSubscribed: false,
-            subscriptionStatus: 'canceled',
+            subscriptionStatus: 'Cancelled',
             currentPeriodEnd: new Date(subscription.current_period_end * 1000).toISOString(),
             cancelAtPeriodEnd: false,
             updatedAt: new Date().toISOString()

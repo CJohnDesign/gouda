@@ -30,20 +30,18 @@ service cloud.firestore {
       allow create: if request.auth != null && 
         request.resource.data.ownerId == request.auth.uid;
       
-      allow update: if request.auth != null && (
-        resource.data.ownerId == request.auth.uid ||
-        (exists(/databases/$(database)/documents/playlistAccess/$(playlistId)/users/$(request.auth.uid)) &&
-         get(/databases/$(database)/documents/playlistAccess/$(playlistId)/users/$(request.auth.uid)).data.role == 'editor')
-      ) && request.resource.data.ownerId == resource.data.ownerId;
+      // Any authenticated user can update playlists
+      allow update: if request.auth != null && 
+        request.resource.data.ownerId == resource.data.ownerId;
       
+      // Only owner can delete
       allow delete: if request.auth != null && 
         resource.data.ownerId == request.auth.uid;
     }
 
     // User's playlists subcollection
     match /users/{userId}/playlists/{playlistId} {
-      allow read: if request.auth != null && request.auth.uid == userId;
-      allow write: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if request.auth != null;
     }
 
     // User's profile
@@ -61,12 +59,15 @@ service cloud.firestore {
 
     // Playlist access collection
     match /playlistAccess/{playlistId}/users/{userId} {
-      allow read: if request.auth != null && (
-        request.auth.uid == userId ||
-        get(/databases/$(database)/documents/playlists/$(playlistId)).data.ownerId == request.auth.uid
-      );
-      
-      allow write: if request.auth != null && 
+      allow read, write: if request.auth != null;
+      allow delete: if request.auth != null;
+    }
+
+    // Allow deleting the entire playlistAccess collection and its subcollections
+    match /playlistAccess/{playlistId}/{document=**} {
+      allow read, write: if request.auth != null;
+      allow delete: if request.auth != null &&
+        exists(/databases/$(database)/documents/playlists/$(playlistId)) &&
         get(/databases/$(database)/documents/playlists/$(playlistId)).data.ownerId == request.auth.uid;
     }
 

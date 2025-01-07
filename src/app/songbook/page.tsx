@@ -118,18 +118,18 @@ export default function SongbookPage() {
     <main className="min-h-screen bg-background">
       <Navbar />
       
-      <div className="container py-20">
-        <div className="flex flex-row justify-between space-y-4 md:space-y-0 mb-8 w-full">
-          <div className="flex flex-col justify-end mb-[-6px]">
+      <div className="container pt-16 pb-20 space-y-2">
+        <div className="flex flex-row justify-between items-end mb-8">
+          <div>
             <h1 className={`scroll-m-20 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight ${montserrat.className}`}>
               Songbook
             </h1>
           </div>
-          <div className="flex justify-end">
+          <div>
             <RequestSongDialog />
           </div>
         </div>
-        <div className="grid grid-cols-12 sm:grid-cols-16 md:grid-cols-24 lg:grid-cols-24 auto-rows-[50px] gap-4 grid-flow-dense justify-center">
+        <div className="grid grid-cols-12 sm:grid-cols-16 md:grid-cols-24 lg:grid-cols-24 auto-rows-[50px] gap-2 grid-flow-dense justify-center">
           {songs.map((song, index) => {
             const style = getCardStyle(index)
             

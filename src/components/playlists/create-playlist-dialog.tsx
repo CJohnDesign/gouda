@@ -28,6 +28,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import type { Song } from '@/types/music/song'
+import { doc, updateDoc, serverTimestamp } from 'firebase/firestore'
+import { db } from '@/firebase/firebase'
 
 interface CreatePlaylistDialogProps {
   className?: string
@@ -104,12 +106,23 @@ export function CreatePlaylistDialog({ className }: CreatePlaylistDialogProps) {
         ...(description.trim() && { description: description.trim() }) // Only include description if it exists
       }
 
+      // Create the playlist
       const playlistId = await createPlaylist(
         user.uid,
         playlistData.name,
         playlistData.description,
         playlistData.isPublic
       )
+
+      // Update the playlist with selected songs
+      if (selectedSongs.length > 0) {
+        const playlistRef = doc(db, 'playlists', playlistId)
+        await updateDoc(playlistRef, {
+          songs: selectedSongs,
+          updatedAt: serverTimestamp()
+        })
+      }
+
       setOpen(false)
       router.push(`/playlist/${playlistId}`)
     } catch (error) {

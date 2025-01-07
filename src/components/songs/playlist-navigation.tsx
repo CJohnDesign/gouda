@@ -38,7 +38,7 @@ function PlaylistNavigationContent({ playlistId }: PlaylistNavigationProps) {
   const totalSongs = playlist?.songs?.length || 0
 
   return (
-    <div className="bg-background/80 backdrop-blur-sm border border-border rounded-full px-4 py-2 flex items-center gap-4 min-w-[300px]">
+    <div className="bg-card backdrop-blur-sm border border-border rounded-full px-4 py-2 flex items-center gap-4 min-w-[300px]">
       <Button
         variant="ghost"
         size="icon"
@@ -71,7 +71,7 @@ function PlaylistNavigationContent({ playlistId }: PlaylistNavigationProps) {
 export function PlaylistNavigation(props: PlaylistNavigationProps) {
   return (
     <Suspense fallback={
-      <div className="bg-background/80 backdrop-blur-sm border border-border rounded-full px-4 py-2 flex items-center gap-4 min-w-[300px]">
+      <div className="bg-card backdrop-blur-sm border border-border rounded-full px-4 py-2 flex items-center gap-4 min-w-[300px]">
         <Button variant="ghost" size="icon" disabled className="text-foreground">
           <ChevronLeft className="h-4 w-4" />
         </Button>

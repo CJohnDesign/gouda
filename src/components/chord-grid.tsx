@@ -53,8 +53,8 @@ export function ChordGrid({ chords }: ChordGridProps) {
               key={colIndex} 
               className={`
                 bg-background p-4 flex items-center justify-center h-16
-                ${colIndex > 0 ? 'border-l border-muted-foreground/30 dark:border-primary/30' : ''}
-                ${rowIndex > 0 ? 'border-t border-muted-foreground/30 dark:border-primary/30' : ''}
+                ${colIndex > 0 ? 'border-l border-foreground/20 dark:border-primary/30' : ''}
+                ${rowIndex > 0 ? 'border-t border-foreground/20 dark:border-primary/30' : ''}
                 transition-all
               `}
             >
@@ -73,8 +73,8 @@ export function ChordGrid({ chords }: ChordGridProps) {
               key={`empty-${i}`} 
               className={`
                 bg-background p-4 flex items-center justify-center h-16
-                ${row.length + i > 0 ? 'border-l border-muted-foreground/30 dark:border-primary/30' : ''}
-                ${rowIndex > 0 ? 'border-t border-muted-foreground/30 dark:border-primary/30' : ''}
+                ${row.length + i > 0 ? 'border-l border-foreground/20 dark:border-primary/30' : ''}
+                ${rowIndex > 0 ? 'border-t border-foreground/20 dark:border-primary/30' : ''}
               `}
             />
           ))}
