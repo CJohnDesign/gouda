@@ -5,7 +5,7 @@ import { Corners } from '@/components/ui/borders'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useUserProfile } from '@/contexts/UserProfileContext'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
@@ -13,15 +13,23 @@ const montserrat = Montserrat({ subsets: ['latin'] })
 export default function Home() {
   const { setTheme } = useTheme()
   const { user } = useUserProfile()
+  const [isMounted, setIsMounted] = useState(false)
 
+  // Handle initial mount
   useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  // Handle theme changes after hydration
+  useEffect(() => {
+    if (!isMounted) return
     if (!user) {
       setTheme('light')
     }
-  }, [user, setTheme])
+  }, [user, setTheme, isMounted])
 
   return (
-    <main className={`min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
+    <main className={`min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`} suppressHydrationWarning>
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
         <div className="mb-8">
@@ -39,7 +47,7 @@ export default function Home() {
         <div className="space-y-4">
           <Link 
             href="/join" 
-            className="block w-full h-[48px] text-[21px] leading-[48px] font-bold bg-primary hover:bg-primary/90 text-primary-foreground rounded-md transition-colors"
+            className="block w-full h-[48px] text-[21px] leading-[48px] font-bold bg-primary hover:bg-primary/90 hover:text-black text-primary-foreground rounded-md transition-colors"
           >
             Join Now
           </Link>

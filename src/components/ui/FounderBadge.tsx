@@ -1,7 +1,6 @@
 'use client'
 
 import { useUserProfile } from '@/contexts/UserProfileContext'
-import { Badge } from '@/components/ui/badge'
 import { Medal } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import {

@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { getAuth } from 'firebase-admin/auth';
-import { getFirestore } from 'firebase-admin/firestore';
-import { initAdmin } from '@/firebase/admin';
+import { auth, db, initAdmin } from '@/firebase/admin';
 
 // Initialize Firebase Admin
 initAdmin();
@@ -23,7 +21,7 @@ export async function POST(request: Request) {
 
     // Verify the Firebase ID token
     const token = authHeader.split('Bearer ')[1];
-    const decodedToken = await getAuth().verifyIdToken(token);
+    const decodedToken = await auth.verifyIdToken(token);
     const userId = decodedToken.uid;
 
     // Get the request body
@@ -44,13 +42,12 @@ export async function POST(request: Request) {
     } catch (error) {
       console.error('Invalid price ID:', error);
       return NextResponse.json(
-        { error: { message: 'Invalid subscription price' } },
+        { error: { message: 'Invalid subscription price', details: error instanceof Error ? error.message : 'Unknown error' } },
         { status: 400 }
       );
     }
 
     // Get the user's Stripe customer ID from Firestore using Admin SDK
-    const db = getFirestore();
     const userDoc = await db.collection('users').doc(userId).get();
     let stripeCustomerId = userDoc.data()?.stripeCustomerId;
 
@@ -73,6 +70,7 @@ export async function POST(request: Request) {
       try {
         await stripe.customers.retrieve(stripeCustomerId);
       } catch (error) {
+        console.error('Invalid or non-existent Stripe customer:', error);
         // If the customer doesn't exist in Stripe, create a new one
         const customer = await stripe.customers.create({
           email: decodedToken.email,

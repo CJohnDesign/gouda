@@ -1,5 +1,3 @@
-import { MetadataEntity } from '../metadata';
-
 // Role type for playlist access
 export type PlaylistRole = 'owner' | 'editor' | 'viewer';
 

@@ -13,12 +13,6 @@ import { Music4 } from 'lucide-react'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
-// Format date safely
-const formatDate = (date: string | null | undefined) => {
-  if (!date) return 'Never'
-  return new Date(date).toLocaleDateString()
-}
-
 // Simpler card style system compared to songbook
 const getCardStyle = (index: number) => {
   // Featured playlist (large)
@@ -50,7 +44,6 @@ export default function PlaylistsPage() {
   const { user, loading } = useUserProfile()
   const router = useRouter()
   const [playlists, setPlaylists] = useState<Playlist[]>([])
-  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (!loading && !user) {
@@ -66,8 +59,6 @@ export default function PlaylistsPage() {
         setPlaylists(playlistsData.map(p => p.playlist))
       } catch (error) {
         console.error('Error fetching playlists:', error)
-      } finally {
-        setIsLoading(false)
       }
     }
 

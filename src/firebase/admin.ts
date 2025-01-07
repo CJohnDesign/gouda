@@ -1,8 +1,10 @@
-import { getApps, initializeApp, cert } from 'firebase-admin/app';
+import { getApps, initializeApp, cert, getApp } from 'firebase-admin/app';
+import { getAuth } from 'firebase-admin/auth';
+import { getFirestore } from 'firebase-admin/firestore';
 
-export function initAdmin() {
+function getFirebaseAdminApp() {
   if (getApps().length === 0) {
-    initializeApp({
+    return initializeApp({
       credential: cert({
         projectId: process.env.GOUDA_PROJECT_ID,
         clientEmail: process.env.GOUDA_CLIENT_EMAIL,
@@ -10,4 +12,15 @@ export function initAdmin() {
       }),
     });
   }
+  return getApp();
+}
+
+// Initialize Firebase Admin
+const app = getFirebaseAdminApp();
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+
+export function initAdmin() {
+  // This is now just a no-op since initialization is handled above
+  return;
 } 

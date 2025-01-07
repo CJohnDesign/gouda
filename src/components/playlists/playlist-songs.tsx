@@ -7,11 +7,10 @@ import { cn } from '@/lib/utils'
 
 interface PlaylistSongsProps {
   playlistId: string
-  userId: string
   songs: Song[]
 }
 
-export function PlaylistSongs({ playlistId, userId, songs }: PlaylistSongsProps) {
+export function PlaylistSongs({ playlistId, songs }: PlaylistSongsProps) {
   const router = useRouter()
   const [items, setItems] = useState<Song[]>([])
 

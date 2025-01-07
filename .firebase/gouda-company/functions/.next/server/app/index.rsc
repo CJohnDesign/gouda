@@ -1,21 +1,22 @@
 1:"$Sreact.fragment"
-2:I[7208,["2992","static/chunks/bc9e92e6-6049f0e54193fc0b.js","5882","static/chunks/b316c0d4-4bea6ffdd5cbe559.js","3142","static/chunks/3142-ee7fd22957668671.js","2734","static/chunks/2734-945249bcd7245098.js","7177","static/chunks/app/layout-7b1f4982509b30c6.js"],"ThemeProvider"]
-3:I[8834,["2992","static/chunks/bc9e92e6-6049f0e54193fc0b.js","5882","static/chunks/b316c0d4-4bea6ffdd5cbe559.js","3142","static/chunks/3142-ee7fd22957668671.js","2734","static/chunks/2734-945249bcd7245098.js","7177","static/chunks/app/layout-7b1f4982509b30c6.js"],"UserProfileProvider"]
+2:I[4547,[],"ClientSegmentRoot"]
+3:I[2694,["5882","static/chunks/b316c0d4-6cdef4294dce705a.js","1361","static/chunks/1361-3535bf0e3fe8a53b.js","1181","static/chunks/1181-6371330614dae539.js","7746","static/chunks/7746-d22e67d78a6ac001.js","8238","static/chunks/8238-1b416b84ec4505f3.js","7177","static/chunks/app/layout-975e432c4be5cbf2.js"],"default"]
 4:I[5244,[],""]
 5:I[3866,[],""]
-6:I[7033,[],"ClientPageRoot"]
-7:I[9809,["2992","static/chunks/bc9e92e6-6049f0e54193fc0b.js","5882","static/chunks/b316c0d4-4bea6ffdd5cbe559.js","3142","static/chunks/3142-ee7fd22957668671.js","2734","static/chunks/2734-945249bcd7245098.js","8173","static/chunks/8173-056491c6af4304e2.js","5565","static/chunks/5565-2023f6ac5f24bbf8.js","8974","static/chunks/app/page-78e20ac45d45b40a.js"],"default"]
-a:I[6213,[],"OutletBoundary"]
-c:I[6213,[],"MetadataBoundary"]
-e:I[6213,[],"ViewportBoundary"]
-10:I[4835,[],""]
-:HL["/_next/static/media/a34f9d1faa5f3315-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/_next/static/css/851093f8ffa23eb8.css","style"]
+6:I[5408,["1181","static/chunks/1181-6371330614dae539.js","8173","static/chunks/8173-056491c6af4304e2.js","4345","static/chunks/app/not-found-fa86573b9ff09817.js"],"default"]
+8:I[7033,[],"ClientPageRoot"]
+9:I[9809,["5882","static/chunks/b316c0d4-6cdef4294dce705a.js","1361","static/chunks/1361-3535bf0e3fe8a53b.js","8173","static/chunks/8173-056491c6af4304e2.js","5565","static/chunks/5565-2023f6ac5f24bbf8.js","8974","static/chunks/app/page-5eedc4068873c8f5.js"],"default"]
+c:I[6213,[],"OutletBoundary"]
+e:I[6213,[],"MetadataBoundary"]
+10:I[6213,[],"ViewportBoundary"]
+12:I[4835,[],""]
 :HL["/_next/static/media/4f05ba3a6752a328-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/css/e16567ffe713ed1a.css","style"]
 :HL["/_next/static/css/3f919ec4ac74427c.css","style"]
-0:{"P":null,"b":"DHx0XEwNYr3zuUU3uor73","p":"","c":["",""],"i":false,"f":[[["",{"children":["__PAGE__",{}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/851093f8ffa23eb8.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"children":["$","body",null,{"className":"__className_d65c78","children":["$","$L2",null,{"attribute":"class","defaultTheme":"light","enableSystem":true,"children":["$","$L3",null,{"children":["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[],[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]}]}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","$L6",null,{"Component":"$7","searchParams":{},"params":{},"promises":["$@8","$@9"]}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/3f919ec4ac74427c.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","$La",null,{"children":"$Lb"}]]}],{},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","qMYF_UymzvCK-xaskoqW_",{"children":[["$","$Lc",null,{"children":"$Ld"}],["$","$Le",null,{"children":"$Lf"}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]]}],false]],"m":"$undefined","G":["$10","$undefined"],"s":false,"S":true}
-8:{}
-9:{}
-f:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
-d:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"Gouda"}],["$","meta","2",{"name":"description","content":"Gouda - Your Music Community"}],["$","link","3",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"16x16"}]]
-b:null
+0:{"P":null,"b":"2oI-3GIDWK0wG19YBNuz1","p":"","c":["",""],"i":false,"f":[[["",{"children":["__PAGE__",{}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/e16567ffe713ed1a.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","$L2",null,{"Component":"$3","slots":{"children":["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[],["$","$L6",null,{}]],"forbidden":"$undefined","unauthorized":"$undefined"}]},"params":{},"promise":"$@7"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","$L8",null,{"Component":"$9","searchParams":{},"params":"$0:f:0:1:1:props:children:1:props:params","promises":["$@a","$@b"]}],[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/3f919ec4ac74427c.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","$Lc",null,{"children":"$Ld"}]]}],{},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","xg_nEYPEX0UK89ki9tE3q",{"children":[["$","$Le",null,{"children":"$Lf"}],["$","$L10",null,{"children":"$L11"}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]]}],false]],"m":"$undefined","G":["$12","$undefined"],"s":false,"S":true}
+7:{}
+a:{}
+b:{}
+11:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+f:[["$","meta","0",{"charSet":"utf-8"}],["$","link","1",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"16x16"}]]
+d:null

@@ -1,66 +1,38 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useParams, useRouter, useSearchParams } from "next/navigation"
+import { useUserProfile } from "@/contexts/UserProfileContext"
 import { getSongById } from "@/lib/firestore/songs"
-import { SongProfileSidebar } from "@/components/song-profile-sidebar"
-import { ChordSheet } from "@/components/chord-sheet"
-import { Button } from "@/components/ui/button"
-import { Music, X } from "lucide-react"
 import type { Song } from "@/types/music/song"
-import { cn } from "@/lib/utils"
 import { PlaylistNavigation } from "@/components/songs/playlist-navigation"
+import { Suspense } from "react"
+import { ChordSheet } from "@/components/chord-sheet"
+import { SongProfileSidebar } from "@/components/song-profile-sidebar"
+import { Button } from "@/components/ui/button"
+import { Music } from "lucide-react"
 
-export default function SongPage() {
-  const router = useRouter()
+function SongPageContent() {
+  const { songId } = useParams()
   const searchParams = useSearchParams()
-  const [song, setSong] = useState<Partial<Song> | null>(null)
+  const router = useRouter()
+  const { user, isLoading: userLoading } = useUserProfile()
+  const [song, setSong] = useState<Song | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const params = useParams()
-  const songId = params.songId as string
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   const playlistId = searchParams.get('playlistId')
 
-  const handleClose = () => {
-    if (playlistId) {
-      router.push(`/playlist/${playlistId}`)
-    } else {
-      router.push('/songbook')
-    }
-  }
-
-  const toggleSidebar = () => {
-    setSidebarOpen(prev => !prev)
-  }
-
-  // Close sidebar on mobile when clicking outside
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      const target = event.target as HTMLElement
-      if (window.innerWidth < 1024 && !target.closest('[data-sidebar]') && !target.closest('button')) {
-        setSidebarOpen(false)
-      }
+    // Handle authentication check
+    if (!userLoading && !user) {
+      router.push('/')
+      return
     }
 
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  // Set default sidebar state based on screen size
-  useEffect(() => {
-    function handleResize() {
-      setSidebarOpen(window.innerWidth >= 1024)
-    }
-
-    window.addEventListener('resize', handleResize)
-    handleResize() // Set initial state
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
-  useEffect(() => {
+    // Fetch song if user is authenticated
     async function fetchSong() {
       try {
-        const songData = await getSongById(songId)
+        const songData = await getSongById(songId as string)
         setSong(songData)
       } catch (error) {
         console.error('Error fetching song:', error)
@@ -69,10 +41,12 @@ export default function SongPage() {
       }
     }
 
-    fetchSong()
-  }, [songId])
+    if (user) {
+      fetchSong()
+    }
+  }, [userLoading, user, router, songId])
 
-  if (isLoading || !song) {
+  if (userLoading || isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <p className="text-foreground">Loading...</p>
@@ -80,98 +54,65 @@ export default function SongPage() {
     )
   }
 
+  // Don't render anything while redirecting
+  if (!user || !song) {
+    return null
+  }
+
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      {/* Mobile Header */}
-      <header className="lg:hidden bg-background border-b-[0.75px] border-primary/30">
-        <div className="px-4 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-foreground hover:text-black"
-                onClick={handleClose}
-              >
-                <X className="h-6 w-6" />
-              </Button>
-              <div>
-                <h1 className="text-xl font-semibold leading-tight text-foreground">{song.title}</h1>
-                <p className="text-sm text-muted-foreground">{song.artist}</p>
-                {song.featuring && song.featuring.length > 0 && (
-                  <p className="text-xs text-muted-foreground/75">feat. {song.featuring.join(', ')}</p>
-                )}
-              </div>
+    <div className="min-h-screen bg-background">
+      <div className="flex h-screen overflow-hidden">
+        {/* Main Content */}
+        <div className="flex-1 overflow-auto">
+          <div className="p-8">
+            {/* Song Header */}
+            <div className="max-w-4xl mx-auto mb-8">
+              <h1 className="text-4xl font-bold mb-2">{song.title}</h1>
+              <p className="text-xl text-muted-foreground">{song.artist}</p>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-foreground hover:text-black ml-3"
-              aria-label="Toggle sidebar"
-              onClick={toggleSidebar}
-            >
-              <Music className="h-6 w-6" />
-            </Button>
+
+            {/* Chord Sheet */}
+            <ChordSheet song={song} />
+
+            {/* Playlist Navigation */}
+            {playlistId && (
+              <div className="max-w-4xl mx-auto mt-8">
+                <PlaylistNavigation playlistId={playlistId} />
+              </div>
+            )}
           </div>
         </div>
-      </header>
 
-      <div className="flex-1 flex flex-col lg:flex-row">
-        {/* Main Content */}
-        <main className={cn(
-          "flex-1 transition-all duration-300",
-          // Expand main content when sidebar is closed
-          !sidebarOpen && "lg:mr-0",
-          // Add margin when sidebar is open
-          sidebarOpen && "lg:mr-64"
-        )}>
-          {/* Desktop Header */}
-          <header className="hidden lg:block px-6 py-4 border-b-[0.75px] border-primary/30">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-foreground hover:text-black"
-                  onClick={handleClose}
-                >
-                  <X className="h-6 w-6" />
-                </Button>
-                <div className="min-w-0">
-                  <h1 className="text-2xl font-semibold leading-tight truncate text-foreground">{song.title}</h1>
-                  <p className="text-lg text-muted-foreground truncate">{song.artist}</p>
-                  {song.featuring && song.featuring.length > 0 && (
-                    <p className="text-sm text-muted-foreground/75 truncate">feat. {song.featuring.join(', ')}</p>
-                  )}
-                </div>
-              </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-foreground hover:text-black"
-                aria-label="Toggle sidebar"
-                onClick={toggleSidebar}
-              >
-                <Music className="h-6 w-6" />
-              </Button>
-            </div>
-          </header>
-
-          <div className="px-4 py-6 lg:p-6">
-            <ChordSheet song={song} />
-          </div>
-        </main>
+        {/* Sidebar Toggle Button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="fixed top-4 right-4 z-50 lg:hidden"
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        >
+          <Music className="h-6 w-6" />
+          <span className="sr-only">Toggle sidebar</span>
+        </Button>
 
         {/* Sidebar */}
-        <SongProfileSidebar 
+        <SongProfileSidebar
+          isOpen={isSidebarOpen}
+          onClose={() => setIsSidebarOpen(false)}
           song={song}
-          isOpen={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
         />
       </div>
-
-      {/* Playlist Navigation */}
-      <PlaylistNavigation songId={songId} />
     </div>
+  )
+}
+
+export default function SongPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-foreground">Loading song details...</p>
+      </div>
+    }>
+      <SongPageContent />
+    </Suspense>
   )
 } 

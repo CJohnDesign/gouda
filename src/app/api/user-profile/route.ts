@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
-import { db, auth } from '@/firebase/admin';
+import { auth, db, initAdmin } from '@/firebase/admin';
 import { inviteUserToChannel, sendWelcomeMessage } from '@/lib/telegram';
+
+// Initialize Firebase Admin
+initAdmin();
 
 // Define error interface
 interface ApiError extends Error {

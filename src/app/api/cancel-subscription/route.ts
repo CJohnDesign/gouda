@@ -45,7 +45,7 @@ export async function POST(request: Request) {
       await stripe.customers.retrieve(stripeCustomerId)
     } catch (error) {
       return NextResponse.json(
-        { error: { message: 'Invalid Stripe customer ID' } },
+        { error: { message: 'Invalid Stripe customer ID', details: error instanceof Error ? error.message : 'Unknown error' } },
         { status: 400 }
       )
     }
@@ -65,7 +65,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Error canceling subscription:', error)
     return NextResponse.json(
-      { error: { message: 'Internal server error' } },
+      { error: { message: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' } },
       { status: 500 }
     )
   }

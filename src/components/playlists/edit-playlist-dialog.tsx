@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Search, Pencil, Loader2, X, Plus, Trash2 } from 'lucide-react'
+import { Pencil, Loader2, X, Plus, Trash2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
 import * as Tabs from '@radix-ui/react-tabs'
@@ -10,7 +10,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { Switch } from '@/components/ui/switch'
 import { getAllSongs } from '@/lib/firestore/songs'
 import { addSongToPlaylist, removeSongFromPlaylist, subscribeToPlaylist, updatePlaylist, deletePlaylist } from '@/lib/firestore/playlists'
 import {
@@ -51,7 +50,6 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
   const [loadingStates, setLoadingStates] = useState<Record<string, boolean>>({})
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState({ title: '', description: '', type: 'success' })
-  const [removedSongId, setRemovedSongId] = useState<string | null>(null)
   const [addedSongId, setAddedSongId] = useState<string | null>(null)
   const [currentPlaylistSongs, setCurrentPlaylistSongs] = useState<string[]>(existingSongs)
   const [playlist, setPlaylist] = useState<Playlist | null>(null)
@@ -170,9 +168,7 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
     setLoadingStates(prev => ({ ...prev, [song.id]: true }))
     try {
       await removeSongFromPlaylist(playlistId, song.id, userId)
-      setRemovedSongId(song.id)
       showMessage('Song Removed', `${song.title} has been removed from the playlist.`)
-      setTimeout(() => setRemovedSongId(null), 300)
     } catch (error) {
       console.error('Error removing song:', error)
       showMessage('Error', 'Failed to remove song from playlist.', 'error')

@@ -6,7 +6,6 @@ import { addDoc, collection } from 'firebase/firestore'
 import { db } from '@/firebase/firebase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
 import { ListMusic, PlusCircle } from 'lucide-react'
 import {
@@ -21,11 +20,7 @@ import {
 import type { SongRequest } from '@/types/music/song'
 import Link from 'next/link'
 
-interface RequestSongDialogProps {
-  className?: string
-}
-
-export function RequestSongDialog({ className }: RequestSongDialogProps) {
+export function RequestSongDialog() {
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState('')
   const [artist, setArtist] = useState('')

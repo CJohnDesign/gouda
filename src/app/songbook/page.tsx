@@ -7,7 +7,6 @@ import { useUserProfile } from '@/contexts/UserProfileContext'
 import { getAllSongs } from '@/lib/firestore/songs'
 import type { Song } from '@/types/music/song'
 import { Montserrat } from 'next/font/google'
-import { Button } from '@/components/ui/button'
 import { RequestSongDialog } from '@/components/songs/request-song-dialog'
 
 const montserrat = Montserrat({ subsets: ['latin'] })

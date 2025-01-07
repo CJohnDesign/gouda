@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { getAuth } from 'firebase-admin/auth';
-import { getFirestore } from 'firebase-admin/firestore';
-import { initAdmin } from '@/firebase/admin';
+import { auth, db, initAdmin } from '@/firebase/admin';
 
 // Initialize Firebase Admin
 initAdmin();
@@ -20,11 +18,10 @@ export async function POST(request: Request) {
 
     // Verify the Firebase ID token
     const token = authHeader.split('Bearer ')[1];
-    const decodedToken = await getAuth().verifyIdToken(token);
+    const decodedToken = await auth.verifyIdToken(token);
     const userId = decodedToken.uid;
 
     // Get the user's Stripe customer ID from Firestore using Admin SDK
-    const db = getFirestore();
     const userDoc = await db.collection('users').doc(userId).get();
     const stripeCustomerId = userDoc.data()?.stripeCustomerId;
 
@@ -40,7 +37,7 @@ export async function POST(request: Request) {
       await stripe.customers.retrieve(stripeCustomerId);
     } catch (error) {
       return NextResponse.json(
-        { error: { message: 'Invalid Stripe customer ID' } },
+        { error: { message: 'Invalid Stripe customer ID', details: error instanceof Error ? error.message : 'Unknown error' } },
         { status: 400 }
       );
     }

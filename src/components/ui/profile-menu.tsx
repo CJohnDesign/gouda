@@ -16,22 +16,17 @@ import { useRouter } from 'next/navigation'
 
 export function ProfileMenu() {
   const router = useRouter()
-  const { user, profile, signOut } = useUserProfile()
+  const { user, profile } = useUserProfile()
 
   if (!user) return null
 
-  const initials = profile?.name
-    ? profile.name
+  const initials = profile?.displayName
+    ? profile.displayName
         .split(' ')
-        .map((n) => n[0])
+        .map((n: string) => n[0])
         .join('')
         .toUpperCase()
     : user.email?.[0].toUpperCase() || '?'
-
-  const handleSignOut = async () => {
-    await signOut()
-    router.push('/login')
-  }
 
   return (
     <div className="flex items-center gap-2">
@@ -40,7 +35,7 @@ export function ProfileMenu() {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full hover:bg-transparent">
             <Avatar className="h-8 w-8 bg-secondary">
-              <AvatarImage src={profile?.avatarUrl} alt={profile?.name || user.email || 'User'} />
+              <AvatarImage src={profile?.photoURL || undefined} alt={profile?.displayName || user.email || 'User'} />
               <AvatarFallback className="bg-secondary text-secondary-foreground">{initials}</AvatarFallback>
             </Avatar>
           </Button>
@@ -48,7 +43,7 @@ export function ProfileMenu() {
         <DropdownMenuContent className="w-56" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">{profile?.name || 'User'}</p>
+              <p className="text-sm font-medium leading-none">{profile?.displayName || 'User'}</p>
               <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
             </div>
           </DropdownMenuLabel>
@@ -61,10 +56,6 @@ export function ProfileMenu() {
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => router.push('/account/settings')}>
             Settings
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleSignOut}>
-            Log out
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
