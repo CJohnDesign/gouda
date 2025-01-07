@@ -82,3 +82,834 @@
 
 [info]    Collecting build traces ...
 
+[info] 
+
+[info] Route (app)                              Size     First Load JS
+┌ ○ /                                    3.64 kB         153 kB
+├ ○ /_not-found                          168 B           105 kB
+├ ○ /account                             168 B           105 kB
+├ ○ /account/profile                     2.86 kB         150 kB
+├ ○ /account/settings                    3.7 kB          256 kB
+├ ○ /account/subscription                5.04 kB         152 kB
+├ ƒ /api/cancel-subscription             168 B           105 kB
+├ ƒ /api/check-subscription              168 B           105 kB
+├ ƒ /api/create-checkout-session         168 B           105 kB
+├ ƒ /api/create-portal-session           168 B           105 kB
+├ ƒ /api/subscription-success            168 B           105 kB
+├ ƒ /api/user-profile                    168 B           105 kB
+├ ƒ /api/webhooks/stripe                 168 B           105 kB
+├ ○ /join                                3.35 kB         264 kB
+├ ○ /login                               4.73 kB         262 kB
+├ ƒ /playlist/[playlistId]               22.6 kB         320 kB
+├ ƒ /playlist/[playlistId]/[id]          3.15 kB         292 kB
+├ ○ /playlists                           6.76 kB         304 kB
+├ ○ /requested-songs                     1.56 kB         295 kB
+├ ƒ /song/[songId]                       11.3 kB         237 kB
+└ ○ /songbook                            1.72 kB         295 kB
++ First Load JS shared by all            105 kB
+  ├ chunks/1517-c261346865b2e4cd.js      50.3 kB
+  ├ chunks/4bd1b696-365f864dc81761c1.js  52.9 kB
+  └ other shared chunks (total)          1.99 kB
+
+
+[info] 
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • non-static component /api/create-checkout-session/route
+[info]  • non-static component /api/create-portal-session/route
+[info]  • non-static component /api/user-profile/route
+[info]  • non-static component /api/webhooks/stripe/route
+[info]  • non-static component /api/check-subscription/route
+[debug] [2025-01-07T09:17:31.789Z]  • non-static component /api/subscription-success/route
+[debug] [2025-01-07T09:17:31.789Z]  • non-static component /api/cancel-subscription/route
+[debug] [2025-01-07T09:17:31.789Z]  • non-static component /playlist/[playlistId]/[id]/page
+[debug] [2025-01-07T09:17:31.789Z]  • non-static component /playlist/[playlistId]/page
+[debug] [2025-01-07T09:17:31.789Z]  • non-static component /song/[songId]/page
+[info]  • and 5 other reasons, use --debug to see more
+[info] 
+[debug] [2025-01-07T09:17:33.144Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:33.144Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:33.144Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/gouda-company/sites/gouda-company [none]
+[debug] [2025-01-07T09:17:33.397Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/gouda-company/sites/gouda-company 200
+[debug] [2025-01-07T09:17:33.397Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/gouda-company/sites/gouda-company {"name":"projects/gouda-company/sites/gouda-company","defaultUrl":"https://gouda-company.web.app","appId":"1:694200444660:web:f9ef01bfda90fc63a6a0a1","type":"DEFAULT_SITE"}
+[debug] [2025-01-07T09:17:35.723Z] [web frameworks] effective firebase.json:  {
+  "hosting": [
+    {
+      "source": ".",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "frameworksBackend": {
+        "region": "us-central1"
+      },
+      "site": "gouda-company",
+      "rewrites": [
+        {
+          "source": "**",
+          "function": {
+            "functionId": "ssrgoudacompany",
+            "region": "us-central1",
+            "pinTag": true
+          }
+        }
+      ],
+      "redirects": [],
+      "headers": [
+        {
+          "source": "/favicon.ico",
+          "headers": [
+            {
+              "key": "cache-control",
+              "value": "public, max-age=0, must-revalidate"
+            },
+            {
+              "key": "content-type",
+              "value": "image/x-icon"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/favicon.ico/layout,_N_T_/favicon.ico/route,_N_T_/favicon.ico"
+            }
+          ]
+        },
+        {
+          "source": "/_not-found",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "4294967294"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/_not-found/layout,_N_T_/_not-found/page,_N_T_/_not-found"
+            }
+          ]
+        },
+        {
+          "source": "/songbook",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "4294967294"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/songbook/layout,_N_T_/songbook/page,_N_T_/songbook"
+            }
+          ]
+        },
+        {
+          "source": "/playlists",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "4294967294"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/playlists/layout,_N_T_/playlists/page,_N_T_/playlists"
+            }
+          ]
+        },
+        {
+          "source": "/requested-songs",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "4294967294"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/requested-songs/layout,_N_T_/requested-songs/page,_N_T_/requested-songs"
+            }
+          ]
+        },
+        {
+          "source": "/account/settings",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "4294967294"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/account/layout,_N_T_/account/settings/layout,_N_T_/account/settings/page,_N_T_/account/settings"
+            }
+          ]
+        },
+        {
+          "source": "/account",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "4294967294"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/account/layout,_N_T_/account/page,_N_T_/account"
+            }
+          ]
+        },
+        {
+          "source": "/account/profile",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "4294967294"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/account/layout,_N_T_/account/profile/layout,_N_T_/account/profile/page,_N_T_/account/profile"
+            }
+          ]
+        },
+        {
+          "source": "/account/subscription",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "4294967294"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/account/layout,_N_T_/account/subscription/layout,_N_T_/account/subscription/page,_N_T_/account/subscription"
+            }
+          ]
+        },
+        {
+          "source": "**/*.[jt]s",
+          "headers": [
+            {
+              "key": "Set-Cookie",
+              "value": "__FIREBASE_DEFAULTS__=eyJjb25maWciOnsicHJvamVjdElkIjoiZ291ZGEtY29tcGFueSIsImFwcElkIjoiMTo2OTQyMDA0NDQ2NjA6d2ViOmY5ZWYwMWJmZGE5MGZjNjNhNmEwYTEiLCJzdG9yYWdlQnVja2V0IjoiZ291ZGEtY29tcGFueS5hcHBzcG90LmNvbSIsImxvY2F0aW9uSWQiOiJ1cy1jZW50cmFsIiwiYXBpS2V5IjoiQUl6YVN5QkVTU0lmbm5IY0NocUxuRVBHR1JkWXVRQkF4X2tHVGpzIiwiYXV0aERvbWFpbiI6ImdvdWRhLWNvbXBhbnkuZmlyZWJhc2VhcHAuY29tIiwibWVzc2FnaW5nU2VuZGVySWQiOiI2OTQyMDA0NDQ2NjAiLCJtZWFzdXJlbWVudElkIjoiRy0xTDY2UlNGTFE3In0sIl9hdXRoVG9rZW5TeW5jVVJMIjoiL19fc2Vzc2lvbiJ9; SameSite=Strict; Expires=2026-12-02T19:57:35.723Z; Path=/;"
+            }
+          ]
+        }
+      ],
+      "cleanUrls": true,
+      "trailingSlash": false,
+      "public": ".firebase/gouda-company/hosting",
+      "webFramework": "next_ssr"
+    }
+  ],
+  "functions": [
+    {
+      "source": "functions",
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    },
+    {
+      "source": ".firebase/gouda-company/functions",
+      "codebase": "firebase-frameworks-gouda-company"
+    }
+  ]
+}
+[debug] [2025-01-07T09:17:35.723Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-01-07T09:17:35.723Z] > authorizing via signed-in user (cjohndesign@gmail.com)
+[debug] [2025-01-07T09:17:35.723Z] [iam] checking project gouda-company for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2025-01-07T09:17:35.723Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:35.723Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:35.723Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions [none]
+[debug] [2025-01-07T09:17:35.723Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions x-goog-quota-user=projects/gouda-company
+[debug] [2025-01-07T09:17:35.723Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-01-07T09:17:35.823Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions 200
+[debug] [2025-01-07T09:17:35.823Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-01-07T09:17:35.823Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:35.823Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:35.824Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/gouda-company/locations/-/functions [none]
+[debug] [2025-01-07T09:17:36.498Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/gouda-company/locations/-/functions 200
+[debug] [2025-01-07T09:17:36.498Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/gouda-company/locations/-/functions {"functions":[{"name":"projects/gouda-company/locations/us-central1/functions/stripeWebhook","httpsTrigger":{"url":"https://us-central1-gouda-company.cloudfunctions.net/stripeWebhook","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"stripeWebhook","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"gouda-company@appspot.gserviceaccount.com","updateTime":"2025-01-05T10:36:43.190Z","versionId":"8","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"e6681c8a916343aa380714a1d0f621361af9bcc6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-842978146917.us-central1.cloudfunctions.appspot.com/29cd16f5-5bf3-4a25-ad13-43748640ca6f.zip","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/functions/stripeWebhook"},"runtime":"nodejs20","ingressSettings":"ALLOW_ALL","buildId":"262eecc5-043e-419c-b468-1455c81d7972","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/694200444660/locations/us-central1/builds/262eecc5-043e-419c-b468-1455c81d7972","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/gouda-company/serviceAccounts/694200444660-compute@developer.gserviceaccount.com"},{"name":"projects/gouda-company/locations/us-central1/functions/createUserProfile","eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","resource":"projects/gouda-company","service":"firebaseauth.googleapis.com","failurePolicy":{}},"status":"ACTIVE","entryPoint":"createUserProfile","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"gouda-company@appspot.gserviceaccount.com","updateTime":"2025-01-05T10:36:46.408Z","versionId":"4","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"e6681c8a916343aa380714a1d0f621361af9bcc6"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-842978146917.us-central1.cloudfunctions.appspot.com/29cd16f5-5bf3-4a25-ad13-43748640ca6f.zip","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/functions/createUserProfile"},"runtime":"nodejs20","maxInstances":3000,"ingressSettings":"ALLOW_ALL","buildId":"262eecc5-043e-419c-b468-1455c81d7972","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/694200444660/locations/us-central1/builds/262eecc5-043e-419c-b468-1455c81d7972","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{},"buildServiceAccount":"projects/gouda-company/serviceAccounts/694200444660-compute@developer.gserviceaccount.com"}]}
+[debug] [2025-01-07T09:17:36.499Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:36.499Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:36.499Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2025-01-07T09:17:36.962Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/-/functions 200
+[debug] [2025-01-07T09:17:36.963Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/-/functions {"functions":[{"name":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","buildConfig":{"build":"projects/694200444660/locations/us-central1/builds/c39d7ad8-3e82-46a7-b203-dbdc8dc81f55","runtime":"nodejs20","entryPoint":"ssrgoudacompany","source":{"storageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736239307628496"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/gouda-company/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736239307628496"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/gouda-company/serviceAccounts/694200444660-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"gouda-company.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"gouda-company\",\"appId\":\"1:694200444660:web:f9ef01bfda90fc63a6a0a1\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\",\"apiKey\":\"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs\",\"authDomain\":\"gouda-company.firebaseapp.com\",\"messagingSenderId\":\"694200444660\",\"measurementId\":\"G-1L66RSFLQ7\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","FUNCTION_TARGET":"ssrgoudacompany","LOG_EXECUTION_ID":"true"},"maxInstanceCount":100,"ingressSettings":"ALLOW_ALL","uri":"https://ssrgoudacompany-q5gzyeojtq-uc.a.run.app","serviceAccountEmail":"694200444660-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrgoudacompany-00039-yus","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","updateTime":"2025-01-07T08:44:49.446079061Z","labels":{"firebase-functions-hash":"45d7ef211dfc4abaccaa5529c508cc78ff09c54b","deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-gouda-company"},"environment":"GEN_2","url":"https://us-central1-gouda-company.cloudfunctions.net/ssrgoudacompany","createTime":"2025-01-02T21:06:26.568588370Z"}]}
+[info] i  hosting: The following function(s) are pinned to site gouda-company and will be deployed as well: ssrgoudacompany 
+[info] 
+[info] === Deploying to 'gouda-company'...
+[info] 
+[info] i  deploying functions, hosting 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
+[info] ✔  functions: Finished running predeploy script. 
+[debug] [2025-01-07T09:17:38.262Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:38.262Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:38.262Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company [none]
+[debug] [2025-01-07T09:17:38.359Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company 200
+[debug] [2025-01-07T09:17:38.359Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company {"projectNumber":"694200444660","projectId":"gouda-company","lifecycleState":"ACTIVE","name":"Gouda","labels":{"firebase":"enabled"},"createTime":"2024-08-22T02:04:49.544878Z"}
+[info] i  functions: preparing codebase firebase-frameworks-gouda-company for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[debug] [2025-01-07T09:17:38.360Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:38.360Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:38.360Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:38.360Z] Checked if tokens are valid: true, expires at: 1736245036751
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[debug] [2025-01-07T09:17:38.360Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:38.360Z] Checked if tokens are valid: true, expires at: 1736245036751
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2025-01-07T09:17:38.360Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:38.360Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:38.360Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/cloudfunctions.googleapis.com [none]
+[debug] [2025-01-07T09:17:38.360Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/gouda-company
+[debug] [2025-01-07T09:17:38.361Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/runtimeconfig.googleapis.com [none]
+[debug] [2025-01-07T09:17:38.361Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/gouda-company
+[debug] [2025-01-07T09:17:38.362Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/cloudbuild.googleapis.com [none]
+[debug] [2025-01-07T09:17:38.362Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/cloudbuild.googleapis.com x-goog-quota-user=projects/gouda-company
+[debug] [2025-01-07T09:17:38.363Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/artifactregistry.googleapis.com [none]
+[debug] [2025-01-07T09:17:38.363Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/artifactregistry.googleapis.com x-goog-quota-user=projects/gouda-company
+[debug] [2025-01-07T09:17:38.713Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/runtimeconfig.googleapis.com 200
+[debug] [2025-01-07T09:17:38.713Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2025-01-07T09:17:38.753Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/cloudbuild.googleapis.com 200
+[debug] [2025-01-07T09:17:38.753Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/cloudbuild.googleapis.com [omitted]
+[info] ✔  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2025-01-07T09:17:38.764Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/artifactregistry.googleapis.com 200
+[debug] [2025-01-07T09:17:38.765Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/artifactregistry.googleapis.com [omitted]
+[info] ✔  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2025-01-07T09:17:38.769Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/cloudfunctions.googleapis.com 200
+[debug] [2025-01-07T09:17:38.770Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/cloudfunctions.googleapis.com [omitted]
+[info] ✔  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2025-01-07T09:17:38.770Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:38.770Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:38.770Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/gouda-company/adminSdkConfig [none]
+[debug] [2025-01-07T09:17:39.299Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/gouda-company/adminSdkConfig 200
+[debug] [2025-01-07T09:17:39.299Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/gouda-company/adminSdkConfig {"projectId":"gouda-company","storageBucket":"gouda-company.appspot.com","locationId":"us-central"}
+[debug] [2025-01-07T09:17:39.299Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.300Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.300Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs [none]
+[debug] [2025-01-07T09:17:39.687Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs 200
+[debug] [2025-01-07T09:17:39.688Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs {"configs":[{"name":"projects/gouda-company/configs/environment"},{"name":"projects/gouda-company/configs/gouda"},{"name":"projects/gouda-company/configs/stripe"}]}
+[debug] [2025-01-07T09:17:39.689Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.689Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.689Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.689Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.689Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.689Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.689Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/environment/variables [none]
+[debug] [2025-01-07T09:17:39.690Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables [none]
+[debug] [2025-01-07T09:17:39.692Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/stripe/variables [none]
+[debug] [2025-01-07T09:17:39.956Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables 200
+[debug] [2025-01-07T09:17:39.957Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables {"variables":[{"name":"projects/gouda-company/configs/gouda/variables/client_email","updateTime":"2025-01-03T03:31:27.877435714Z"},{"name":"projects/gouda-company/configs/gouda/variables/storage_bucket","updateTime":"2025-01-03T03:50:20.637944971Z"},{"name":"projects/gouda-company/configs/gouda/variables/measurement_id","updateTime":"2025-01-03T03:50:20.637673142Z"},{"name":"projects/gouda-company/configs/gouda/variables/app_id","updateTime":"2025-01-03T03:50:20.580944968Z"},{"name":"projects/gouda-company/configs/gouda/variables/project_id","updateTime":"2025-01-03T03:50:20.472308818Z"},{"name":"projects/gouda-company/configs/gouda/variables/private_key","updateTime":"2025-01-03T03:31:27.755181555Z"},{"name":"projects/gouda-company/configs/gouda/variables/api_key","updateTime":"2025-01-03T03:50:20.507468262Z"},{"name":"projects/gouda-company/configs/gouda/variables/auth_domain","updateTime":"2025-01-03T03:50:20.638969667Z"},{"name":"projects/gouda-company/configs/gouda/variables/messaging_sender_id","updateTime":"2025-01-03T03:50:20.588140794Z"}]}
+[debug] [2025-01-07T09:17:39.957Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.957Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.957Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.957Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.957Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.957Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.957Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.957Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.957Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.957Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.957Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.957Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.958Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.958Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.958Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.958Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.958Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.958Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.958Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/client_email [none]
+[debug] [2025-01-07T09:17:39.958Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/storage_bucket [none]
+[debug] [2025-01-07T09:17:39.959Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/measurement_id [none]
+[debug] [2025-01-07T09:17:39.960Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/app_id [none]
+[debug] [2025-01-07T09:17:39.962Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/project_id [none]
+[debug] [2025-01-07T09:17:39.964Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/private_key [none]
+[debug] [2025-01-07T09:17:39.966Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/api_key [none]
+[debug] [2025-01-07T09:17:39.967Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/auth_domain [none]
+[debug] [2025-01-07T09:17:39.969Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/messaging_sender_id [none]
+[debug] [2025-01-07T09:17:39.972Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/environment/variables 200
+[debug] [2025-01-07T09:17:39.972Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/environment/variables {"variables":[{"name":"projects/gouda-company/configs/environment/variables/mode","updateTime":"2025-01-03T04:18:04.444693829Z"}]}
+[debug] [2025-01-07T09:17:39.972Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.972Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:39.972Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/environment/variables/mode [none]
+[debug] [2025-01-07T09:17:40.000Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/stripe/variables 200
+[debug] [2025-01-07T09:17:40.000Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/stripe/variables {"variables":[{"name":"projects/gouda-company/configs/stripe/variables/publishable_key","updateTime":"2025-01-03T04:18:04.460434945Z"},{"name":"projects/gouda-company/configs/stripe/variables/secret_key","updateTime":"2025-01-03T04:18:04.444185189Z"},{"name":"projects/gouda-company/configs/stripe/variables/webhook_secret","updateTime":"2025-01-03T03:31:26.011445079Z"}]}
+[debug] [2025-01-07T09:17:40.000Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:40.000Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:40.000Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:40.000Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:40.000Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:40.000Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:40.000Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/stripe/variables/publishable_key [none]
+[debug] [2025-01-07T09:17:40.000Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/stripe/variables/secret_key [none]
+[debug] [2025-01-07T09:17:40.001Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/stripe/variables/webhook_secret [none]
+[debug] [2025-01-07T09:17:40.229Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/client_email 200
+[debug] [2025-01-07T09:17:40.229Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/client_email {"name":"projects/gouda-company/configs/gouda/variables/client_email","updateTime":"2025-01-03T03:31:27.877435714Z"}
+[debug] [2025-01-07T09:17:40.234Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/stripe/variables/publishable_key 200
+[debug] [2025-01-07T09:17:40.234Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/stripe/variables/publishable_key {"name":"projects/gouda-company/configs/stripe/variables/publishable_key","updateTime":"2025-01-03T04:18:04.460434945Z","text":"pk_live_..."}
+[debug] [2025-01-07T09:17:40.235Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/storage_bucket 200
+[debug] [2025-01-07T09:17:40.235Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/storage_bucket {"name":"projects/gouda-company/configs/gouda/variables/storage_bucket","updateTime":"2025-01-03T03:50:20.637944971Z","text":"gouda-company.appspot.com"}
+[debug] [2025-01-07T09:17:40.272Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/project_id 200
+[debug] [2025-01-07T09:17:40.272Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/project_id {"name":"projects/gouda-company/configs/gouda/variables/project_id","updateTime":"2025-01-03T03:50:20.472308818Z","text":"gouda-company"}
+[debug] [2025-01-07T09:17:40.272Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/stripe/variables/webhook_secret 200
+[debug] [2025-01-07T09:17:40.272Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/stripe/variables/webhook_secret {"name":"projects/gouda-company/configs/stripe/variables/webhook_secret","updateTime":"2025-01-03T03:31:26.011445079Z"}
+[debug] [2025-01-07T09:17:40.275Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/measurement_id 200
+[debug] [2025-01-07T09:17:40.275Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/measurement_id {"name":"projects/gouda-company/configs/gouda/variables/measurement_id","updateTime":"2025-01-03T03:50:20.637673142Z","text":"G-1L66RSFLQ7"}
+[debug] [2025-01-07T09:17:40.275Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/app_id 200
+[debug] [2025-01-07T09:17:40.275Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/app_id {"name":"projects/gouda-company/configs/gouda/variables/app_id","updateTime":"2025-01-03T03:50:20.580944968Z","text":"1:694200444660:web:f9ef01bfda90fc63a6a0a1"}
+[debug] [2025-01-07T09:17:40.275Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/private_key 200
+[debug] [2025-01-07T09:17:40.275Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/private_key {"name":"projects/gouda-company/configs/gouda/variables/private_key","updateTime":"2025-01-03T03:31:27.755181555Z"}
+[debug] [2025-01-07T09:17:40.277Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/api_key 200
+[debug] [2025-01-07T09:17:40.277Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/api_key {"name":"projects/gouda-company/configs/gouda/variables/api_key","updateTime":"2025-01-03T03:50:20.507468262Z","text":"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs"}
+[debug] [2025-01-07T09:17:40.277Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/auth_domain 200
+[debug] [2025-01-07T09:17:40.277Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/auth_domain {"name":"projects/gouda-company/configs/gouda/variables/auth_domain","updateTime":"2025-01-03T03:50:20.638969667Z","text":"gouda-company.firebaseapp.com"}
+[debug] [2025-01-07T09:17:40.286Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/stripe/variables/secret_key 200
+[debug] [2025-01-07T09:17:40.286Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/stripe/variables/secret_key {"name":"projects/gouda-company/configs/stripe/variables/secret_key","updateTime":"2025-01-03T04:18:04.444185189Z","text":"sk_live_..."}
+[debug] [2025-01-07T09:17:40.292Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/messaging_sender_id 200
+[debug] [2025-01-07T09:17:40.292Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/gouda/variables/messaging_sender_id {"name":"projects/gouda-company/configs/gouda/variables/messaging_sender_id","updateTime":"2025-01-03T03:50:20.588140794Z","text":"694200444660"}
+[debug] [2025-01-07T09:17:40.295Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/environment/variables/mode 200
+[debug] [2025-01-07T09:17:40.295Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/gouda-company/configs/environment/variables/mode {"name":"projects/gouda-company/configs/environment/variables/mode","updateTime":"2025-01-03T04:18:04.444693829Z","text":"production"}
+[debug] [2025-01-07T09:17:40.296Z] Validating nodejs source
+[debug] [2025-01-07T09:17:40.550Z] > [functions] package.json contents: {
+  "name": "gouda",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@firebasegen/default-connector": "file:firebasegen-default-connector-1.0.0.tgz",
+    "@radix-ui/react-alert-dialog": "^1.1.4",
+    "@radix-ui/react-avatar": "^1.1.2",
+    "@radix-ui/react-dialog": "^1.1.4",
+    "@radix-ui/react-dropdown-menu": "^2.1.4",
+    "@radix-ui/react-icons": "^1.3.2",
+    "@radix-ui/react-label": "^2.1.1",
+    "@radix-ui/react-scroll-area": "^1.2.2",
+    "@radix-ui/react-select": "^2.1.4",
+    "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-switch": "^1.1.2",
+    "@radix-ui/react-tabs": "^1.1.2",
+    "@radix-ui/react-toast": "^1.2.4",
+    "@radix-ui/react-tooltip": "^1.1.6",
+    "@stripe/stripe-js": "^5.4.0",
+    "@types/stripe": "^8.0.416",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "firebase": "^11.1.0",
+    "firebase-admin": "^12.7.0",
+    "framer-motion": "^11.15.0",
+    "lucide-react": "^0.469.0",
+    "next": "15.1.3",
+    "next-themes": "^0.4.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "stripe": "^17.5.0",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7",
+    "tsx": "^4.19.2",
+    "firebase-frameworks": "^0.11.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "main": "server.js",
+  "engines": {
+    "node": "20"
+  }
+}
+[debug] [2025-01-07T09:17:40.550Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase firebase-frameworks-gouda-company to determine what to deploy 
+[debug] [2025-01-07T09:17:40.551Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-01-07T09:17:40.555Z] Found firebase-functions binary at '/Users/cjohndesign/dev/gouda/.firebase/gouda-company/functions/node_modules/.bin/firebase-functions'
+[info] Serving at port 8057
+
+[debug] [2025-01-07T09:17:40.747Z] Got response from /__/functions.yaml {"endpoints":{"ssrgoudacompany":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["us-central1"],"labels":{},"httpsTrigger":{},"entryPoint":"ssrgoudacompany"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[info] i  extensions: ensuring required API firebaseextensions.googleapis.com is enabled... 
+[debug] [2025-01-07T09:17:44.759Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:44.759Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:44.759Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/firebaseextensions.googleapis.com [none]
+[debug] [2025-01-07T09:17:44.759Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/firebaseextensions.googleapis.com x-goog-quota-user=projects/gouda-company
+[debug] [2025-01-07T09:17:45.102Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/firebaseextensions.googleapis.com 200
+[debug] [2025-01-07T09:17:45.102Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/firebaseextensions.googleapis.com [omitted]
+[info] ✔  extensions: required API firebaseextensions.googleapis.com is enabled 
+[debug] [2025-01-07T09:17:45.102Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-01-07T09:17:45.102Z] > authorizing via signed-in user (cjohndesign@gmail.com)
+[debug] [2025-01-07T09:17:45.102Z] [iam] checking project gouda-company for permissions ["firebase.projects.get","firebaseextensions.instances.list"]
+[debug] [2025-01-07T09:17:45.102Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:45.102Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:45.102Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions [none]
+[debug] [2025-01-07T09:17:45.102Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions x-goog-quota-user=projects/gouda-company
+[debug] [2025-01-07T09:17:45.102Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2025-01-07T09:17:45.206Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions 200
+[debug] [2025-01-07T09:17:45.207Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2025-01-07T09:17:45.207Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:45.207Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:45.207Z] >>> [apiv2][query] GET https://firebaseextensions.googleapis.com/v1beta/projects/gouda-company/instances pageSize=100&pageToken=
+[debug] [2025-01-07T09:17:45.537Z] <<< [apiv2][status] GET https://firebaseextensions.googleapis.com/v1beta/projects/gouda-company/instances 200
+[debug] [2025-01-07T09:17:45.538Z] <<< [apiv2][body] GET https://firebaseextensions.googleapis.com/v1beta/projects/gouda-company/instances {}
+[info] i  functions: Loaded environment variables from .env. 
+[info] i  functions: preparing .firebase/gouda-company/functions directory for uploading... 
+[info] i  functions: packaged /Users/cjohndesign/dev/gouda/.firebase/gouda-company/functions (36.46 MB) for uploading 
+[info] i  functions: ensuring required API run.googleapis.com is enabled... 
+[debug] [2025-01-07T09:17:46.925Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:46.925Z] Checked if tokens are valid: true, expires at: 1736245036751
+[info] i  functions: ensuring required API eventarc.googleapis.com is enabled... 
+[debug] [2025-01-07T09:17:46.925Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:46.925Z] Checked if tokens are valid: true, expires at: 1736245036751
+[info] i  functions: ensuring required API pubsub.googleapis.com is enabled... 
+[debug] [2025-01-07T09:17:46.925Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:46.925Z] Checked if tokens are valid: true, expires at: 1736245036751
+[info] i  functions: ensuring required API storage.googleapis.com is enabled... 
+[debug] [2025-01-07T09:17:46.925Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:46.926Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:46.926Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/run.googleapis.com [none]
+[debug] [2025-01-07T09:17:46.926Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/run.googleapis.com x-goog-quota-user=projects/gouda-company
+[debug] [2025-01-07T09:17:46.927Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/eventarc.googleapis.com [none]
+[debug] [2025-01-07T09:17:46.927Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/eventarc.googleapis.com x-goog-quota-user=projects/gouda-company
+[debug] [2025-01-07T09:17:46.932Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/pubsub.googleapis.com [none]
+[debug] [2025-01-07T09:17:46.932Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/pubsub.googleapis.com x-goog-quota-user=projects/gouda-company
+[debug] [2025-01-07T09:17:46.933Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/storage.googleapis.com [none]
+[debug] [2025-01-07T09:17:46.933Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/storage.googleapis.com x-goog-quota-user=projects/gouda-company
+[debug] [2025-01-07T09:17:47.148Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/run.googleapis.com 200
+[debug] [2025-01-07T09:17:47.148Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/run.googleapis.com [omitted]
+[info] ✔  functions: required API run.googleapis.com is enabled 
+[debug] [2025-01-07T09:17:47.316Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/pubsub.googleapis.com 200
+[debug] [2025-01-07T09:17:47.317Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/pubsub.googleapis.com [omitted]
+[info] ✔  functions: required API pubsub.googleapis.com is enabled 
+[debug] [2025-01-07T09:17:47.319Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/eventarc.googleapis.com 200
+[debug] [2025-01-07T09:17:47.319Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/eventarc.googleapis.com [omitted]
+[info] ✔  functions: required API eventarc.googleapis.com is enabled 
+[debug] [2025-01-07T09:17:47.319Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/storage.googleapis.com 200
+[debug] [2025-01-07T09:17:47.319Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/gouda-company/services/storage.googleapis.com [omitted]
+[info] ✔  functions: required API storage.googleapis.com is enabled 
+[info] i  functions: generating the service identity for pubsub.googleapis.com... 
+[debug] [2025-01-07T09:17:47.320Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:47.320Z] Checked if tokens are valid: true, expires at: 1736245036751
+[info] i  functions: generating the service identity for eventarc.googleapis.com... 
+[debug] [2025-01-07T09:17:47.320Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:47.320Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:47.320Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/694200444660/services/pubsub.googleapis.com:generateServiceIdentity [none]
+[debug] [2025-01-07T09:17:47.322Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/694200444660/services/eventarc.googleapis.com:generateServiceIdentity [none]
+[debug] [2025-01-07T09:17:47.603Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/694200444660/services/pubsub.googleapis.com:generateServiceIdentity 200
+[debug] [2025-01-07T09:17:47.603Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/694200444660/services/pubsub.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-694200444660@gcp-sa-pubsub.iam.gserviceaccount.com","uniqueId":"103767245873604709640"}}
+[debug] [2025-01-07T09:17:47.606Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/694200444660/services/eventarc.googleapis.com:generateServiceIdentity 200
+[debug] [2025-01-07T09:17:47.606Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/694200444660/services/eventarc.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-694200444660@gcp-sa-eventarc.iam.gserviceaccount.com","uniqueId":"101379744576494293897"}}
+[debug] [2025-01-07T09:17:47.607Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:47.607Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:47.607Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company [none]
+[debug] [2025-01-07T09:17:47.706Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company 200
+[debug] [2025-01-07T09:17:47.706Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company {"projectNumber":"694200444660","projectId":"gouda-company","lifecycleState":"ACTIVE","name":"Gouda","labels":{"firebase":"enabled"},"createTime":"2024-08-22T02:04:49.544878Z"}
+[debug] [2025-01-07T09:17:47.708Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:47.708Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:47.708Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/gouda-company/versions [none]
+[debug] [2025-01-07T09:17:47.708Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/gouda-company/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase","firebase-web-framework":"next_ssr"}}
+[debug] [2025-01-07T09:17:48.271Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/gouda-company/versions 200
+[debug] [2025-01-07T09:17:48.272Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/gouda-company/versions {"name":"projects/694200444660/sites/gouda-company/versions/aaeb8b7ae476ed10","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase","firebase-web-framework":"next_ssr"}}
+[debug] [2025-01-07T09:17:48.273Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:48.273Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:48.273Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/gouda-company/billingInfo [none]
+[debug] [2025-01-07T09:17:48.573Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/gouda-company/billingInfo 200
+[debug] [2025-01-07T09:17:48.573Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/gouda-company/billingInfo {"name":"projects/gouda-company/billingInfo","projectId":"gouda-company","billingAccountName":"billingAccounts/01B802-9FEF74-7F2D39","billingEnabled":true}
+[debug] [2025-01-07T09:17:48.574Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:48.574Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:48.574Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/functions:generateUploadUrl [none]
+[debug] [2025-01-07T09:17:48.879Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/functions:generateUploadUrl 200
+[debug] [2025-01-07T09:17:48.879Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/functions:generateUploadUrl {"uploadUrl":"https://storage.googleapis.com/gcf-v2-uploads-694200444660.us-central1.cloudfunctions.appspot.com/ba80d288-cf46-4d5f-8872-eda782c9c207.zip?GoogleAccessId=service-694200444660@gcf-admin-robot.iam.gserviceaccount.com&Expires=1736243268&Signature=w7zfYGTPtnYGaOm47jH5F%2FbKyDSqARqkmDlYn6od6kHe5dRAvFABTgmeGREU%2B8hk7O4mV3kdnwMh6vXSqo%2B8Pur7JvxymKqZMO8VAdL%2FrZLuRonjNgxqQukjKHKTs6yvNmkI4wFqnGxpNIRTjKxiGhpW%2BU%2F8u9soXuTWSTtzW%2FGLXohEQ1LPNmiwDIU8qJnUFr1YHRVHxaHbjV86l3YZlbhNn54bTOvuG%2FQoanv7UrzYPU4t8pKWHzW%2BkTF2ud4bTRkqXJkei7jfdkcK%2Bg8JpKjVztpTz32mFC35dUWgMVp6YSVPJXyizz6n7mjasmso5Dwy6gQtB1adCx7n0LWLWw%3D%3D","storageSource":{"bucket":"gcf-v2-uploads-694200444660.us-central1.cloudfunctions.appspot.com","object":"ba80d288-cf46-4d5f-8872-eda782c9c207.zip"}}
+[debug] [2025-01-07T09:17:48.881Z] >>> [apiv2][query] PUT https://storage.googleapis.com/gcf-v2-uploads-694200444660.us-central1.cloudfunctions.appspot.com/ba80d288-cf46-4d5f-8872-eda782c9c207.zip GoogleAccessId=service-694200444660%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1736243268&Signature=w7zfYGTPtnYGaOm47jH5F%2FbKyDSqARqkmDlYn6od6kHe5dRAvFABTgmeGREU%2B8hk7O4mV3kdnwMh6vXSqo%2B8Pur7JvxymKqZMO8VAdL%2FrZLuRonjNgxqQukjKHKTs6yvNmkI4wFqnGxpNIRTjKxiGhpW%2BU%2F8u9soXuTWSTtzW%2FGLXohEQ1LPNmiwDIU8qJnUFr1YHRVHxaHbjV86l3YZlbhNn54bTOvuG%2FQoanv7UrzYPU4t8pKWHzW%2BkTF2ud4bTRkqXJkei7jfdkcK%2Bg8JpKjVztpTz32mFC35dUWgMVp6YSVPJXyizz6n7mjasmso5Dwy6gQtB1adCx7n0LWLWw%3D%3D
+[debug] [2025-01-07T09:17:48.881Z] >>> [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-694200444660.us-central1.cloudfunctions.appspot.com/ba80d288-cf46-4d5f-8872-eda782c9c207.zip [stream]
+[debug] [2025-01-07T09:17:50.728Z] <<< [apiv2][status] PUT https://storage.googleapis.com/gcf-v2-uploads-694200444660.us-central1.cloudfunctions.appspot.com/ba80d288-cf46-4d5f-8872-eda782c9c207.zip 200
+[debug] [2025-01-07T09:17:50.728Z] <<< [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-694200444660.us-central1.cloudfunctions.appspot.com/ba80d288-cf46-4d5f-8872-eda782c9c207.zip [omitted]
+[info] ✔  functions: .firebase/gouda-company/functions folder uploaded successfully 
+[info] i  hosting[gouda-company]: beginning deploy... 
+[info] i  hosting[gouda-company]: found 82 files in .firebase/gouda-company/hosting 
+[debug] [2025-01-07T09:17:50.751Z] [hosting] uploading with 200 concurrency
+[debug] [2025-01-07T09:17:50.777Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:50.777Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:50.778Z] [hosting] hash cache [LmZpcmViYXNlL2dvdWRhLWNvbXBhbnkvaG9zdGluZw] stored for 82 files
+[debug] [2025-01-07T09:17:50.778Z] [hosting][hash queue][FINAL] {"max":22,"min":6,"avg":11.097560975609754,"active":0,"complete":82,"success":82,"errored":0,"retried":0,"total":82,"elapsed":25}
+[debug] [2025-01-07T09:17:50.778Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/694200444660/sites/gouda-company/versions/aaeb8b7ae476ed10:populateFiles [none]
+[debug] [2025-01-07T09:17:50.778Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/694200444660/sites/gouda-company/versions/aaeb8b7ae476ed10:populateFiles {"files":{"/window.svg":"bf07bc7ddc1ae03e7936a9347de10e85cf9a0e51f99bd8293b2a8eeca6463b49","/next.svg":"7b16665552cb47db34db342505d6d340caaf5813ca2cba1df3536ed67ea33f64","/vercel.svg":"ffb3d6634c37da9451d60557ed0e6e513e2889672e0bf202d2558062062a048a","/requested-songs.html":"697dacbefa8c1520849c9d60bb91d59d211f7e1e4d46245173716f9b7b6ba34e","/songbook.html":"a811f16129f1f59bdebf66e86e81e39c86b17f36eb3d1fb206d5533d7b4a713f","/globe.svg":"914fe1f576f68698d9e329ea8ec6c542d8d5f150af08f1a360d188fed7597c23","/file.svg":"cb6477bad43c44ba222b8cddfa7e4fe646b19ec7449646e8c2a426354faa630e","/playlists.html":"c7dec9c0697e49fea27f602bef80232b2442bc45fb9d3ae149bd03643cab6bad","/account.html":"86a7bcb7e8d8d6d351ef1c0b2076e34e0266cd82d7602ded867b2d545a152640","/login.html":"3d41395f2b088eb1f3195526a60fd3324406a51646f7b6cce53a62f8f81cadc2","/images/border-tr.webp":"c62fe563e9c22504e59a72af8437a9998f04a0c09f936fb94c2c957708d16a1a","/join.html":"11706f6cecb0774361fc2a7af4251ee47ac8f678c4c7102753fe84c228dba499","/images/border-tl.webp":"bf8c64fbdf2761f1748e1e5549cb21de62c0dd069e2499d5bf628d52e9949ddf","/images/border-bl.webp":"375892d5936164a2cc3c799530540cf0817e336e67f7f2244259f6e52bf4a40b","/404.html":"2d0e8acf9e2c19ada7b4df76282df7bb177c830f212e999327703f2efa7ec130","/images/border-br.webp":"46888a28ee669454e928b4a31e42d4612e88a277da998fb3c7cb443f48216055","/account/subscription.html":"0926f648259a67f6464860a582a13dbf3102162207bd814239aadab91fa0dedc","/account/settings.html":"7d0c1c8d67cca3afbf82e01d31b2535a1aed43e57854c3062bc4eff5127ca832","/account/profile.html":"f6dd72d199add120daa98512b1ebcedb4c332797ab4a1fc744c829eea8501b96","/index.html":"cee92a7cf2c3fe1843b127090475f4c65029f33a472aa9479b1eeb81f307a115","/_next/static/media/021bc4481ed92ece-s.woff2":"40b58ca11d094f824cbecf21fe94b57a6dd3c44c88af2add3080e7be9a76850a","/_next/static/chunks/webpack-e2f58bdf10ec61ac.js":"a122396d12c37afec68026e0d7a3a51ad28f5326b37f8d26cc540f0e83d11cb3","/_next/static/css/3f919ec4ac74427c.css":"9a500837faf98f691a8c92022bd3515db4db24aa295fb685de420020fe24b8e7","/_next/static/chunks/main-app-00f0bd27ced5623a.js":"f01fad0d5042334631e952845424094c0f059490a66b8efcab4729e13ba734a8","/favicon.ico":"8b9c4dce3353938d2027ab21f0489807587db05d65ef390a6947d32312e501a0","/_next/static/css/75608fe4bc03c52a.css":"23bf86c485b48c708d92cf6a4f6e6959821c56bd14c397b90a6b1209ccd943e8","/_next/static/chunks/8226-802499b329d6b2f5.js":"650935df4a8d2989008cc6d2c9886e88e6b42bbb88456e52a35f7de173e45a19","/_next/static/chunks/8238-1b416b84ec4505f3.js":"f0cc1d44cf1b98ccb9d9dd4b6d2b6e66267e7cace6aa343d98e1281397df3d5a","/_next/static/chunks/7158-12fa10cf6d5e9410.js":"e4b16ab89ccaacc8151f4780965a178b326715d9ec460dcbb437349994b93f0b","/_next/static/chunks/9904-6b0ac158d3118aaf.js":"f5ad95f3c829fac23b55e9440ef78ac1f3fb519231d67111538a9e6e3251eac0","/_next/static/chunks/2734-6066114a2ba68be9.js":"ac7ec4755ca6d3bb1c38a99c3e04490ae177ab4b320463fd7e71be90e4496c62","/_next/static/chunks/8173-056491c6af4304e2.js":"32873694f9ad4417e0619ee8b5ab6da27f8c08fea59b2c63fd27e3c0294524da","/_next/static/chunks/7746-d22e67d78a6ac001.js":"3e7b1b876ed76a74430c7885b9b0450f1c9099d3e2b8db60d5c6efd5ff670ae9","/_next/static/chunks/5565-2023f6ac5f24bbf8.js":"844946bb845a6a86d1d5425c9d7b74efa81071fb8d6b7d76b6df22eb0aff1acf","/_next/static/chunks/1982-71d6960a5085cb64.js":"2800ea76a93552f5718df3ad64cec4e594d8ee03aa314ff18ea5a5051437c6a3","/_next/static/chunks/2625-b695532c3a16d68d.js":"ae50cf6c00e77b0a677ae8368e67dcbf794596ad26a024406247909132e98a97","/images/GOUDA_Logo.webp":"1bc82df0e7c4ea6349488bfd5592acedfa94098645c4d29d36372a6d44982d14","/_next/static/media/6325a8417175c41d-s.woff2":"d7604d8cfec02ec413e00ccc692439f83f46f546e0188f7c7ee5b2d6ed0c35ee","/_next/static/media/3f69592b2fe603c7-s.woff2":"20cb963520eae5c51955f886db16ad40ce7933ac02c2f2d8d334c74136e246ae","/_next/static/chunks/2469-8612a659854a57a2.js":"807d5a4ff38b7797a51fc803ebca39fc2378a931393071df40204da57087b49e","/_next/static/media/4f05ba3a6752a328-s.p.woff2":"b020020c75ba429d11c6cfdd22c70a3d038eda712ce6a6c2f6f4066f68bfd9eb","/_next/static/chunks/b316c0d4-6cdef4294dce705a.js":"1105dc8bd249debfed23869bde41d4f99f9adfbd6aac2e27eaeb5cf34c59beb4","/_next/static/chunks/1772-341160cfa5ff7935.js":"ec6025b3a766c0a5d04873e0db4638ec3a78c69a30ba8b0f7f65874d834a1625","/_next/static/chunks/5025-7730bbad57d85e6e.js":"92c551ca4470754784ac862b5849f4be1738bd1952c9c9e0c98be76f1710616e","/_next/static/chunks/1181-6371330614dae539.js":"c0b95b9f918f13c139aa8f5a30dea9f33e99c9b8b02668fc56aa198621c59737","/_next/static/chunks/pages/_error-6b43ce36a8d09a61.js":"7f4e81ad9ecba2fe3507a8076a6176770889d604cd3f350eaaf90e9b482849eb","/_next/static/chunks/pages/_app-00b41aece417ee52.js":"60fd577c78ad87f5e8867cc539fa63e719a4ebcca9a661696a9624f250428709","/_next/static/chunks/app/page-072192fa58d6e22d.js":"60c4b56510f26b9aa996d15596d29705dd06cd49ad2bc4b42c605f69c72ff689","/_next/static/chunks/app/song/[songId]/loading-4d0b29fbb2b7b157.js":"15885dc0d2d075155ff757b31d5545f9a3f7ee93aeaba441075e9df206406930","/_next/static/chunks/app/not-found-fa86573b9ff09817.js":"4220257fd56198b2921c752d28a428d919462f53853650b03f2b82aeb4bbe221","/_next/static/chunks/app/songbook/page-3dbc6e618dcb8fac.js":"982c280d68ce219bd82172fdf393bf61a429b9619b648c2ead8caef63c09a189","/_next/static/chunks/app/requested-songs/page-73d8398ce38ace20.js":"4572988085c52a3514c30b1eb4a48f0eab706db8844285693be2028efedff5e4","/_next/static/chunks/main-fe06fcf7dcf268a6.js":"95b7b7960b7cc20c754fb26ce6c8a584c65eab46ea4d306e62abae2c6e7b9b9e","/_next/static/chunks/app/layout-3db1aa143802cf2a.js":"30b220861981815d3cdd7e021d4f2104c2fb0a776a2c969c03a3246b522f344d","/_next/static/chunks/app/api/webhooks/stripe/route-fe83d9e4adf46bb6.js":"15885dc0d2d075155ff757b31d5545f9a3f7ee93aeaba441075e9df206406930","/_next/static/chunks/app/playlist/[playlistId]/[id]/page-bba3b7974d18c1e4.js":"01654c138701baaeadb4fa1d1a785ae91bfe479f74993fd47a537daff476db80","/_next/static/chunks/app/api/user-profile/route-f08148671da5f9a3.js":"15885dc0d2d075155ff757b31d5545f9a3f7ee93aeaba441075e9df206406930","/_next/static/chunks/app/api/subscription-success/route-f37f53f656297fb5.js":"15885dc0d2d075155ff757b31d5545f9a3f7ee93aeaba441075e9df206406930","/_next/static/chunks/app/api/create-portal-session/route-42fe6aaed27d7d01.js":"15885dc0d2d075155ff757b31d5545f9a3f7ee93aeaba441075e9df206406930","/_next/static/chunks/app/song/[songId]/page-3e4c32d63d4ed8fd.js":"8a0b5944bc6d6183a1c9bd8749e5c345da0adeb9deea006962748a6ab322a658","/_next/static/chunks/app/api/create-checkout-session/route-94215982c2580c93.js":"15885dc0d2d075155ff757b31d5545f9a3f7ee93aeaba441075e9df206406930","/_next/static/chunks/app/playlists/page-fd986f96c0de13a5.js":"8558eb722fe63d636c8b6f1f1cca2d6358d689d1bb17cdf14d0b6c626c8d8bb2","/_next/static/chunks/app/api/cancel-subscription/route-8e70d6797d1c9010.js":"15885dc0d2d075155ff757b31d5545f9a3f7ee93aeaba441075e9df206406930","/_next/static/chunks/app/account/page-7f662bea8a138cf9.js":"15885dc0d2d075155ff757b31d5545f9a3f7ee93aeaba441075e9df206406930","/_next/static/chunks/app/account/layout-91b701f345de8e96.js":"b26d2703a0afa25733fc56a28f282e0f18570edf91c3de89f92a83a5fbf1b535","/_next/static/chunks/app/api/check-subscription/route-f905c68b721d70cf.js":"15885dc0d2d075155ff757b31d5545f9a3f7ee93aeaba441075e9df206406930","/_next/static/chunks/app/playlist/[playlistId]/page-78700ae30f6bbe5e.js":"d1516367cb388f7c02692c06dc3ef723c6c4231c2a48b1cd8a1030300f6bb5be","/_next/static/chunks/app/account/settings/page-c5fab9d5f89314d4.js":"dcf40595a23ce33055fc85e1c0bc4a66f8ddf8303de86da754a82d816fe90119","/_next/static/chunks/app/_not-found/page-121c2b75439473d4.js":"15885dc0d2d075155ff757b31d5545f9a3f7ee93aeaba441075e9df206406930","/_next/static/chunks/app/(auth)/layout-060149787a424740.js":"45e385d50b6e07abc305fff70307588ad9acba9c249be3babc7c7145dbcfcef2","/_next/static/chunks/app/account/subscription/page-bb5c158e68f999b6.js":"6744828d5e624b5d7ced70230eddd27574524b4dc0fe6c8590f6f5bbf405f4be","/_next/static/BEva-OsqnhpQaAHCuXM6D/_ssgManifest.js":"02dbc1aeab6ef0a6ff2ff9a1643158cf9bb38929945eaa343a3627dee9ba6778","/_next/static/chunks/app/(auth)/login/page-847fd38cafc98276.js":"aef18cd0e4baa26f7b99d0e40e8f4413ba50ca41f817c89ce2dbd208b13f7886","/_next/static/chunks/app/(auth)/join/page-80bf3588c3a85ac1.js":"a415bf9b163d99f5aae1c224e568a291b23b9dba5a78c50743ec66df3c022b2b","/_next/static/BEva-OsqnhpQaAHCuXM6D/_buildManifest.js":"fed30184c7f205b0b681836141110b55d0643e29fac695e44a8e848a13ac95c6","/_next/static/chunks/polyfills-42372ed130431b0a.js":"67dee1c02c6a6700d63b5c1898cf2df618101a68a395db469192763d24925a23","/_next/static/chunks/app/account/profile/page-433b195b8cf42d6e.js":"0a1cbb76d93a8f60c12a62bc4dfb032e5658b3260a73af300f0e2158a52df0dd","/_next/static/media/99b7f73d5af7c3e2-s.woff2":"b70210fcfb53695e2ff945e382554f11d4608e2d2fb2e224203bb9c869d2e424","/_next/static/chunks/4bd1b696-365f864dc81761c1.js":"e29205755a0d676ad38d19789f05d099402b792b934b65e187ef3784bda6215a","/_next/static/chunks/framework-f9cedd5d3dd4465f.js":"7c3d70ac08a64c83c029d140da20ada3dabbc31fe8de3d4c631de0f883472c25","/_next/static/chunks/1517-c261346865b2e4cd.js":"682c8016f91794c8d084633f4ff3340b45c5e3b5f5360090cad3df8c3f1dfd9a","/_next/static/chunks/bc9e92e6-8b368cb40aeab13f.js":"a12032e4847d2e6d55edfe939c08eded7b1669d3b053f8ea0166423894ca8b1e"}}
+[debug] [2025-01-07T09:17:50.994Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/694200444660/sites/gouda-company/versions/aaeb8b7ae476ed10:populateFiles 200
+[debug] [2025-01-07T09:17:50.997Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/694200444660/sites/gouda-company/versions/aaeb8b7ae476ed10:populateFiles {"uploadRequiredHashes":["697dacbefa8c1520849c9d60bb91d59d211f7e1e4d46245173716f9b7b6ba34e","0a1cbb76d93a8f60c12a62bc4dfb032e5658b3260a73af300f0e2158a52df0dd","6744828d5e624b5d7ced70230eddd27574524b4dc0fe6c8590f6f5bbf405f4be","2d0e8acf9e2c19ada7b4df76282df7bb177c830f212e999327703f2efa7ec130","982c280d68ce219bd82172fdf393bf61a429b9619b648c2ead8caef63c09a189","ae50cf6c00e77b0a677ae8368e67dcbf794596ad26a024406247909132e98a97","f5ad95f3c829fac23b55e9440ef78ac1f3fb519231d67111538a9e6e3251eac0","3d41395f2b088eb1f3195526a60fd3324406a51646f7b6cce53a62f8f81cadc2","7d0c1c8d67cca3afbf82e01d31b2535a1aed43e57854c3062bc4eff5127ca832","01654c138701baaeadb4fa1d1a785ae91bfe479f74993fd47a537daff476db80","30b220861981815d3cdd7e021d4f2104c2fb0a776a2c969c03a3246b522f344d","11706f6cecb0774361fc2a7af4251ee47ac8f678c4c7102753fe84c228dba499","a122396d12c37afec68026e0d7a3a51ad28f5326b37f8d26cc540f0e83d11cb3","cee92a7cf2c3fe1843b127090475f4c65029f33a472aa9479b1eeb81f307a115","b26d2703a0afa25733fc56a28f282e0f18570edf91c3de89f92a83a5fbf1b535","650935df4a8d2989008cc6d2c9886e88e6b42bbb88456e52a35f7de173e45a19","4572988085c52a3514c30b1eb4a48f0eab706db8844285693be2028efedff5e4","8a0b5944bc6d6183a1c9bd8749e5c345da0adeb9deea006962748a6ab322a658","a415bf9b163d99f5aae1c224e568a291b23b9dba5a78c50743ec66df3c022b2b","dcf40595a23ce33055fc85e1c0bc4a66f8ddf8303de86da754a82d816fe90119","86a7bcb7e8d8d6d351ef1c0b2076e34e0266cd82d7602ded867b2d545a152640","c7dec9c0697e49fea27f602bef80232b2442bc45fb9d3ae149bd03643cab6bad","23bf86c485b48c708d92cf6a4f6e6959821c56bd14c397b90a6b1209ccd943e8","0926f648259a67f6464860a582a13dbf3102162207bd814239aadab91fa0dedc","60c4b56510f26b9aa996d15596d29705dd06cd49ad2bc4b42c605f69c72ff689","8558eb722fe63d636c8b6f1f1cca2d6358d689d1bb17cdf14d0b6c626c8d8bb2","a811f16129f1f59bdebf66e86e81e39c86b17f36eb3d1fb206d5533d7b4a713f","d1516367cb388f7c02692c06dc3ef723c6c4231c2a48b1cd8a1030300f6bb5be","aef18cd0e4baa26f7b99d0e40e8f4413ba50ca41f817c89ce2dbd208b13f7886","f6dd72d199add120daa98512b1ebcedb4c332797ab4a1fc744c829eea8501b96"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files"}
+[debug] [2025-01-07T09:17:51.007Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.007Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.009Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.010Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.010Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.010Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.011Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.011Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.015Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.016Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.018Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.018Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.018Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.018Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.018Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.018Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.018Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.018Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.018Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.020Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.020Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.020Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.020Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.020Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.020Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.020Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.020Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.020Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.021Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.022Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.022Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.022Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.022Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.022Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.022Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:51.022Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/697dacbefa8c1520849c9d60bb91d59d211f7e1e4d46245173716f9b7b6ba34e [none]
+[debug] [2025-01-07T09:17:51.022Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/697dacbefa8c1520849c9d60bb91d59d211f7e1e4d46245173716f9b7b6ba34e [stream]
+[debug] [2025-01-07T09:17:51.027Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/0a1cbb76d93a8f60c12a62bc4dfb032e5658b3260a73af300f0e2158a52df0dd [none]
+[debug] [2025-01-07T09:17:51.027Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/0a1cbb76d93a8f60c12a62bc4dfb032e5658b3260a73af300f0e2158a52df0dd [stream]
+[debug] [2025-01-07T09:17:51.028Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/6744828d5e624b5d7ced70230eddd27574524b4dc0fe6c8590f6f5bbf405f4be [none]
+[debug] [2025-01-07T09:17:51.028Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/6744828d5e624b5d7ced70230eddd27574524b4dc0fe6c8590f6f5bbf405f4be [stream]
+[debug] [2025-01-07T09:17:51.028Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/2d0e8acf9e2c19ada7b4df76282df7bb177c830f212e999327703f2efa7ec130 [none]
+[debug] [2025-01-07T09:17:51.028Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/2d0e8acf9e2c19ada7b4df76282df7bb177c830f212e999327703f2efa7ec130 [stream]
+[debug] [2025-01-07T09:17:51.029Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/982c280d68ce219bd82172fdf393bf61a429b9619b648c2ead8caef63c09a189 [none]
+[debug] [2025-01-07T09:17:51.029Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/982c280d68ce219bd82172fdf393bf61a429b9619b648c2ead8caef63c09a189 [stream]
+[debug] [2025-01-07T09:17:51.035Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/ae50cf6c00e77b0a677ae8368e67dcbf794596ad26a024406247909132e98a97 [none]
+[debug] [2025-01-07T09:17:51.036Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/ae50cf6c00e77b0a677ae8368e67dcbf794596ad26a024406247909132e98a97 [stream]
+[debug] [2025-01-07T09:17:51.040Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/f5ad95f3c829fac23b55e9440ef78ac1f3fb519231d67111538a9e6e3251eac0 [none]
+[debug] [2025-01-07T09:17:51.041Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/f5ad95f3c829fac23b55e9440ef78ac1f3fb519231d67111538a9e6e3251eac0 [stream]
+[debug] [2025-01-07T09:17:51.042Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/3d41395f2b088eb1f3195526a60fd3324406a51646f7b6cce53a62f8f81cadc2 [none]
+[debug] [2025-01-07T09:17:51.042Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/3d41395f2b088eb1f3195526a60fd3324406a51646f7b6cce53a62f8f81cadc2 [stream]
+[debug] [2025-01-07T09:17:51.043Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/7d0c1c8d67cca3afbf82e01d31b2535a1aed43e57854c3062bc4eff5127ca832 [none]
+[debug] [2025-01-07T09:17:51.043Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/7d0c1c8d67cca3afbf82e01d31b2535a1aed43e57854c3062bc4eff5127ca832 [stream]
+[debug] [2025-01-07T09:17:51.043Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/01654c138701baaeadb4fa1d1a785ae91bfe479f74993fd47a537daff476db80 [none]
+[debug] [2025-01-07T09:17:51.043Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/01654c138701baaeadb4fa1d1a785ae91bfe479f74993fd47a537daff476db80 [stream]
+[debug] [2025-01-07T09:17:51.044Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/30b220861981815d3cdd7e021d4f2104c2fb0a776a2c969c03a3246b522f344d [none]
+[debug] [2025-01-07T09:17:51.044Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/30b220861981815d3cdd7e021d4f2104c2fb0a776a2c969c03a3246b522f344d [stream]
+[debug] [2025-01-07T09:17:51.044Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/11706f6cecb0774361fc2a7af4251ee47ac8f678c4c7102753fe84c228dba499 [none]
+[debug] [2025-01-07T09:17:51.044Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/11706f6cecb0774361fc2a7af4251ee47ac8f678c4c7102753fe84c228dba499 [stream]
+[debug] [2025-01-07T09:17:51.045Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/a122396d12c37afec68026e0d7a3a51ad28f5326b37f8d26cc540f0e83d11cb3 [none]
+[debug] [2025-01-07T09:17:51.045Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/a122396d12c37afec68026e0d7a3a51ad28f5326b37f8d26cc540f0e83d11cb3 [stream]
+[debug] [2025-01-07T09:17:51.045Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/cee92a7cf2c3fe1843b127090475f4c65029f33a472aa9479b1eeb81f307a115 [none]
+[debug] [2025-01-07T09:17:51.045Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/cee92a7cf2c3fe1843b127090475f4c65029f33a472aa9479b1eeb81f307a115 [stream]
+[debug] [2025-01-07T09:17:51.046Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/b26d2703a0afa25733fc56a28f282e0f18570edf91c3de89f92a83a5fbf1b535 [none]
+[debug] [2025-01-07T09:17:51.046Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/b26d2703a0afa25733fc56a28f282e0f18570edf91c3de89f92a83a5fbf1b535 [stream]
+[debug] [2025-01-07T09:17:51.047Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/650935df4a8d2989008cc6d2c9886e88e6b42bbb88456e52a35f7de173e45a19 [none]
+[debug] [2025-01-07T09:17:51.047Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/650935df4a8d2989008cc6d2c9886e88e6b42bbb88456e52a35f7de173e45a19 [stream]
+[debug] [2025-01-07T09:17:51.048Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/4572988085c52a3514c30b1eb4a48f0eab706db8844285693be2028efedff5e4 [none]
+[debug] [2025-01-07T09:17:51.048Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/4572988085c52a3514c30b1eb4a48f0eab706db8844285693be2028efedff5e4 [stream]
+[debug] [2025-01-07T09:17:51.048Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/8a0b5944bc6d6183a1c9bd8749e5c345da0adeb9deea006962748a6ab322a658 [none]
+[debug] [2025-01-07T09:17:51.048Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/8a0b5944bc6d6183a1c9bd8749e5c345da0adeb9deea006962748a6ab322a658 [stream]
+[debug] [2025-01-07T09:17:51.050Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/a415bf9b163d99f5aae1c224e568a291b23b9dba5a78c50743ec66df3c022b2b [none]
+[debug] [2025-01-07T09:17:51.050Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/a415bf9b163d99f5aae1c224e568a291b23b9dba5a78c50743ec66df3c022b2b [stream]
+[debug] [2025-01-07T09:17:51.051Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/dcf40595a23ce33055fc85e1c0bc4a66f8ddf8303de86da754a82d816fe90119 [none]
+[debug] [2025-01-07T09:17:51.051Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/dcf40595a23ce33055fc85e1c0bc4a66f8ddf8303de86da754a82d816fe90119 [stream]
+[debug] [2025-01-07T09:17:51.052Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/86a7bcb7e8d8d6d351ef1c0b2076e34e0266cd82d7602ded867b2d545a152640 [none]
+[debug] [2025-01-07T09:17:51.052Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/86a7bcb7e8d8d6d351ef1c0b2076e34e0266cd82d7602ded867b2d545a152640 [stream]
+[debug] [2025-01-07T09:17:51.053Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/c7dec9c0697e49fea27f602bef80232b2442bc45fb9d3ae149bd03643cab6bad [none]
+[debug] [2025-01-07T09:17:51.053Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/c7dec9c0697e49fea27f602bef80232b2442bc45fb9d3ae149bd03643cab6bad [stream]
+[debug] [2025-01-07T09:17:51.054Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/23bf86c485b48c708d92cf6a4f6e6959821c56bd14c397b90a6b1209ccd943e8 [none]
+[debug] [2025-01-07T09:17:51.054Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/23bf86c485b48c708d92cf6a4f6e6959821c56bd14c397b90a6b1209ccd943e8 [stream]
+[debug] [2025-01-07T09:17:51.055Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/0926f648259a67f6464860a582a13dbf3102162207bd814239aadab91fa0dedc [none]
+[debug] [2025-01-07T09:17:51.055Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/0926f648259a67f6464860a582a13dbf3102162207bd814239aadab91fa0dedc [stream]
+[debug] [2025-01-07T09:17:51.055Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/60c4b56510f26b9aa996d15596d29705dd06cd49ad2bc4b42c605f69c72ff689 [none]
+[debug] [2025-01-07T09:17:51.055Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/60c4b56510f26b9aa996d15596d29705dd06cd49ad2bc4b42c605f69c72ff689 [stream]
+[debug] [2025-01-07T09:17:51.056Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/8558eb722fe63d636c8b6f1f1cca2d6358d689d1bb17cdf14d0b6c626c8d8bb2 [none]
+[debug] [2025-01-07T09:17:51.056Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/8558eb722fe63d636c8b6f1f1cca2d6358d689d1bb17cdf14d0b6c626c8d8bb2 [stream]
+[debug] [2025-01-07T09:17:51.056Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/a811f16129f1f59bdebf66e86e81e39c86b17f36eb3d1fb206d5533d7b4a713f [none]
+[debug] [2025-01-07T09:17:51.056Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/a811f16129f1f59bdebf66e86e81e39c86b17f36eb3d1fb206d5533d7b4a713f [stream]
+[debug] [2025-01-07T09:17:51.057Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/d1516367cb388f7c02692c06dc3ef723c6c4231c2a48b1cd8a1030300f6bb5be [none]
+[debug] [2025-01-07T09:17:51.057Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/d1516367cb388f7c02692c06dc3ef723c6c4231c2a48b1cd8a1030300f6bb5be [stream]
+[debug] [2025-01-07T09:17:51.057Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/aef18cd0e4baa26f7b99d0e40e8f4413ba50ca41f817c89ce2dbd208b13f7886 [none]
+[debug] [2025-01-07T09:17:51.057Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/aef18cd0e4baa26f7b99d0e40e8f4413ba50ca41f817c89ce2dbd208b13f7886 [stream]
+[debug] [2025-01-07T09:17:51.058Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/f6dd72d199add120daa98512b1ebcedb4c332797ab4a1fc744c829eea8501b96 [none]
+[debug] [2025-01-07T09:17:51.058Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/f6dd72d199add120daa98512b1ebcedb4c332797ab4a1fc744c829eea8501b96 [stream]
+[debug] [2025-01-07T09:17:51.058Z] [hosting][populate queue][FINAL] {"max":245,"min":245,"avg":245,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":281}
+[debug] [2025-01-07T09:17:51.058Z] [hosting] uploads queued: 30
+[debug] [2025-01-07T09:17:51.741Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/86a7bcb7e8d8d6d351ef1c0b2076e34e0266cd82d7602ded867b2d545a152640 200
+[debug] [2025-01-07T09:17:51.742Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/86a7bcb7e8d8d6d351ef1c0b2076e34e0266cd82d7602ded867b2d545a152640 [stream]
+[debug] [2025-01-07T09:17:51.803Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/60c4b56510f26b9aa996d15596d29705dd06cd49ad2bc4b42c605f69c72ff689 200
+[debug] [2025-01-07T09:17:51.803Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/60c4b56510f26b9aa996d15596d29705dd06cd49ad2bc4b42c605f69c72ff689 [stream]
+[debug] [2025-01-07T09:17:51.827Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/cee92a7cf2c3fe1843b127090475f4c65029f33a472aa9479b1eeb81f307a115 200
+[debug] [2025-01-07T09:17:51.827Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/cee92a7cf2c3fe1843b127090475f4c65029f33a472aa9479b1eeb81f307a115 [stream]
+[debug] [2025-01-07T09:17:51.828Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/a415bf9b163d99f5aae1c224e568a291b23b9dba5a78c50743ec66df3c022b2b 200
+[debug] [2025-01-07T09:17:51.829Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/a415bf9b163d99f5aae1c224e568a291b23b9dba5a78c50743ec66df3c022b2b [stream]
+[debug] [2025-01-07T09:17:51.870Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/2d0e8acf9e2c19ada7b4df76282df7bb177c830f212e999327703f2efa7ec130 200
+[debug] [2025-01-07T09:17:51.870Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/2d0e8acf9e2c19ada7b4df76282df7bb177c830f212e999327703f2efa7ec130 [stream]
+[debug] [2025-01-07T09:17:51.873Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/f5ad95f3c829fac23b55e9440ef78ac1f3fb519231d67111538a9e6e3251eac0 200
+[debug] [2025-01-07T09:17:51.874Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/f5ad95f3c829fac23b55e9440ef78ac1f3fb519231d67111538a9e6e3251eac0 [stream]
+[debug] [2025-01-07T09:17:51.887Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/ae50cf6c00e77b0a677ae8368e67dcbf794596ad26a024406247909132e98a97 200
+[debug] [2025-01-07T09:17:51.887Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/ae50cf6c00e77b0a677ae8368e67dcbf794596ad26a024406247909132e98a97 [stream]
+[debug] [2025-01-07T09:17:51.888Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/01654c138701baaeadb4fa1d1a785ae91bfe479f74993fd47a537daff476db80 200
+[debug] [2025-01-07T09:17:51.888Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/01654c138701baaeadb4fa1d1a785ae91bfe479f74993fd47a537daff476db80 [stream]
+[debug] [2025-01-07T09:17:51.900Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/d1516367cb388f7c02692c06dc3ef723c6c4231c2a48b1cd8a1030300f6bb5be 200
+[debug] [2025-01-07T09:17:51.900Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/d1516367cb388f7c02692c06dc3ef723c6c4231c2a48b1cd8a1030300f6bb5be [stream]
+[debug] [2025-01-07T09:17:51.902Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/650935df4a8d2989008cc6d2c9886e88e6b42bbb88456e52a35f7de173e45a19 200
+[debug] [2025-01-07T09:17:51.902Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/650935df4a8d2989008cc6d2c9886e88e6b42bbb88456e52a35f7de173e45a19 [stream]
+[debug] [2025-01-07T09:17:51.925Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/c7dec9c0697e49fea27f602bef80232b2442bc45fb9d3ae149bd03643cab6bad 200
+[debug] [2025-01-07T09:17:51.925Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/c7dec9c0697e49fea27f602bef80232b2442bc45fb9d3ae149bd03643cab6bad [stream]
+[debug] [2025-01-07T09:17:51.926Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/23bf86c485b48c708d92cf6a4f6e6959821c56bd14c397b90a6b1209ccd943e8 200
+[debug] [2025-01-07T09:17:51.926Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/23bf86c485b48c708d92cf6a4f6e6959821c56bd14c397b90a6b1209ccd943e8 [stream]
+[debug] [2025-01-07T09:17:51.931Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/3d41395f2b088eb1f3195526a60fd3324406a51646f7b6cce53a62f8f81cadc2 200
+[debug] [2025-01-07T09:17:51.931Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/3d41395f2b088eb1f3195526a60fd3324406a51646f7b6cce53a62f8f81cadc2 [stream]
+[debug] [2025-01-07T09:17:51.964Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/8558eb722fe63d636c8b6f1f1cca2d6358d689d1bb17cdf14d0b6c626c8d8bb2 200
+[debug] [2025-01-07T09:17:51.964Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/8558eb722fe63d636c8b6f1f1cca2d6358d689d1bb17cdf14d0b6c626c8d8bb2 [stream]
+[debug] [2025-01-07T09:17:51.976Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/697dacbefa8c1520849c9d60bb91d59d211f7e1e4d46245173716f9b7b6ba34e 200
+[debug] [2025-01-07T09:17:51.977Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/697dacbefa8c1520849c9d60bb91d59d211f7e1e4d46245173716f9b7b6ba34e [stream]
+[debug] [2025-01-07T09:17:51.986Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/dcf40595a23ce33055fc85e1c0bc4a66f8ddf8303de86da754a82d816fe90119 200
+[debug] [2025-01-07T09:17:51.986Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/dcf40595a23ce33055fc85e1c0bc4a66f8ddf8303de86da754a82d816fe90119 [stream]
+[debug] [2025-01-07T09:17:52.009Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/30b220861981815d3cdd7e021d4f2104c2fb0a776a2c969c03a3246b522f344d 200
+[debug] [2025-01-07T09:17:52.010Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/30b220861981815d3cdd7e021d4f2104c2fb0a776a2c969c03a3246b522f344d [stream]
+[debug] [2025-01-07T09:17:52.040Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/b26d2703a0afa25733fc56a28f282e0f18570edf91c3de89f92a83a5fbf1b535 200
+[debug] [2025-01-07T09:17:52.040Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/b26d2703a0afa25733fc56a28f282e0f18570edf91c3de89f92a83a5fbf1b535 [stream]
+[debug] [2025-01-07T09:17:52.042Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/8a0b5944bc6d6183a1c9bd8749e5c345da0adeb9deea006962748a6ab322a658 200
+[debug] [2025-01-07T09:17:52.042Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/8a0b5944bc6d6183a1c9bd8749e5c345da0adeb9deea006962748a6ab322a658 [stream]
+[debug] [2025-01-07T09:17:52.043Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/982c280d68ce219bd82172fdf393bf61a429b9619b648c2ead8caef63c09a189 200
+[debug] [2025-01-07T09:17:52.043Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/982c280d68ce219bd82172fdf393bf61a429b9619b648c2ead8caef63c09a189 [stream]
+[debug] [2025-01-07T09:17:52.055Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/6744828d5e624b5d7ced70230eddd27574524b4dc0fe6c8590f6f5bbf405f4be 200
+[debug] [2025-01-07T09:17:52.056Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/6744828d5e624b5d7ced70230eddd27574524b4dc0fe6c8590f6f5bbf405f4be [stream]
+[debug] [2025-01-07T09:17:52.080Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/aef18cd0e4baa26f7b99d0e40e8f4413ba50ca41f817c89ce2dbd208b13f7886 200
+[debug] [2025-01-07T09:17:52.080Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/aef18cd0e4baa26f7b99d0e40e8f4413ba50ca41f817c89ce2dbd208b13f7886 [stream]
+[debug] [2025-01-07T09:17:52.091Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/f6dd72d199add120daa98512b1ebcedb4c332797ab4a1fc744c829eea8501b96 200
+[debug] [2025-01-07T09:17:52.091Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/f6dd72d199add120daa98512b1ebcedb4c332797ab4a1fc744c829eea8501b96 [stream]
+[debug] [2025-01-07T09:17:52.102Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/0926f648259a67f6464860a582a13dbf3102162207bd814239aadab91fa0dedc 200
+[debug] [2025-01-07T09:17:52.103Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/0926f648259a67f6464860a582a13dbf3102162207bd814239aadab91fa0dedc [stream]
+[debug] [2025-01-07T09:17:52.148Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/7d0c1c8d67cca3afbf82e01d31b2535a1aed43e57854c3062bc4eff5127ca832 200
+[debug] [2025-01-07T09:17:52.148Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/7d0c1c8d67cca3afbf82e01d31b2535a1aed43e57854c3062bc4eff5127ca832 [stream]
+[debug] [2025-01-07T09:17:52.162Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/11706f6cecb0774361fc2a7af4251ee47ac8f678c4c7102753fe84c228dba499 200
+[debug] [2025-01-07T09:17:52.162Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/11706f6cecb0774361fc2a7af4251ee47ac8f678c4c7102753fe84c228dba499 [stream]
+[debug] [2025-01-07T09:17:52.209Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/0a1cbb76d93a8f60c12a62bc4dfb032e5658b3260a73af300f0e2158a52df0dd 200
+[debug] [2025-01-07T09:17:52.209Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/0a1cbb76d93a8f60c12a62bc4dfb032e5658b3260a73af300f0e2158a52df0dd [stream]
+[debug] [2025-01-07T09:17:52.209Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/a122396d12c37afec68026e0d7a3a51ad28f5326b37f8d26cc540f0e83d11cb3 200
+[debug] [2025-01-07T09:17:52.209Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/a122396d12c37afec68026e0d7a3a51ad28f5326b37f8d26cc540f0e83d11cb3 [stream]
+[debug] [2025-01-07T09:17:52.449Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/4572988085c52a3514c30b1eb4a48f0eab706db8844285693be2028efedff5e4 200
+[debug] [2025-01-07T09:17:52.449Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/4572988085c52a3514c30b1eb4a48f0eab706db8844285693be2028efedff5e4 [stream]
+[debug] [2025-01-07T09:17:52.496Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/a811f16129f1f59bdebf66e86e81e39c86b17f36eb3d1fb206d5533d7b4a713f 200
+[debug] [2025-01-07T09:17:52.497Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/gouda-company/versions/aaeb8b7ae476ed10/files/a811f16129f1f59bdebf66e86e81e39c86b17f36eb3d1fb206d5533d7b4a713f [stream]
+[debug] [2025-01-07T09:17:52.497Z] [hosting][upload queue][FINAL] {"max":1476,"min":721,"avg":994.0333333333333,"active":0,"complete":30,"success":30,"errored":0,"retried":0,"total":30,"elapsed":1491}
+[info] ✔  hosting[gouda-company]: file upload complete 
+[debug] [2025-01-07T09:17:52.497Z] [hosting] deploy completed after 1764ms
+[info] i  functions: updating Node.js 20 (2nd Gen) function firebase-frameworks-gouda-company:ssrgoudacompany(us-central1)... 
+[debug] [2025-01-07T09:17:52.500Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:52.500Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:52.500Z] >>> [apiv2][query] PATCH https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/functions/ssrgoudacompany updateMask=name%2CbuildConfig.runtime%2CbuildConfig.entryPoint%2CbuildConfig.source.storageSource.bucket%2CbuildConfig.source.storageSource.object%2CbuildConfig.environmentVariables%2CbuildConfig.sourceToken%2CserviceConfig.environmentVariables%2CserviceConfig.ingressSettings%2CserviceConfig.timeoutSeconds%2CserviceConfig.serviceAccountEmail%2CserviceConfig.availableMemory%2CserviceConfig.minInstanceCount%2CserviceConfig.maxInstanceCount%2CserviceConfig.maxInstanceRequestConcurrency%2CserviceConfig.availableCpu%2CserviceConfig.vpcConnector%2CserviceConfig.vpcConnectorEgressSettings%2Clabels%2CbuildConfig.buildEnvironmentVariables
+[debug] [2025-01-07T09:17:52.500Z] >>> [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/functions/ssrgoudacompany {"name":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrgoudacompany","source":{"storageSource":{"bucket":"gcf-v2-uploads-694200444660.us-central1.cloudfunctions.appspot.com","object":"ba80d288-cf46-4d5f-8872-eda782c9c207.zip"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}},"serviceConfig":{"environmentVariables":{"VERCEL_URL":"gouda-company.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"gouda-company\",\"appId\":\"1:694200444660:web:f9ef01bfda90fc63a6a0a1\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\",\"apiKey\":\"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs\",\"authDomain\":\"gouda-company.firebaseapp.com\",\"messagingSenderId\":\"694200444660\",\"measurementId\":\"G-1L66RSFLQ7\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","FUNCTION_TARGET":"ssrgoudacompany"},"ingressSettings":null,"timeoutSeconds":null,"serviceAccountEmail":null,"availableMemory":"256Mi","minInstanceCount":null,"maxInstanceCount":null,"maxInstanceRequestConcurrency":80,"availableCpu":"1","vpcConnector":null,"vpcConnectorEgressSettings":null},"labels":{"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-gouda-company","firebase-functions-hash":"87caa42f1b81e32f481485b243c2577290b3374e"}}
+[debug] [2025-01-07T09:17:53.749Z] <<< [apiv2][status] PATCH https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/functions/ssrgoudacompany 200
+[debug] [2025-01-07T09:17:53.749Z] <<< [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/functions/ssrgoudacompany {"name":"projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-01-07T09:17:53.718365397Z","target":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","verb":"update","cancelRequested":false,"apiVersion":"v2"},"done":false}
+[debug] [2025-01-07T09:17:53.749Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:53.749Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:53.749Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b [none]
+[debug] [2025-01-07T09:17:53.939Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b 200
+[debug] [2025-01-07T09:17:53.939Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b {"name":"projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-01-07T09:17:53.718365397Z","target":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrgoudacompany","source":{"storageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736241473629781"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/gouda-company/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736239307628496"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/gouda-company/serviceAccounts/694200444660-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"gouda-company.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"gouda-company\",\"appId\":\"1:694200444660:web:f9ef01bfda90fc63a6a0a1\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\",\"apiKey\":\"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs\",\"authDomain\":\"gouda-company.firebaseapp.com\",\"messagingSenderId\":\"694200444660\",\"measurementId\":\"G-1L66RSFLQ7\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","FUNCTION_TARGET":"ssrgoudacompany","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrgoudacompany-q5gzyeojtq-uc.a.run.app","serviceAccountEmail":"694200444660-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrgoudacompany-00039-yus","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-gouda-company","firebase-functions-hash":"87caa42f1b81e32f481485b243c2577290b3374e"},"environment":"GEN_2","url":"https://us-central1-gouda-company.cloudfunctions.net/ssrgoudacompany"},"stages":[{"name":"BUILD","state":"NOT_STARTED"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION"},"done":false}
+[debug] [2025-01-07T09:17:54.440Z] [update-firebase-frameworks-gouda-company-us-central1-ssrgoudacompany] Retrying task index 0
+[debug] [2025-01-07T09:17:54.440Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:54.440Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:54.440Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b [none]
+[debug] [2025-01-07T09:17:54.647Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b 200
+[debug] [2025-01-07T09:17:54.647Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b {"name":"projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-01-07T09:17:53.718365397Z","target":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrgoudacompany","source":{"storageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736241473629781"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/gouda-company/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736239307628496"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/gouda-company/serviceAccounts/694200444660-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"gouda-company.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"gouda-company\",\"appId\":\"1:694200444660:web:f9ef01bfda90fc63a6a0a1\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\",\"apiKey\":\"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs\",\"authDomain\":\"gouda-company.firebaseapp.com\",\"messagingSenderId\":\"694200444660\",\"measurementId\":\"G-1L66RSFLQ7\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","FUNCTION_TARGET":"ssrgoudacompany","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrgoudacompany-q5gzyeojtq-uc.a.run.app","serviceAccountEmail":"694200444660-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrgoudacompany-00039-yus","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-gouda-company","firebase-functions-hash":"87caa42f1b81e32f481485b243c2577290b3374e"},"environment":"GEN_2","url":"https://us-central1-gouda-company.cloudfunctions.net/ssrgoudacompany"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b?project=694200444660"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b"},"done":false}
+[debug] [2025-01-07T09:17:55.648Z] [update-firebase-frameworks-gouda-company-us-central1-ssrgoudacompany] Retrying task index 0
+[debug] [2025-01-07T09:17:55.648Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:55.648Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:55.649Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b [none]
+[debug] [2025-01-07T09:17:55.862Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b 200
+[debug] [2025-01-07T09:17:55.862Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b {"name":"projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-01-07T09:17:53.718365397Z","target":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrgoudacompany","source":{"storageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736241473629781"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/gouda-company/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736239307628496"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/gouda-company/serviceAccounts/694200444660-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"gouda-company.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"gouda-company\",\"appId\":\"1:694200444660:web:f9ef01bfda90fc63a6a0a1\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\",\"apiKey\":\"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs\",\"authDomain\":\"gouda-company.firebaseapp.com\",\"messagingSenderId\":\"694200444660\",\"measurementId\":\"G-1L66RSFLQ7\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","FUNCTION_TARGET":"ssrgoudacompany","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrgoudacompany-q5gzyeojtq-uc.a.run.app","serviceAccountEmail":"694200444660-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrgoudacompany-00039-yus","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-gouda-company","firebase-functions-hash":"87caa42f1b81e32f481485b243c2577290b3374e"},"environment":"GEN_2","url":"https://us-central1-gouda-company.cloudfunctions.net/ssrgoudacompany"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b?project=694200444660"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b"},"done":false}
+[debug] [2025-01-07T09:17:57.864Z] [update-firebase-frameworks-gouda-company-us-central1-ssrgoudacompany] Retrying task index 0
+[debug] [2025-01-07T09:17:57.864Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:57.864Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:17:57.865Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b [none]
+[debug] [2025-01-07T09:17:58.083Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b 200
+[debug] [2025-01-07T09:17:58.083Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b {"name":"projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-01-07T09:17:53.718365397Z","target":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrgoudacompany","source":{"storageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736241473629781"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/gouda-company/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736239307628496"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/gouda-company/serviceAccounts/694200444660-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"gouda-company.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"gouda-company\",\"appId\":\"1:694200444660:web:f9ef01bfda90fc63a6a0a1\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\",\"apiKey\":\"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs\",\"authDomain\":\"gouda-company.firebaseapp.com\",\"messagingSenderId\":\"694200444660\",\"measurementId\":\"G-1L66RSFLQ7\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","FUNCTION_TARGET":"ssrgoudacompany","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrgoudacompany-q5gzyeojtq-uc.a.run.app","serviceAccountEmail":"694200444660-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrgoudacompany-00039-yus","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-gouda-company","firebase-functions-hash":"87caa42f1b81e32f481485b243c2577290b3374e"},"environment":"GEN_2","url":"https://us-central1-gouda-company.cloudfunctions.net/ssrgoudacompany"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b?project=694200444660"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b"},"done":false}
+[debug] [2025-01-07T09:18:02.084Z] [update-firebase-frameworks-gouda-company-us-central1-ssrgoudacompany] Retrying task index 0
+[debug] [2025-01-07T09:18:02.085Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:18:02.085Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:18:02.085Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b [none]
+[debug] [2025-01-07T09:18:02.174Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b 200
+[debug] [2025-01-07T09:18:02.174Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b {"name":"projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-01-07T09:17:53.718365397Z","target":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrgoudacompany","source":{"storageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736241473629781"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/gouda-company/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736239307628496"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/gouda-company/serviceAccounts/694200444660-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"gouda-company.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"gouda-company\",\"appId\":\"1:694200444660:web:f9ef01bfda90fc63a6a0a1\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\",\"apiKey\":\"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs\",\"authDomain\":\"gouda-company.firebaseapp.com\",\"messagingSenderId\":\"694200444660\",\"measurementId\":\"G-1L66RSFLQ7\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","FUNCTION_TARGET":"ssrgoudacompany","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrgoudacompany-q5gzyeojtq-uc.a.run.app","serviceAccountEmail":"694200444660-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrgoudacompany-00039-yus","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-gouda-company","firebase-functions-hash":"87caa42f1b81e32f481485b243c2577290b3374e"},"environment":"GEN_2","url":"https://us-central1-gouda-company.cloudfunctions.net/ssrgoudacompany"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b?project=694200444660"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b"},"done":false}
+[debug] [2025-01-07T09:18:10.176Z] [update-firebase-frameworks-gouda-company-us-central1-ssrgoudacompany] Retrying task index 0
+[debug] [2025-01-07T09:18:10.178Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:18:10.178Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:18:10.179Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b [none]
+[debug] [2025-01-07T09:18:10.469Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b 200
+[debug] [2025-01-07T09:18:10.469Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b {"name":"projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-01-07T09:17:53.718365397Z","target":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrgoudacompany","source":{"storageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736241473629781"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/gouda-company/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736239307628496"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/gouda-company/serviceAccounts/694200444660-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"gouda-company.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"gouda-company\",\"appId\":\"1:694200444660:web:f9ef01bfda90fc63a6a0a1\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\",\"apiKey\":\"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs\",\"authDomain\":\"gouda-company.firebaseapp.com\",\"messagingSenderId\":\"694200444660\",\"measurementId\":\"G-1L66RSFLQ7\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","FUNCTION_TARGET":"ssrgoudacompany","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrgoudacompany-q5gzyeojtq-uc.a.run.app","serviceAccountEmail":"694200444660-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrgoudacompany-00039-yus","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-gouda-company","firebase-functions-hash":"87caa42f1b81e32f481485b243c2577290b3374e"},"environment":"GEN_2","url":"https://us-central1-gouda-company.cloudfunctions.net/ssrgoudacompany"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b?project=694200444660"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b"},"done":false}
+[debug] [2025-01-07T09:18:20.470Z] [update-firebase-frameworks-gouda-company-us-central1-ssrgoudacompany] Retrying task index 0
+[debug] [2025-01-07T09:18:20.470Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:18:20.470Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:18:20.471Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b [none]
+[debug] [2025-01-07T09:18:20.748Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b 200
+[debug] [2025-01-07T09:18:20.748Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b {"name":"projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-01-07T09:17:53.718365397Z","target":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrgoudacompany","source":{"storageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736241473629781"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/gouda-company/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736239307628496"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/gouda-company/serviceAccounts/694200444660-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"gouda-company.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"gouda-company\",\"appId\":\"1:694200444660:web:f9ef01bfda90fc63a6a0a1\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\",\"apiKey\":\"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs\",\"authDomain\":\"gouda-company.firebaseapp.com\",\"messagingSenderId\":\"694200444660\",\"measurementId\":\"G-1L66RSFLQ7\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","FUNCTION_TARGET":"ssrgoudacompany","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrgoudacompany-q5gzyeojtq-uc.a.run.app","serviceAccountEmail":"694200444660-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrgoudacompany-00039-yus","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-gouda-company","firebase-functions-hash":"87caa42f1b81e32f481485b243c2577290b3374e"},"environment":"GEN_2","url":"https://us-central1-gouda-company.cloudfunctions.net/ssrgoudacompany"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b?project=694200444660"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b"},"done":false}
+[debug] [2025-01-07T09:18:30.749Z] [update-firebase-frameworks-gouda-company-us-central1-ssrgoudacompany] Retrying task index 0
+[debug] [2025-01-07T09:18:30.753Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:18:30.753Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:18:30.753Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b [none]
+[debug] [2025-01-07T09:18:31.055Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b 200
+[debug] [2025-01-07T09:18:31.055Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b {"name":"projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-01-07T09:17:53.718365397Z","target":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrgoudacompany","source":{"storageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736241473629781"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/gouda-company/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736239307628496"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/gouda-company/serviceAccounts/694200444660-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"gouda-company.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"gouda-company\",\"appId\":\"1:694200444660:web:f9ef01bfda90fc63a6a0a1\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\",\"apiKey\":\"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs\",\"authDomain\":\"gouda-company.firebaseapp.com\",\"messagingSenderId\":\"694200444660\",\"measurementId\":\"G-1L66RSFLQ7\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","FUNCTION_TARGET":"ssrgoudacompany","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrgoudacompany-q5gzyeojtq-uc.a.run.app","serviceAccountEmail":"694200444660-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrgoudacompany-00039-yus","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-gouda-company","firebase-functions-hash":"87caa42f1b81e32f481485b243c2577290b3374e"},"environment":"GEN_2","url":"https://us-central1-gouda-company.cloudfunctions.net/ssrgoudacompany"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b?project=694200444660"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b"},"done":false}
+[debug] [2025-01-07T09:18:41.056Z] [update-firebase-frameworks-gouda-company-us-central1-ssrgoudacompany] Retrying task index 0
+[debug] [2025-01-07T09:18:41.059Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:18:41.059Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:18:41.059Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b [none]
+[debug] [2025-01-07T09:18:41.361Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b 200
+[debug] [2025-01-07T09:18:41.361Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b {"name":"projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-01-07T09:17:53.718365397Z","target":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrgoudacompany","source":{"storageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736241473629781"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/gouda-company/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736239307628496"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/gouda-company/serviceAccounts/694200444660-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"gouda-company.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"gouda-company\",\"appId\":\"1:694200444660:web:f9ef01bfda90fc63a6a0a1\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\",\"apiKey\":\"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs\",\"authDomain\":\"gouda-company.firebaseapp.com\",\"messagingSenderId\":\"694200444660\",\"measurementId\":\"G-1L66RSFLQ7\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","FUNCTION_TARGET":"ssrgoudacompany","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrgoudacompany-q5gzyeojtq-uc.a.run.app","serviceAccountEmail":"694200444660-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrgoudacompany-00039-yus","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-gouda-company","firebase-functions-hash":"87caa42f1b81e32f481485b243c2577290b3374e"},"environment":"GEN_2","url":"https://us-central1-gouda-company.cloudfunctions.net/ssrgoudacompany"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b?project=694200444660"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b"},"done":false}
+[debug] [2025-01-07T09:18:51.362Z] [update-firebase-frameworks-gouda-company-us-central1-ssrgoudacompany] Retrying task index 0
+[debug] [2025-01-07T09:18:51.365Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:18:51.365Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:18:51.365Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b [none]
+[debug] [2025-01-07T09:18:51.692Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b 200
+[debug] [2025-01-07T09:18:51.692Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b {"name":"projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-01-07T09:17:53.718365397Z","target":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrgoudacompany","source":{"storageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736241473629781"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/gouda-company/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736239307628496"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/gouda-company/serviceAccounts/694200444660-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"gouda-company.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"gouda-company\",\"appId\":\"1:694200444660:web:f9ef01bfda90fc63a6a0a1\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\",\"apiKey\":\"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs\",\"authDomain\":\"gouda-company.firebaseapp.com\",\"messagingSenderId\":\"694200444660\",\"measurementId\":\"G-1L66RSFLQ7\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","FUNCTION_TARGET":"ssrgoudacompany","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrgoudacompany-q5gzyeojtq-uc.a.run.app","serviceAccountEmail":"694200444660-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrgoudacompany-00039-yus","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-gouda-company","firebase-functions-hash":"87caa42f1b81e32f481485b243c2577290b3374e"},"environment":"GEN_2","url":"https://us-central1-gouda-company.cloudfunctions.net/ssrgoudacompany"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b?project=694200444660"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b"},"done":false}
+[debug] [2025-01-07T09:19:01.693Z] [update-firebase-frameworks-gouda-company-us-central1-ssrgoudacompany] Retrying task index 0
+[debug] [2025-01-07T09:19:01.694Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:19:01.694Z] Checked if tokens are valid: true, expires at: 1736245036751
+[debug] [2025-01-07T09:19:01.694Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b [none]
+[debug] [2025-01-07T09:19:01.991Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b 200
+[debug] [2025-01-07T09:19:01.991Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b {"name":"projects/gouda-company/locations/us-central1/operations/operation-1736241472704-62b1a38398edc-d7829fde-03595a5b","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-01-07T09:17:53.718365397Z","target":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/gouda-company/locations/us-central1/functions/ssrgoudacompany","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrgoudacompany","source":{"storageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736241473629781"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/gouda-company/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-694200444660-us-central1","object":"ssrgoudacompany/function-source.zip","generation":"1736239307628496"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/gouda-company/serviceAccounts/694200444660-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"gouda-company.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"gouda-company\",\"appId\":\"1:694200444660:web:f9ef01bfda90fc63a6a0a1\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\",\"apiKey\":\"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs\",\"authDomain\":\"gouda-company.firebaseapp.com\",\"messagingSenderId\":\"694200444660\",\"measurementId\":\"G-1L66RSFLQ7\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"gouda-company\",\"storageBucket\":\"gouda-company.appspot.com\",\"locationId\":\"us-central\"}","GCLOUD_PROJECT":"gouda-company","EVENTARC_CLOUD_EVENT_SOURCE":"projects/gouda-company/locations/us-central1/services/ssrgoudacompany","FUNCTION_TARGET":"ssrgoudacompany","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrgoudacompany-q5gzyeojtq-uc.a.run.app","serviceAccountEmail":"694200444660-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrgoudacompany-00039-yus","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-gouda-company","firebase-functions-hash":"87caa42f1b81e32f481485b243c2577290b3374e"},"environment":"GEN_2","url":"https://us-central1-gouda-company.cloudfunctions.net/ssrgoudacompany"},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-central1/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b?project=694200444660"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/694200444660/locations/us-central1/builds/fc602bbf-e4e8-43e2-823f-f6e4caa34e1b"},"done":false}
