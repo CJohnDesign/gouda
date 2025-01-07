@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink } from 'firebase/auth'
 import { app } from '@/firebase/firebase'
 import { useRouter } from 'next/navigation'
 import { Montserrat } from 'next/font/google'
@@ -30,7 +30,6 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
   const [emailSent, setEmailSent] = useState(false)
-  const [isProcessingLink, setIsProcessingLink] = useState(false)
   const [platform, setPlatform] = useState('unknown')
   const [emailService, setEmailService] = useState('gmail')
   const router = useRouter()
@@ -44,86 +43,46 @@ export default function LoginPage() {
     setEmailService(getEmailService(email))
   }, [email])
 
+  // Check for sign-in link
   useEffect(() => {
-    if (isSignInWithEmailLink(auth, window.location.href)) {
-      setIsProcessingLink(true)
-      console.log('Processing sign-in link...')
-      
-      let emailForSignIn = window.localStorage.getItem('emailForSignIn')
-      
-      if (!emailForSignIn) {
-        console.log('No email found in localStorage, prompting user...')
-        emailForSignIn = window.prompt('Please provide your email for confirmation')
-      }
-
-      if (emailForSignIn) {
-        console.log('Attempting to sign in with email link...')
-        signInWithEmailLink(auth, emailForSignIn, window.location.href)
-          .then(() => {
-            console.log('Sign in successful, waiting for auth state...')
-            window.localStorage.removeItem('emailForSignIn')
-            return new Promise((resolve) => {
-              const unsubscribe = onAuthStateChanged(auth, (user) => {
-                if (user) {
-                  console.log('Auth state updated, user signed in')
-                  unsubscribe()
-                  resolve(user)
-                }
-              })
-            })
-          })
-          .then(() => {
-            console.log('Redirecting to songbook...')
-            router.replace('/songbook')
-          })
-          .catch((error) => {
-            console.error('Error signing in:', error)
-            console.error('Error details:', {
-              code: error.code,
-              message: error.message,
-              email: emailForSignIn,
-              url: window.location.href
-            })
-            setError(error.message)
-          })
-          .finally(() => {
-            setIsProcessingLink(false)
-          })
-      } else {
-        setError('Please provide your email to complete sign in')
-        setIsProcessingLink(false)
+    const checkSignInLink = async () => {
+      try {
+        if (isSignInWithEmailLink(auth, window.location.href)) {
+          console.log('Detected sign-in link, redirecting to auth handler...')
+          router.push(`/auth/handler${window.location.search}`)
+        }
+      } catch (error) {
+        console.error('Error checking sign-in link:', error)
       }
     }
+
+    checkSignInLink()
   }, [auth, router])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
+      console.log('Attempting to send magic link to:', email)
+      console.log('Using app URL:', process.env.NEXT_PUBLIC_APP_URL)
+      
       const actionCodeSettings = {
-        url: `${process.env.NEXT_PUBLIC_APP_URL}/login`,
+        url: `${process.env.NEXT_PUBLIC_APP_URL}/auth/handler`,
         handleCodeInApp: true
       }
 
+      console.log('Action code settings:', actionCodeSettings)
+
       await sendSignInLinkToEmail(auth, email, actionCodeSettings)
+      console.log('Magic link sent successfully')
       
+      // Save the email for confirmation
       window.localStorage.setItem('emailForSignIn', email)
       setEmailSent(true)
       setError('')
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        setError(error.message)
-      } else {
-        setError('An unexpected error occurred')
-      }
+    } catch (error) {
+      console.error('Error sending magic link:', error)
+      setError(error instanceof Error ? error.message : 'An unexpected error occurred')
     }
-  }
-
-  if (isProcessingLink) {
-    return (
-      <main className={`min-h-screen bg-background flex flex-col items-center justify-center ${montserrat.className}`}>
-        <div className="text-foreground">Completing sign in...</div>
-      </main>
-    )
   }
 
   return (

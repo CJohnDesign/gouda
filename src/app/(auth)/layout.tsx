@@ -8,28 +8,25 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode
 }) {
-  const { setTheme } = useTheme()
+  const { setTheme, theme } = useTheme()
 
   // Force light mode for auth pages
   useEffect(() => {
-    // Set theme without transition to avoid flash
-    document.documentElement.classList.add('no-transitions')
+    // Immediately set to light mode
+    document.documentElement.classList.add('light')
+    document.documentElement.classList.remove('dark')
     setTheme('light')
-    
-    // Remove the no-transitions class after a short delay
-    const timeout = setTimeout(() => {
-      document.documentElement.classList.remove('no-transitions')
-    }, 100)
 
+    // Prevent theme changes while in auth layout
     return () => {
-      clearTimeout(timeout)
       document.documentElement.classList.remove('no-transitions')
     }
   }, [setTheme])
 
-  return (
-    <div className="bg-background min-h-screen">
-      {children}
-    </div>
-  )
+  // Ensure light mode is maintained
+  if (theme !== 'light') {
+    setTheme('light')
+  }
+
+  return children
 } 

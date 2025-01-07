@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { auth, db, initAdmin } from '@/firebase/admin';
-
-// Initialize Firebase Admin
-initAdmin();
+import { adminAuth as auth, adminDb as db } from '@/firebase/admin';
 
 export async function POST(request: Request) {
   try {

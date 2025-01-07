@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink } from 'firebase/auth'
 import { app } from '@/firebase/firebase'
 import { Montserrat } from 'next/font/google'
 import { Corners } from '@/components/ui/borders'
@@ -11,7 +11,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { getPlatform, getEmailService } from '@/lib/platform'
-import { cn } from '@/lib/utils'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -36,96 +35,64 @@ export default function JoinPage() {
   const [emailService, setEmailService] = useState('gmail')
   const auth = getAuth(app)
   const router = useRouter()
-  const [isProcessingLink, setIsProcessingLink] = useState(false)
 
   useEffect(() => {
     setPlatform(getPlatform())
   }, [])
 
-  // Update email service whenever email changes
   useEffect(() => {
     setEmailService(getEmailService(email))
   }, [email])
 
+  // Check for sign-in link
   useEffect(() => {
-    // Check if the URL contains a sign-in link
-    if (isSignInWithEmailLink(auth, window.location.href)) {
-      setIsProcessingLink(true)
-      
-      // Get the email from localStorage
-      let emailForSignIn = window.localStorage.getItem('emailForSignIn')
-      
-      if (!emailForSignIn) {
-        // If email is not in storage, prompt user for it
-        emailForSignIn = window.prompt('Please provide your email for confirmation')
-      }
-
-      if (emailForSignIn) {
-        signInWithEmailLink(auth, emailForSignIn, window.location.href)
-          .then(() => {
-            window.localStorage.removeItem('emailForSignIn')
-            return new Promise((resolve) => {
-              const unsubscribe = onAuthStateChanged(auth, (user) => {
-                if (user) {
-                  unsubscribe()
-                  resolve(user)
-                }
-              })
-            })
-          })
-          .then(() => {
-            // Now that we're sure the auth state is updated, redirect
-            router.replace('/songbook')
-          })
-          .catch((error) => {
-            console.error('Error signing in:', error)
-            setError(error.message)
-          })
-          .finally(() => {
-            setIsProcessingLink(false)
-          })
-      } else {
-        setError('Please provide your email to complete sign in')
-        setIsProcessingLink(false)
+    const checkSignInLink = async () => {
+      try {
+        if (isSignInWithEmailLink(auth, window.location.href)) {
+          console.log('Detected sign-in link, redirecting to auth handler...')
+          router.push(`/auth/handler${window.location.search}`)
+        }
+      } catch (error) {
+        console.error('Error checking sign-in link:', error)
       }
     }
+
+    checkSignInLink()
   }, [auth, router])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
+      console.log('Attempting to send magic link to:', email)
+      console.log('Using app URL:', process.env.NEXT_PUBLIC_APP_URL)
+      
       const actionCodeSettings = {
-        url: window.location.origin + '/join',
+        url: `${process.env.NEXT_PUBLIC_APP_URL}/auth/handler`,
         handleCodeInApp: true
       }
 
+      console.log('Action code settings:', actionCodeSettings)
+
       await sendSignInLinkToEmail(auth, email, actionCodeSettings)
+      console.log('Magic link sent successfully')
       
-      // Save the email for later use
+      // Save the email for confirmation
       window.localStorage.setItem('emailForSignIn', email)
       setEmailSent(true)
       setError('')
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        setError(error.message)
-      } else {
-        setError('An unexpected error occurred')
-      }
+    } catch (error) {
+      console.error('Error sending magic link:', error)
+      setError(error instanceof Error ? error.message : 'An unexpected error occurred')
     }
   }
 
   return (
-    <main className={cn(
-      "min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12",
-      montserrat.className
-    )}>
+    <main className={`min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
         <h1 className="text-3xl font-bold text-foreground mb-8">Learn Music Better</h1>
         <p className="text-foreground text-lg mb-8">Sign up for Gouda &amp; Company to get <strong>weekly group lessons</strong>, instructional videos and a helpful community.</p>
-        {isProcessingLink ? (
-          <div className="text-foreground">Completing sign in...</div>
-        ) : emailSent ? (
+        {emailSent ? (
           <div className="space-y-4">
             <Alert className="border-green-500 bg-green-50 dark:bg-green-900/10">
               <AlertDescription className="text-foreground">

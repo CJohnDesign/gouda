@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { getFirestore } from 'firebase-admin/firestore';
-import { initAdmin } from '@/firebase/admin';
+import { assertFirebaseAdmin } from '@/firebase/admin';
 import Stripe from 'stripe';
 
-// Initialize Firebase Admin
-initAdmin();
+// Ensure Firebase Admin is initialized
+assertFirebaseAdmin();
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 

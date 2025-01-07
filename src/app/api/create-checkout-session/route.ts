@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { auth, db, initAdmin } from '@/firebase/admin';
-
-// Initialize Firebase Admin
-initAdmin();
+import { adminAuth as auth, adminDb as db } from '@/firebase/admin';
 
 // This should match your Stripe price ID
 const PRICE_ID = process.env.STRIPE_PRICE_ID;

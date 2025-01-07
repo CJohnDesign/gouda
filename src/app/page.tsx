@@ -4,7 +4,6 @@ import { Montserrat } from 'next/font/google'
 import { Corners } from '@/components/ui/borders'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { useUserProfile } from '@/contexts/UserProfileContext'
 import { useRouter } from 'next/navigation'
@@ -12,28 +11,30 @@ import { useRouter } from 'next/navigation'
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Home() {
-  const { setTheme } = useTheme()
-  const { user } = useUserProfile()
-  const [isMounted, setIsMounted] = useState(false)
+  const { user, isLoading } = useUserProfile()
   const router = useRouter()
+  const [mounted, setMounted] = useState(false)
 
-  // Handle initial mount
+  // Handle mounting
   useEffect(() => {
-    setIsMounted(true)
+    setMounted(true)
   }, [])
 
-  // Handle theme changes after hydration
+  // Only redirect to songbook if user is logged in
   useEffect(() => {
-    if (!isMounted) return
-    if (!user) {
-      setTheme('light')
-    } else {
+    if (mounted && !isLoading && user) {
       router.push('/songbook')
     }
-  }, [user, setTheme, isMounted, router])
+  }, [user, isLoading, router, mounted])
 
+  // Don't render anything until mounted
+  if (!mounted) {
+    return null
+  }
+
+  // Show landing page for non-logged in users
   return (
-    <main className={`min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`} suppressHydrationWarning>
+    <main className={`min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
         <div className="mb-8">
