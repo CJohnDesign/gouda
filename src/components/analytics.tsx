@@ -1,10 +1,10 @@
 'use client'
 
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import analytics from '@/lib/analytics'
 
-export function Analytics() {
+function AnalyticsContent() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [isMounted, setIsMounted] = useState(false)
@@ -22,4 +22,12 @@ export function Analytics() {
   }, [pathname, searchParams, isMounted])
 
   return null
+}
+
+export function Analytics() {
+  return (
+    <Suspense>
+      <AnalyticsContent />
+    </Suspense>
+  )
 } 
