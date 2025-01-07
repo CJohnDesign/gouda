@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
-import { app } from '@/firebase/firebase';
 import { getAuth } from 'firebase-admin/auth';
+import { getFirestore } from 'firebase-admin/firestore';
+import { initAdmin } from '@/firebase/admin';
+
+// Initialize Firebase Admin
+initAdmin();
 
 export async function POST(request: Request) {
   try {
@@ -20,9 +23,9 @@ export async function POST(request: Request) {
     const decodedToken = await getAuth().verifyIdToken(token);
     const userId = decodedToken.uid;
 
-    // Get the user's Stripe customer ID from Firestore
-    const db = getFirestore(app);
-    const userDoc = await getDoc(doc(db, 'users', userId));
+    // Get the user's Stripe customer ID from Firestore using Admin SDK
+    const db = getFirestore();
+    const userDoc = await db.collection('users').doc(userId).get();
     const stripeCustomerId = userDoc.data()?.stripeCustomerId;
 
     if (!stripeCustomerId) {
@@ -52,7 +55,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error('Error creating portal session:', error);
     return NextResponse.json(
-      { error: { message: 'Internal server error' } },
+      { error: { message: error instanceof Error ? error.message : 'Internal server error' } },
       { status: 500 }
     );
   }

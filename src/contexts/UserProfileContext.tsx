@@ -17,13 +17,15 @@ interface UserProfileContextType {
   profile: UserProfile | null
   signOut: () => Promise<void>
   loading: boolean
+  refreshProfile: () => Promise<void>
 }
 
 const UserProfileContext = createContext<UserProfileContextType>({
   user: null,
   profile: null,
   signOut: async () => {},
-  loading: true
+  loading: true,
+  refreshProfile: async () => {}
 })
 
 export function UserProfileProvider({ children }: { children: React.ReactNode }) {
@@ -33,15 +35,19 @@ export function UserProfileProvider({ children }: { children: React.ReactNode })
   const auth = getAuth(app)
   const db = getFirestore(app)
 
+  const fetchProfile = async (userId: string) => {
+    const docRef = doc(db, 'users', userId)
+    const docSnap = await getDoc(docRef)
+    if (docSnap.exists()) {
+      setProfile(docSnap.data() as UserProfile)
+    }
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user)
       if (user) {
-        const docRef = doc(db, 'users', user.uid)
-        const docSnap = await getDoc(docRef)
-        if (docSnap.exists()) {
-          setProfile(docSnap.data() as UserProfile)
-        }
+        await fetchProfile(user.uid)
       } else {
         setProfile(null)
       }
@@ -55,8 +61,14 @@ export function UserProfileProvider({ children }: { children: React.ReactNode })
     await firebaseSignOut(auth)
   }
 
+  const refreshProfile = async () => {
+    if (user) {
+      await fetchProfile(user.uid)
+    }
+  }
+
   return (
-    <UserProfileContext.Provider value={{ user, profile, signOut, loading }}>
+    <UserProfileContext.Provider value={{ user, profile, signOut, loading, refreshProfile }}>
       {children}
     </UserProfileContext.Provider>
   )

@@ -1,27 +1,49 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { SubscriptionStatusPill } from '@/components/ui/SubscriptionStatusPill'
+import { useEffect, useState } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { useUserProfile } from '@/contexts/UserProfileContext'
-import { useState } from 'react'
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
+import { toast } from '@/components/ui/use-toast'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 
-// Default price ID for the subscription
-const DEFAULT_PRICE_ID = 'price_1Qd4P2RwSvLAD8QUNaekxrED'
+// Use environment variable for price ID
+const PRICE_ID = process.env.NEXT_PUBLIC_STRIPE_PRICE_ID
 
 export default function SubscriptionPage() {
-  const { user, profile } = useUserProfile()
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const { user, profile, refreshProfile } = useUserProfile()
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [showCancelDialog, setShowCancelDialog] = useState(false)
+
+  useEffect(() => {
+    const success = searchParams.get('success')
+    const canceled = searchParams.get('canceled')
+
+    // Only handle the params if they exist
+    if (success || canceled) {
+      if (success) {
+        toast({
+          title: "Thanks for subscribing!",
+          description: "Your subscription is now active.",
+        })
+        refreshProfile()
+      }
+
+      if (canceled) {
+        toast({
+          title: "Subscription canceled",
+          description: "The subscription process was canceled.",
+          variant: "destructive",
+        })
+      }
+
+      // Remove the query parameters
+      router.replace('/account/subscription')
+    }
+  }, [searchParams, refreshProfile, router])
 
   const handleSubscriptionAction = async () => {
     if (!user) {
@@ -29,15 +51,14 @@ export default function SubscriptionPage() {
       return
     }
 
+    setIsLoading(true)
+    setError(null)
+
     try {
       const token = await user.getIdToken()
       const endpoint = profile?.isSubscribed
         ? '/api/create-portal-session'
         : '/api/create-checkout-session'
-
-      const requestBody = endpoint === '/api/create-checkout-session'
-        ? { priceId: DEFAULT_PRICE_ID }
-        : {}
 
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -45,7 +66,11 @@ export default function SubscriptionPage() {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify(
+          endpoint === '/api/create-checkout-session'
+            ? { priceId: PRICE_ID }
+            : {}
+        ),
       })
 
       const data = await response.json()
@@ -59,110 +84,62 @@ export default function SubscriptionPage() {
       } else {
         throw new Error('No redirect URL received')
       }
-    } catch (error) {
-      console.error('Subscription error:', error)
-      setError(error instanceof Error ? error.message : 'An unexpected error occurred')
-    }
-  }
-
-  const handleCancelSubscription = async () => {
-    if (!user) {
-      setError('You must be logged in to cancel your subscription')
-      return
-    }
-
-    try {
-      const token = await user.getIdToken()
-      const response = await fetch('/api/cancel-subscription', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
+    } catch (err) {
+      console.error('Subscription error:', err)
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred')
+      toast({
+        title: "Error",
+        description: err instanceof Error ? err.message : 'An unexpected error occurred',
+        variant: "destructive",
       })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error?.message || 'Failed to cancel subscription')
-      }
-
-      window.location.reload()
-    } catch (error) {
-      console.error('Cancel subscription error:', error)
-      setError(error instanceof Error ? error.message : 'An unexpected error occurred')
+    } finally {
+      setIsLoading(false)
     }
   }
 
   if (!user) {
     return (
-      <div className="flex items-center justify-center min-h-[300px]">
-        <div className="text-muted-foreground">Please log in to manage your subscription</div>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Subscription</CardTitle>
+          <CardDescription>Please log in to manage your subscription</CardDescription>
+        </CardHeader>
+      </Card>
     )
   }
 
-  const buttonText = profile?.isSubscribed ? 'Manage Billing' : 'Subscribe Now'
-
   return (
-    <div className="mx-auto">
-      <div className="mb-8">
-        <h1 className="text-2xl font-semibold text-foreground">Subscription</h1>
-        <p className="text-sm text-muted-foreground">Manage your subscription and billing details</p>
-      </div>
-
-      <div className="bg-background rounded-lg border border-border p-6">
+    <Card>
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle>Subscription</CardTitle>
+            <CardDescription>Manage your subscription and billing</CardDescription>
+          </div>
+          <Badge variant={profile?.isSubscribed ? "default" : "secondary"}>
+            {profile?.isSubscribed ? "Active" : "Inactive"}
+          </Badge>
+        </div>
+      </CardHeader>
+      <CardContent>
         {error && (
           <div className="mb-4 p-4 bg-destructive/10 text-destructive rounded-md">
             {error}
           </div>
         )}
-        
-        <div className="mb-6 flex items-center justify-between">
-          <span className="text-muted-foreground font-medium">Subscription Status</span>
-          <SubscriptionStatusPill status={profile?.isSubscribed ? 'Active' : 'Unpaid'} />
-        </div>
-
-        <div className="mb-6">
-          <hr className="w-full border-t border-border" />
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <Button 
-            onClick={handleSubscriptionAction}
-            className="w-full"
-          >
-            {buttonText}
-          </Button>
-
-          {profile?.isSubscribed && (
-            <Button
-              variant="outline"
-              onClick={() => setShowCancelDialog(true)}
-              className="w-full"
-            >
-              Cancel Subscription
-            </Button>
-          )}
-        </div>
-      </div>
-
-      <AlertDialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Cancel Subscription</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure you want to cancel your subscription? You will lose access to premium features at the end of your current billing period.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Keep Subscription</AlertDialogCancel>
-            <AlertDialogAction onClick={handleCancelSubscription}>
-              Yes, Cancel
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </div>
+        <Button
+          onClick={handleSubscriptionAction}
+          disabled={isLoading}
+          className="w-full"
+        >
+          {isLoading ? "Loading..." : profile?.isSubscribed ? "Manage Subscription" : "Subscribe Now"}
+        </Button>
+        {!profile?.isSubscribed && !PRICE_ID && (
+          <p className="text-sm text-muted-foreground mt-2 text-center">
+            Subscription is currently unavailable. Please try again later.
+          </p>
+        )}
+      </CardContent>
+    </Card>
   )
 } 

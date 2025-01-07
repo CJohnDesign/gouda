@@ -1,6 +1,7 @@
 import { useRouter } from 'next/navigation'
 import { Playlist } from '@/types/music/playlist'
 import { formatDate } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 
 interface PlaylistCardProps {
   playlist: Playlist
@@ -13,7 +14,11 @@ export function PlaylistCard({ playlist, size = 'small' }: PlaylistCardProps) {
   return (
     <button
       onClick={() => router.push(`/playlist/${playlist.id}`)}
-      className="w-full h-full p-4 text-left flex flex-col"
+      className={cn(
+        "w-full h-full p-4 text-left flex flex-col",
+        "bg-card hover:bg-muted transition-colors",
+        "text-card-foreground"
+      )}
     >
       {/* Songs count */}
       <p className="text-xs text-muted-foreground mb-2">
@@ -21,7 +26,10 @@ export function PlaylistCard({ playlist, size = 'small' }: PlaylistCardProps) {
       </p>
 
       {/* Title */}
-      <h3 className={`font-semibold truncate mb-1 ${size === 'large' ? 'text-lg' : 'text-base'}`}>
+      <h3 className={cn(
+        "font-semibold truncate mb-1",
+        size === 'large' ? 'text-lg' : 'text-base'
+      )}>
         {playlist.name}
       </h3>
 

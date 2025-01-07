@@ -10,7 +10,6 @@ import { WelcomeTopBar } from '@/components/ui/WelcomeTopBar'
 import { Footer } from '@/components/ui/Footer'
 import { UserProfileProvider } from '@/contexts/UserProfileContext'
 import { ProtectedRoute } from '@/components/auth/protected-route'
-import { usePathname } from 'next/navigation'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -18,23 +17,17 @@ const montserrat = Montserrat({
   display: 'swap',
 })
 
-const FORCE_LIGHT_ROUTES = ['/', '/login', '/join']
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const pathname = usePathname()
-  const forceLightMode = FORCE_LIGHT_ROUTES.includes(pathname)
-
   return (
     <html lang="en" suppressHydrationWarning className={montserrat.variable}>
-      <body className={cn('bg-background font-sans antialiased', forceLightMode && 'light')}>
+      <body className="bg-background font-sans antialiased">
         <ThemeProvider 
           attribute="class" 
-          defaultTheme={forceLightMode ? "light" : "system"} 
-          enableSystem={!forceLightMode}
+          defaultTheme="system"
           disableTransitionOnChange
         >
           <UserProfileProvider>

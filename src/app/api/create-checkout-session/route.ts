@@ -1,9 +1,14 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { getFirestore, doc, getDoc, updateDoc } from 'firebase/firestore';
-import { app } from '@/firebase/firebase';
 import { getAuth } from 'firebase-admin/auth';
-import { headers } from 'next/headers';
+import { getFirestore } from 'firebase-admin/firestore';
+import { initAdmin } from '@/firebase/admin';
+
+// Initialize Firebase Admin
+initAdmin();
+
+// This should match your Stripe price ID
+const PRICE_ID = process.env.STRIPE_PRICE_ID;
 
 export async function POST(request: Request) {
   try {
@@ -23,18 +28,30 @@ export async function POST(request: Request) {
 
     // Get the request body
     const body = await request.json();
-    const { priceId } = body;
+    const { priceId = PRICE_ID } = body;
 
     if (!priceId) {
+      console.error('Missing price ID. Environment variable STRIPE_PRICE_ID not set.');
       return NextResponse.json(
-        { error: { message: 'Missing price ID' } },
+        { error: { message: 'Subscription price not configured' } },
         { status: 400 }
       );
     }
 
-    // Get the user's Stripe customer ID from Firestore
-    const db = getFirestore(app);
-    const userDoc = await getDoc(doc(db, 'users', userId));
+    // Verify the price ID exists in Stripe
+    try {
+      await stripe.prices.retrieve(priceId);
+    } catch (error) {
+      console.error('Invalid price ID:', error);
+      return NextResponse.json(
+        { error: { message: 'Invalid subscription price' } },
+        { status: 400 }
+      );
+    }
+
+    // Get the user's Stripe customer ID from Firestore using Admin SDK
+    const db = getFirestore();
+    const userDoc = await db.collection('users').doc(userId).get();
     let stripeCustomerId = userDoc.data()?.stripeCustomerId;
 
     // If the customer ID is invalid or doesn't exist, create a new customer
@@ -47,8 +64,8 @@ export async function POST(request: Request) {
       });
       stripeCustomerId = customer.id;
 
-      // Update the user's document with the new customer ID
-      await updateDoc(doc(db, 'users', userId), {
+      // Update the user's document with the new customer ID using Admin SDK
+      await db.collection('users').doc(userId).update({
         stripeCustomerId: customer.id
       });
     } else {
@@ -65,12 +82,18 @@ export async function POST(request: Request) {
         });
         stripeCustomerId = customer.id;
 
-        // Update the user's document with the new customer ID
-        await updateDoc(doc(db, 'users', userId), {
+        // Update the user's document with the new customer ID using Admin SDK
+        await db.collection('users').doc(userId).update({
           stripeCustomerId: customer.id
         });
       }
     }
+
+    console.log('Creating checkout session for:', {
+      userId,
+      stripeCustomerId,
+      priceId
+    });
 
     // Create a Checkout Session
     const session = await stripe.checkout.sessions.create({
@@ -84,7 +107,6 @@ export async function POST(request: Request) {
       mode: 'subscription',
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/account/subscription?success=true`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/account/subscription?canceled=true`,
-      automatic_tax: { enabled: true },
       customer_update: {
         address: 'auto',
         name: 'auto',
@@ -95,17 +117,19 @@ export async function POST(request: Request) {
     });
 
     if (!session.url) {
+      console.error('No session URL returned from Stripe');
       return NextResponse.json(
         { error: { message: 'Failed to create checkout session' } },
         { status: 500 }
       );
     }
 
+    console.log('Checkout session created:', session.id);
     return NextResponse.json({ url: session.url });
   } catch (error) {
     console.error('Error creating checkout session:', error);
     return NextResponse.json(
-      { error: { message: 'Internal server error' } },
+      { error: { message: error instanceof Error ? error.message : 'Internal server error' } },
       { status: 500 }
     );
   }

@@ -8,10 +8,10 @@
     --background: #F0E2B7 ;  /* 45 52% 83%  */
     --foreground: 220 13% 13%;
     
-    --card: 220 13% 13%;
-    --card-foreground: 0 0% 100%;
-    --popover: 220 13% 13%;
-    --popover-foreground: 0 0% 100%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 13% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 13% 13%;
     
     /* Warm gold primary */
     --primary: 42 100% 55%;

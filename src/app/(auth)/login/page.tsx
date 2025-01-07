@@ -1,14 +1,14 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { getAuth, sendSignInLinkToEmail } from 'firebase/auth'
+import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth'
 import { app } from '@/firebase/firebase'
+import { useRouter } from 'next/navigation'
 import { Montserrat } from 'next/font/google'
 import { Corners } from '@/components/ui/borders'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useUserProfile } from '@/contexts/UserProfileContext'
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { getPlatform, getEmailService } from '@/lib/platform'
 
@@ -27,14 +27,16 @@ const EMAIL_LINKS = {
   ]
 }
 
-export default function JoinPage() {
+export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
   const [emailSent, setEmailSent] = useState(false)
+  const [isProcessingLink, setIsProcessingLink] = useState(false)
   const [platform, setPlatform] = useState('unknown')
   const [emailService, setEmailService] = useState('gmail')
-  const auth = getAuth(app)
   const router = useRouter()
+  const auth = getAuth(app)
+  const { profile, loading } = useUserProfile()
 
   useEffect(() => {
     setPlatform(getPlatform())
@@ -46,14 +48,45 @@ export default function JoinPage() {
   }, [email])
 
   useEffect(() => {
-    // Check if user is already logged in
+    // Check if user is already logged in and redirect to songbook
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
+      if (user && profile) {
         router.push('/songbook')
       }
     })
 
     return () => unsubscribe()
+  }, [auth, router, profile])
+
+  useEffect(() => {
+    // Check if the URL contains a sign-in link
+    if (isSignInWithEmailLink(auth, window.location.href)) {
+      setIsProcessingLink(true)
+      
+      // Get the email from localStorage
+      let emailForSignIn = window.localStorage.getItem('emailForSignIn')
+      
+      if (!emailForSignIn) {
+        // If email is not in storage, prompt user for it
+        emailForSignIn = window.prompt('Please provide your email for confirmation')
+      }
+
+      if (emailForSignIn) {
+        signInWithEmailLink(auth, emailForSignIn, window.location.href)
+          .then(() => {
+            // Clear the email from storage
+            window.localStorage.removeItem('emailForSignIn')
+            // Redirect will be handled by the first useEffect
+          })
+          .catch((error) => {
+            setError(error.message)
+            setIsProcessingLink(false)
+          })
+      } else {
+        setError('Please provide your email to complete sign in')
+        setIsProcessingLink(false)
+      }
+    }
   }, [auth, router])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -79,16 +112,33 @@ export default function JoinPage() {
     }
   }
 
+  if (isProcessingLink) {
+    return (
+      <main className={`min-h-screen bg-background flex flex-col items-center justify-center ${montserrat.className}`}>
+        <div className="text-foreground">Completing sign in...</div>
+      </main>
+    )
+  }
+
+  if (loading) {
+    return (
+      <main className={`min-h-screen bg-background flex flex-col items-center justify-center ${montserrat.className}`}>
+        <div className="text-foreground">Loading...</div>
+      </main>
+    )
+  }
+
   return (
-    <main className={`min-h-screen bg-[#f1e0b4] flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
+    <main className={`min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
-        <h1 className="text-3xl font-bold text-[#262223] mb-8">Learn Music Better</h1>
-        <p className="text-[#262223] text-lg mb-8">Sign up for Gouda &amp; Company to get <strong>weekly group lessons</strong>, instructional videos and a helpful community.</p>
+        <h1 className="text-3xl font-bold text-foreground mb-4">Login</h1>
+        <p className="text-foreground text-lg mb-8">Sign in or create an account</p>
+
         {emailSent ? (
           <div className="space-y-4">
             <Alert className="border-green-500 bg-green-50 dark:bg-green-900/10">
-              <AlertDescription className="text-[#262223]">
+              <AlertDescription className="text-foreground">
                 <div className="text-lg mb-4">
                   Check your email!<br/>There&apos;s a link to get in!
                 </div>
@@ -130,34 +180,45 @@ export default function JoinPage() {
                 </div>
               </AlertDescription>
             </Alert>
+            <div className="text-muted-foreground text-sm mt-2">
+              The link will expire in 15 minutes for security.
+            </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <Input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-              className="w-full h-[48px] text-[18px] bg-white border-[#de9c0e] focus:border-[#de9c0e] focus:ring-[#de9c0e]"
-            />
-            
-            {error && (
-              <div className="text-red-500 text-sm text-center">
-                {error}
-              </div>
-            )}
+          <>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                className="w-full h-[48px] text-[18px] bg-white dark:bg-input border-primary focus:border-primary focus:ring-primary text-foreground"
+              />
+              
+              {error && (
+                <div className="text-destructive text-sm text-center">
+                  {error}
+                </div>
+              )}
 
-            <Button 
-              type="submit"
-              className="w-full h-[48px] text-[21px] leading-[32px] font-bold bg-[#de9c0e] hover:bg-[#de9c0e]/90 text-black"
-            >
-              Join Now
-            </Button>
-          </form>
+              <Button 
+                type="submit"
+                className="w-full h-[48px] text-[21px] leading-[32px] font-bold bg-primary hover:bg-primary/90 text-primary-foreground"
+              >
+                SEND MAGIC LINK
+              </Button>
+            </form>
+
+            <div className="mt-8 space-y-4 text-foreground">
+              <h2 className="font-bold text-sm">How it works</h2>
+              <div className="text-xs space-y-2">
+                <p>1. Enter your email address above</p>
+                <p>2. We&apos;ll send you a secure magic link</p>
+                <p>3. Click the link to sign in instantly</p>
+              </div>
+            </div>
+          </>
         )}
-        <p className="mt-4 text-[14px] text-[#262223]">
-          Already have an account? <Link href="/login" className="text-[#de9c0e] hover:underline">Login</Link>
-        </p>
       </div>
     </main>
   )

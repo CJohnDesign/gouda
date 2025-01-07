@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Song } from '@/types/music/song'
+import { cn } from '@/lib/utils'
 
 interface PlaylistSongsProps {
   playlistId: string
@@ -31,7 +32,11 @@ export function PlaylistSongs({ playlistId, userId, songs }: PlaylistSongsProps)
           {items.map((song, index) => (
             <button
               key={song.id}
-              className="flex w-full flex-row items-center gap-2 p-3 bg-card rounded-lg group hover:bg-muted/50 cursor-pointer transition-colors text-left"
+              className={cn(
+                "flex w-full flex-row items-center gap-2 p-3 rounded-lg",
+                "bg-card hover:bg-muted transition-colors",
+                "text-card-foreground"
+              )}
               onClick={(e) => {
                 console.log('Song clicked:', song.title)
                 console.log('PlaylistId:', playlistId)
@@ -43,7 +48,7 @@ export function PlaylistSongs({ playlistId, userId, songs }: PlaylistSongsProps)
               }}
             >
               <div className="flex-1 min-w-0">
-                <p className="text-left text-sm font-medium truncate group-hover:text-primary transition-colors">{song.title}</p>
+                <p className="text-left text-sm font-medium truncate text-card-foreground hover:text-primary transition-colors">{song.title}</p>
                 <p className="text-left text-xs text-muted-foreground truncate">
                   {song.artist} • {song.theory.key} • {song.theory.bpm} BPM
                 </p>

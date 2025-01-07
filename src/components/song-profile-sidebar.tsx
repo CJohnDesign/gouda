@@ -22,7 +22,11 @@ export function SongProfileSidebar({
     <div 
       className={cn(
         // Base styles
-        "fixed inset-y-0 right-0 z-50 bg-background w-full sm:w-96 lg:w-64",
+        "fixed inset-y-0 right-0 z-50 w-full sm:w-96 lg:w-64",
+        // Mobile styles
+        "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+        "sm:bg-background sm:backdrop-blur-none",
+        // Border and transform
         "transform transition-transform duration-300 ease-in-out border-l border-primary/30",
         // Slide transform for all screen sizes
         !isOpen ? "translate-x-full" : "translate-x-0"
