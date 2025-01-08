@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getStripe, isTestMode, getPriceId } from '@/lib/stripe';
-import { adminAuth as auth, adminDb as db } from '@/firebase/admin';
+import { adminAuth, adminDb } from '@/lib/firebase-admin';
 
 export async function POST(request: Request) {
   try {
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     console.log('[Stripe Checkout] Verifying Firebase token');
     let decodedToken;
     try {
-      decodedToken = await auth.verifyIdToken(token);
+      decodedToken = await adminAuth.verifyIdToken(token);
     } catch (verifyError) {
       console.error('[Stripe Checkout] Token verification failed:', verifyError);
       return NextResponse.json(
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
     console.log('[Stripe Checkout] Fetching user document for:', userId);
     let userDoc;
     try {
-      userDoc = await db.collection('users').doc(userId).get();
+      userDoc = await adminDb.collection('users').doc(userId).get();
     } catch (dbError) {
       console.error('[Stripe Checkout] Failed to fetch user document:', dbError);
       return NextResponse.json(
@@ -77,7 +77,7 @@ export async function POST(request: Request) {
         });
         stripeCustomerId = customer.id;
         console.log('[Stripe Checkout] Created new Stripe customer:', stripeCustomerId);
-        await db.collection('users').doc(userId).update({ stripeCustomerId: customer.id });
+        await adminDb.collection('users').doc(userId).update({ stripeCustomerId: customer.id });
         console.log('[Stripe Checkout] Updated user document with Stripe customer ID');
       } catch (stripeError) {
         console.error('[Stripe Checkout] Failed to create/update customer:', stripeError);

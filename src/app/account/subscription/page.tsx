@@ -92,10 +92,19 @@ function SubscriptionPageContent() {
     setError(null)
 
     try {
+      console.log('[Subscription] Starting subscription action:', {
+        isActive: profile?.subscriptionStatus === 'Active',
+        userId: user.uid,
+        retryCount
+      })
+
       const token = await user.getIdToken()
+      console.log('[Subscription] Got auth token, length:', token.length)
+
       const endpoint = profile?.subscriptionStatus === 'Active'
         ? '/api/create-portal-session'
         : '/api/create-checkout-session'
+      console.log('[Subscription] Using endpoint:', endpoint)
 
       if (profile?.subscriptionStatus !== 'Active') {
         analytics.trackSubscription('start', {
@@ -103,6 +112,7 @@ function SubscriptionPageContent() {
         })
       }
 
+      console.log('[Subscription] Making API request')
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -116,21 +126,44 @@ function SubscriptionPageContent() {
         ),
       })
 
-      const data = await response.json()
+      console.log('[Subscription] API response status:', response.status)
+      
+      let data
+      try {
+        const textResponse = await response.text()
+        console.log('[Subscription] Raw response:', textResponse)
+        try {
+          data = JSON.parse(textResponse)
+          console.log('[Subscription] Parsed response:', data)
+        } catch (parseError) {
+          console.error('[Subscription] Failed to parse response as JSON:', parseError)
+          console.error('[Subscription] Response was:', textResponse)
+          throw new Error('Server returned invalid JSON response')
+        }
+      } catch (textError) {
+        console.error('[Subscription] Failed to get response text:', textError)
+        throw new Error('Failed to read server response')
+      }
 
       if (!response.ok) {
+        console.error('[Subscription] Request failed:', {
+          status: response.status,
+          statusText: response.statusText,
+          data
+        })
+
         // Handle specific error status codes
         switch (response.status) {
           case 429: // Rate limit
             if (retryCount < 3) {
-              // Wait for 1 second before retrying
+              console.log('[Subscription] Rate limited, retrying in 1s...')
               await new Promise(resolve => setTimeout(resolve, 1000))
               return handleSubscriptionAction(retryCount + 1)
             }
             throw new Error('Too many requests. Please try again later.')
           case 503: // Network error
             if (retryCount < 3) {
-              // Wait for 2 seconds before retrying
+              console.log('[Subscription] Network error, retrying in 2s...')
               await new Promise(resolve => setTimeout(resolve, 2000))
               return handleSubscriptionAction(retryCount + 1)
             }
@@ -141,12 +174,21 @@ function SubscriptionPageContent() {
       }
 
       if (data.url) {
+        console.log('[Subscription] Redirecting to:', data.url)
         window.location.href = data.url
       } else {
+        console.error('[Subscription] No redirect URL in response:', data)
         throw new Error('No redirect URL received')
       }
     } catch (err) {
-      console.error('Subscription error:', err)
+      console.error('[Subscription] Error:', err)
+      console.error('[Subscription] Error details:', {
+        name: err instanceof Error ? err.name : 'Unknown',
+        message: err instanceof Error ? err.message : String(err),
+        stack: err instanceof Error ? err.stack : undefined,
+        cause: err instanceof Error ? err.cause : undefined
+      })
+
       const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred'
       setError(errorMessage)
       
