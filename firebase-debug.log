@@ -1,0 +1,100 @@
+[debug] [2025-01-08T00:28:39.377Z] ----------------------------------------------------------------------
+[debug] [2025-01-08T00:28:39.379Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2025-01-08T00:28:39.379Z] CLI Version:   13.29.1
+[debug] [2025-01-08T00:28:39.379Z] Platform:      darwin
+[debug] [2025-01-08T00:28:39.379Z] Node Version:  v20.18.0
+[debug] [2025-01-08T00:28:39.379Z] Time:          Tue Jan 07 2025 19:28:39 GMT-0500 (Eastern Standard Time)
+[debug] [2025-01-08T00:28:39.379Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-01-08T00:28:39.410Z] Object ".emulators.hosting" in "firebase.json" has unknown property: {"additionalProperty":"source"}
+[debug] [2025-01-08T00:28:39.411Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-01-08T00:28:39.411Z] > authorizing via signed-in user (cjohndesign@gmail.com)
+[debug] [2025-01-08T00:28:39.411Z] [iam] checking project gouda-company for permissions ["cloudconfig.configs.get","cloudconfig.configs.update","cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","cloudsql.databases.create","cloudsql.databases.update","cloudsql.instances.connect","cloudsql.instances.create","cloudsql.instances.get","cloudsql.instances.list","cloudsql.instances.update","cloudsql.users.create","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedataconnect.connectors.create","firebasedataconnect.connectors.delete","firebasedataconnect.connectors.list","firebasedataconnect.connectors.update","firebasedataconnect.operations.get","firebasedataconnect.schemas.create","firebasedataconnect.schemas.delete","firebasedataconnect.schemas.list","firebasedataconnect.schemas.update","firebasedataconnect.services.create","firebasedataconnect.services.delete","firebasedataconnect.services.list","firebasedataconnect.services.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create",null]
+[debug] [2025-01-08T00:28:39.412Z] Checked if tokens are valid: false, expires at: 1736296789740
+[debug] [2025-01-08T00:28:39.412Z] Checked if tokens are valid: false, expires at: 1736296789740
+[debug] [2025-01-08T00:28:39.412Z] > refreshing access token with scopes: []
+[debug] [2025-01-08T00:28:39.412Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-01-08T00:28:39.413Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-01-08T00:28:39.558Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-01-08T00:28:39.558Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-01-08T00:28:39.567Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions [none]
+[debug] [2025-01-08T00:28:39.567Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions x-goog-quota-user=projects/gouda-company
+[debug] [2025-01-08T00:28:39.567Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions {"permissions":["cloudconfig.configs.get","cloudconfig.configs.update","cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","cloudsql.databases.create","cloudsql.databases.update","cloudsql.instances.connect","cloudsql.instances.create","cloudsql.instances.get","cloudsql.instances.list","cloudsql.instances.update","cloudsql.users.create","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedataconnect.connectors.create","firebasedataconnect.connectors.delete","firebasedataconnect.connectors.list","firebasedataconnect.connectors.update","firebasedataconnect.operations.get","firebasedataconnect.schemas.create","firebasedataconnect.schemas.delete","firebasedataconnect.schemas.list","firebasedataconnect.schemas.update","firebasedataconnect.services.create","firebasedataconnect.services.delete","firebasedataconnect.services.list","firebasedataconnect.services.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create",null]}
+[debug] [2025-01-08T00:28:39.786Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions 200
+[debug] [2025-01-08T00:28:39.786Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gouda-company:testIamPermissions {"permissions":["cloudconfig.configs.get","cloudconfig.configs.update","cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","cloudsql.databases.create","cloudsql.databases.update","cloudsql.instances.connect","cloudsql.instances.create","cloudsql.instances.get","cloudsql.instances.list","cloudsql.instances.update","cloudsql.users.create","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedataconnect.connectors.create","firebasedataconnect.connectors.delete","firebasedataconnect.connectors.list","firebasedataconnect.connectors.update","firebasedataconnect.operations.get","firebasedataconnect.schemas.create","firebasedataconnect.schemas.delete","firebasedataconnect.schemas.list","firebasedataconnect.schemas.update","firebasedataconnect.services.create","firebasedataconnect.services.delete","firebasedataconnect.services.list","firebasedataconnect.services.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2025-01-08T00:28:39.787Z] [iam] error while checking permissions, command may fail: Authorization failed. This account is missing the following required permissions on project gouda-company:
+
+  
+[debug] [2025-01-08T00:28:39.787Z] Checked if tokens are valid: true, expires at: 1736299718558
+[debug] [2025-01-08T00:28:39.787Z] Checked if tokens are valid: true, expires at: 1736299718558
+[debug] [2025-01-08T00:28:39.787Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/gouda-company/serviceAccounts/gouda-company@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-01-08T00:28:39.788Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/gouda-company/serviceAccounts/gouda-company@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-01-08T00:28:40.008Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/gouda-company/serviceAccounts/gouda-company@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-01-08T00:28:40.009Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/gouda-company/serviceAccounts/gouda-company@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-01-08T00:28:40.009Z] Checked if tokens are valid: true, expires at: 1736299718558
+[debug] [2025-01-08T00:28:40.009Z] Checked if tokens are valid: true, expires at: 1736299718558
+[debug] [2025-01-08T00:28:40.010Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/gouda-company [none]
+[debug] [2025-01-08T00:28:40.367Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/gouda-company 200
+[debug] [2025-01-08T00:28:40.367Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/gouda-company {"projectId":"gouda-company","projectNumber":"694200444660","displayName":"Gouda","name":"projects/gouda-company","resources":{"hostingSite":"gouda-company","storageBucket":"gouda-company.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_08671e98-1a5e-46a0-b389-4489369e40e2"}
+[debug] [2025-01-08T00:28:41.187Z] defaultcredentials: writing to file /Users/cjohndesign/.config/firebase/cjohndesign_gmail_com_application_default_credentials.json
+[debug] [2025-01-08T00:28:41.188Z] Checked if tokens are valid: true, expires at: 1736299718558
+[debug] [2025-01-08T00:28:41.188Z] Checked if tokens are valid: true, expires at: 1736299718558
+[debug] [2025-01-08T00:28:41.189Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/gouda-company/sites pageToken=&pageSize=10
+[debug] [2025-01-08T00:28:41.863Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/gouda-company/sites 200
+[debug] [2025-01-08T00:28:41.864Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/gouda-company/sites {"sites":[{"name":"projects/gouda-company/sites/gouda-company","defaultUrl":"https://gouda-company.web.app","appId":"1:694200444660:web:f9ef01bfda90fc63a6a0a1","type":"DEFAULT_SITE"}]}
+[debug] [2025-01-08T00:28:41.865Z] Checked if tokens are valid: true, expires at: 1736299718558
+[debug] [2025-01-08T00:28:41.865Z] Checked if tokens are valid: true, expires at: 1736299718558
+[debug] [2025-01-08T00:28:41.865Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:694200444660:web:f9ef01bfda90fc63a6a0a1/config [none]
+[debug] [2025-01-08T00:28:42.289Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:694200444660:web:f9ef01bfda90fc63a6a0a1/config 200
+[debug] [2025-01-08T00:28:42.289Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:694200444660:web:f9ef01bfda90fc63a6a0a1/config {"projectId":"gouda-company","appId":"1:694200444660:web:f9ef01bfda90fc63a6a0a1","storageBucket":"gouda-company.appspot.com","locationId":"us-central","apiKey":"AIzaSyBESSIfnnHcChqLnEPGGRdYuQBAx_kGTjs","authDomain":"gouda-company.firebaseapp.com","messagingSenderId":"694200444660","measurementId":"G-1L66RSFLQ7"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-01-08T00:28:43.991Z] Checked if tokens are valid: true, expires at: 1736299718558
+[debug] [2025-01-08T00:28:43.991Z] Checked if tokens are valid: true, expires at: 1736299718558
+[debug] [2025-01-08T00:28:43.991Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/gouda-company/sites/gouda-company [none]
+[debug] [2025-01-08T00:28:44.319Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/gouda-company/sites/gouda-company 200
+[debug] [2025-01-08T00:28:44.320Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/gouda-company/sites/gouda-company {"name":"projects/gouda-company/sites/gouda-company","defaultUrl":"https://gouda-company.web.app","appId":"1:694200444660:web:f9ef01bfda90fc63a6a0a1","type":"DEFAULT_SITE"}
+[info]    ▲ Next.js 15.1.3
+
+[info]    - Environments: .env.local, .env.production
+
+
+[info]    Creating an optimized production build ...
+
+[info]  ✓ Compiled successfully
+
+[info]    Skipping validation of types
+
+[info]    Linting ...
+
+[info]    Collecting page data ...
+
+[info]    Generating static pages (0/21) ...
+
+[info] Error occurred prerendering page "/500". Read more: https://nextjs.org/docs/messages/prerender-error
+PageNotFoundError: Cannot find module for page: /_document
+    at getPagePath (/Users/cjohndesign/dev/gouda/node_modules/next/dist/server/require.js:88:15)
+    at requirePage (/Users/cjohndesign/dev/gouda/node_modules/next/dist/server/require.js:93:22)
+    at loadComponentsImpl (/Users/cjohndesign/dev/gouda/node_modules/next/dist/server/load-components.js:74:38)
+    at exportPageImpl (/Users/cjohndesign/dev/gouda/node_modules/next/dist/export/worker.js:164:65)
+    at async Span.traceAsyncFn (/Users/cjohndesign/dev/gouda/node_modules/next/dist/trace/trace.js:153:20)
+    at async exportPage (/Users/cjohndesign/dev/gouda/node_modules/next/dist/export/worker.js:335:18)
+    at async exportPageWithRetry (/Users/cjohndesign/dev/gouda/node_modules/next/dist/export/worker.js:230:26)
+    at async Promise.all (index 1)
+    at async Object.exportPages (/Users/cjohndesign/dev/gouda/node_modules/next/dist/export/worker.js:307:31)
+Export encountered an error on /_error: /500, exiting the build.
+
+[info]  ⨯ Static worker exited with code: 1 and signal: null
+
+[debug] [2025-01-08T00:28:51.375Z] Error: ENOENT: no such file or directory, open '/Users/cjohndesign/dev/gouda/.next/export-marker.json'
+[error] 
+[error] Error: An unexpected error has occurred.

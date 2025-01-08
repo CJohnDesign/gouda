@@ -12,23 +12,6 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { getAllSongs } from '@/lib/firestore/songs'
 import { addSongToPlaylist, removeSongFromPlaylist, subscribeToPlaylist, updatePlaylist, deletePlaylist } from '@/lib/firestore/playlists'
-import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  DragEndEvent
-} from '@dnd-kit/core'
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable'
-import { SortableItem } from './sortable-item'
-import { GripVertical } from 'lucide-react'
 import type { Song } from '@/types/music/song'
 import type { Playlist } from '@/types/music/playlist'
 
@@ -177,29 +160,6 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
     }
   }
 
-  const handleDragEnd = async (event: DragEndEvent) => {
-    const { active, over } = event
-
-    if (over && active.id !== over.id) {
-      const oldIndex = existingSongsList.findIndex(item => item.id === active.id)
-      const newIndex = existingSongsList.findIndex(item => item.id === over.id)
-      
-      const newItems = arrayMove(existingSongsList, oldIndex, newIndex)
-      setExistingSongsList(newItems)
-
-      // Update playlist with new song order
-      try {
-        const updatedSongIds = newItems.map(song => song.id)
-        await updatePlaylist(playlistId, {
-          songs: updatedSongIds
-        })
-      } catch (error) {
-        console.error('Error updating song positions:', error)
-        showMessage('Error', 'Failed to update song order.', 'error')
-      }
-    }
-  }
-
   const handleUpdateDetails = async () => {
     if (!playlist) return
 
@@ -229,13 +189,6 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
       showMessage('Error', 'Failed to delete playlist.', 'error')
     }
   }
-
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  )
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -319,11 +272,11 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
             </Tabs.Content>
 
             <Tabs.Content value="songs" className="space-y-4">
-              {/* Current Songs List with Reordering */}
+              {/* Current Songs List */}
               <div className="border rounded-md">
                 <div className="p-4 border-b">
                   <h3 className="font-medium">Current Playlist Songs</h3>
-                  <p className="text-sm text-muted-foreground">Drag to reorder or remove songs</p>
+                  <p className="text-sm text-muted-foreground">Click X to remove songs from the playlist</p>
                 </div>
                 <div className="max-h-[400px] overflow-y-auto">
                   {existingSongsList.length === 0 ? (
@@ -331,49 +284,35 @@ export function EditPlaylistDialog({ playlistId, userId, existingSongs }: EditPl
                       No songs in playlist
                     </div>
                   ) : (
-                    <DndContext
-                      sensors={sensors}
-                      collisionDetection={closestCenter}
-                      onDragEnd={handleDragEnd}
-                    >
-                      <SortableContext
-                        items={existingSongsList}
-                        strategy={verticalListSortingStrategy}
-                      >
-                        <div className="divide-y">
-                          {existingSongsList.map(song => (
-                            <SortableItem key={song.id} id={song.id}>
-                              <div className="flex items-center gap-2 p-3 bg-transparent group">
-                                <GripVertical className="h-5 w-5 text-muted-foreground/40 group-hover:text-muted-foreground/70 transition-colors cursor-grab" />
-                                <div className="flex-1 min-w-0">
-                                  <p className="font-medium truncate">{song.title}</p>
-                                  <p className="text-sm text-muted-foreground truncate">
-                                    {song.artist} • {song.theory.key} • {song.theory.bpm} BPM
-                                  </p>
-                                </div>
-                                <Button
-                                  size="sm"
-                                  variant="ghost"
-                                  className="opacity-0 group-hover:opacity-100 transition-opacity"
-                                  onClick={(e) => {
-                                    e.preventDefault()
-                                    e.stopPropagation()
-                                    handleRemoveSong(song)
-                                  }}
-                                  disabled={loadingStates[song.id]}
-                                >
-                                  {loadingStates[song.id] ? (
-                                    <Loader2 className="h-4 w-4 animate-spin" />
-                                  ) : (
-                                    <X className="h-4 w-4" />
-                                  )}
-                                </Button>
-                              </div>
-                            </SortableItem>
-                          ))}
+                    <div className="divide-y">
+                      {existingSongsList.map(song => (
+                        <div key={song.id} className="flex items-center p-3 bg-transparent group">
+                          <div className="flex-1 min-w-0">
+                            <p className="font-medium truncate">{song.title}</p>
+                            <p className="text-sm text-muted-foreground truncate">
+                              {song.artist} • {song.theory.key} • {song.theory.bpm} BPM
+                            </p>
+                          </div>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={(e) => {
+                              e.preventDefault()
+                              e.stopPropagation()
+                              handleRemoveSong(song)
+                            }}
+                            disabled={loadingStates[song.id]}
+                          >
+                            {loadingStates[song.id] ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <X className="h-4 w-4" />
+                            )}
+                          </Button>
                         </div>
-                      </SortableContext>
-                    </DndContext>
+                      ))}
+                    </div>
                   )}
                 </div>
               </div>

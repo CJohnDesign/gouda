@@ -13,6 +13,11 @@ import { Suspense } from 'react'
 // Use environment variable for price ID
 const PRICE_ID = process.env.NEXT_PUBLIC_STRIPE_PRICE_ID
 
+// Validate price ID format
+const isValidPriceId = (priceId: string | undefined): boolean => {
+  return Boolean(priceId && typeof priceId === 'string' && priceId.startsWith('price_'));
+};
+
 function SubscriptionPageContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -72,7 +77,7 @@ function SubscriptionPageContent() {
     }
   }, [searchParams, refreshProfile, router, user?.uid, isMounted])
 
-  const handleSubscriptionAction = async () => {
+  const handleSubscriptionAction = async (retryCount = 0) => {
     if (!user) {
       setError('You must be logged in to manage your subscription')
       return
@@ -106,7 +111,7 @@ function SubscriptionPageContent() {
         },
         body: JSON.stringify(
           endpoint === '/api/create-checkout-session'
-            ? { priceId: PRICE_ID }
+            ? { priceId: isValidPriceId(PRICE_ID) ? PRICE_ID : undefined }
             : {}
         ),
       })
@@ -114,7 +119,25 @@ function SubscriptionPageContent() {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error?.message || 'Failed to process subscription request')
+        // Handle specific error status codes
+        switch (response.status) {
+          case 429: // Rate limit
+            if (retryCount < 3) {
+              // Wait for 1 second before retrying
+              await new Promise(resolve => setTimeout(resolve, 1000))
+              return handleSubscriptionAction(retryCount + 1)
+            }
+            throw new Error('Too many requests. Please try again later.')
+          case 503: // Network error
+            if (retryCount < 3) {
+              // Wait for 2 seconds before retrying
+              await new Promise(resolve => setTimeout(resolve, 2000))
+              return handleSubscriptionAction(retryCount + 1)
+            }
+            throw new Error('Network error. Please check your connection and try again.')
+          default:
+            throw new Error(data.error?.message || 'Failed to process subscription request')
+        }
       }
 
       if (data.url) {
@@ -177,13 +200,13 @@ function SubscriptionPageContent() {
           </div>
         )}
         <Button
-          onClick={handleSubscriptionAction}
+          onClick={() => handleSubscriptionAction(0)}
           disabled={isLoading || !isMounted}
           className="w-full"
         >
           {isLoading ? "Loading..." : profile?.subscriptionStatus === 'Active' ? "Manage Subscription" : "Subscribe Now"}
         </Button>
-        {profile?.subscriptionStatus !== 'Active' && !PRICE_ID && (
+        {profile?.subscriptionStatus !== 'Active' && (!PRICE_ID || !isValidPriceId(PRICE_ID)) && (
           <p className="text-sm text-muted-foreground mt-2 text-center">
             Subscription is currently unavailable. Please try again later.
           </p>

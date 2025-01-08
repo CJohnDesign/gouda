@@ -3,7 +3,7 @@ import { stripe } from '@/lib/stripe';
 import { adminAuth as auth, adminDb as db } from '@/firebase/admin';
 
 // This should match your Stripe price ID
-const PRICE_ID = process.env.STRIPE_PRICE_ID;
+const PRICE_ID = process.env.STRIPE_PRICE_ID || process.env.NEXT_PUBLIC_STRIPE_PRICE_ID;
 
 export async function POST(request: Request) {
   try {
@@ -25,107 +25,78 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { priceId = PRICE_ID } = body;
 
-    if (!priceId) {
-      console.error('Missing price ID. Environment variable STRIPE_PRICE_ID not set.');
+    // Validate price ID format
+    if (!priceId || typeof priceId !== 'string' || !priceId.startsWith('price_')) {
       return NextResponse.json(
-        { error: { message: 'Subscription price not configured' } },
+        { error: { message: 'Invalid subscription price format' } },
         { status: 400 }
       );
     }
 
-    // Verify the price ID exists in Stripe
-    try {
-      await stripe.prices.retrieve(priceId);
-    } catch (error) {
-      console.error('Invalid price ID:', error);
-      return NextResponse.json(
-        { error: { message: 'Invalid subscription price', details: error instanceof Error ? error.message : 'Unknown error' } },
-        { status: 400 }
-      );
-    }
-
-    // Get the user's Stripe customer ID from Firestore using Admin SDK
+    // Get or create customer
     const userDoc = await db.collection('users').doc(userId).get();
     let stripeCustomerId = userDoc.data()?.stripeCustomerId;
 
-    // If the customer ID is invalid or doesn't exist, create a new customer
     if (!stripeCustomerId) {
       const customer = await stripe.customers.create({
         email: decodedToken.email,
-        metadata: {
-          firebaseUID: userId
-        }
+        metadata: { firebaseUID: userId }
+      }, {
+        idempotencyKey: `customer_${userId}`
       });
       stripeCustomerId = customer.id;
-
-      // Update the user's document with the new customer ID using Admin SDK
-      await db.collection('users').doc(userId).update({
-        stripeCustomerId: customer.id
-      });
-    } else {
-      // Verify the customer ID is valid
-      try {
-        await stripe.customers.retrieve(stripeCustomerId);
-      } catch (error) {
-        console.error('Invalid or non-existent Stripe customer:', error);
-        // If the customer doesn't exist in Stripe, create a new one
-        const customer = await stripe.customers.create({
-          email: decodedToken.email,
-          metadata: {
-            firebaseUID: userId
-          }
-        });
-        stripeCustomerId = customer.id;
-
-        // Update the user's document with the new customer ID using Admin SDK
-        await db.collection('users').doc(userId).update({
-          stripeCustomerId: customer.id
-        });
-      }
+      await db.collection('users').doc(userId).update({ stripeCustomerId: customer.id });
     }
 
-    console.log('Creating checkout session for:', {
-      userId,
-      stripeCustomerId,
-      priceId
-    });
-
-    // Create a Checkout Session
+    // Create Checkout Session
     const session = await stripe.checkout.sessions.create({
       customer: stripeCustomerId,
-      line_items: [
-        {
-          price: priceId,
-          quantity: 1,
-        },
-      ],
+      line_items: [{ price: priceId, quantity: 1 }],
       mode: 'subscription',
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/account/subscription?success=true`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/account/subscription?success=true&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/account/subscription?canceled=true`,
       customer_update: {
         address: 'auto',
         name: 'auto',
       },
-      metadata: {
-        userId,
-      },
+      metadata: { userId },
+      payment_method_types: ['card'],
+      allow_promotion_codes: true,
+    }, {
+      idempotencyKey: `checkout_${userId}_${Date.now()}`
     });
 
     if (!session.url) {
-      console.error('No session URL returned from Stripe');
       return NextResponse.json(
         { error: { message: 'Failed to create checkout session' } },
         { status: 500 }
       );
     }
 
-    console.log('Checkout session created:', session.id);
     return NextResponse.json({ url: session.url });
-  } catch (error) {
-    console.error('Error creating checkout session:', error);
-    return NextResponse.json(
-      { error: { message: error instanceof Error ? error.message : 'Internal server error' } },
-      { status: 500 }
-    );
+  } catch (err) {
+    console.error('Stripe error:', err);
+    const error = err as { type?: string; message?: string };
+    
+    // Handle specific Stripe error types
+    switch (error.type) {
+      case 'StripeCardError':
+        return NextResponse.json({ error: { message: 'Your card was declined.' } }, { status: 402 });
+      case 'StripeRateLimitError':
+        return NextResponse.json({ error: { message: 'Too many requests. Please try again later.' } }, { status: 429 });
+      case 'StripeInvalidRequestError':
+        return NextResponse.json({ error: { message: 'Invalid request parameters.' } }, { status: 400 });
+      case 'StripeAuthenticationError':
+        return NextResponse.json({ error: { message: 'Authentication failed.' } }, { status: 401 });
+      case 'StripeConnectionError':
+        return NextResponse.json({ error: { message: 'Network error.' } }, { status: 503 });
+      case 'StripeAPIError':
+        return NextResponse.json({ error: { message: 'Internal Stripe error.' } }, { status: 500 });
+      default:
+        return NextResponse.json(
+          { error: { message: error.message || 'Something went wrong.' } },
+          { status: 500 }
+        );
+    }
   }
 } 
