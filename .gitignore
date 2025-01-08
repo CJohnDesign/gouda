@@ -43,3 +43,13 @@ next-env.d.ts
 
 node_modules/
 .firebase/
+
+# Firebase cache
+.firebase/
+.firebase/*/functions/.next/
+.firebase/**/cache/
+
+# Next.js build cache
+.next/
+*/.next/
+**/.next/
