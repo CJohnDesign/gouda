@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getStripe, isTestMode, getPriceId } from '@/lib/stripe';
+import { getStripe, isTestMode, getPriceId, getAppUrl } from '@/lib/stripe';
 import { adminAuth, adminDb } from '@/lib/firebase-admin';
 
 export async function POST(request: Request) {
@@ -9,7 +9,9 @@ export async function POST(request: Request) {
     console.log('[Stripe Checkout] Using mode:', mode);
     
     const priceId = getPriceId();
+    const appUrl = getAppUrl();
     console.log('[Stripe Checkout] Using price ID:', priceId);
+    console.log('[Stripe Checkout] Using app URL:', appUrl);
     console.log('[Stripe Checkout] Environment:', process.env.NEXT_PUBLIC_ENVIRONMENT);
     console.log('[Stripe Checkout] Node ENV:', process.env.NODE_ENV);
     
@@ -96,8 +98,8 @@ export async function POST(request: Request) {
         customer: stripeCustomerId,
         line_items: [{ price: priceId, quantity: 1 }],
         mode: 'subscription',
-        success_url: `${process.env.NEXT_PUBLIC_APP_URL}/account/subscription?success=true&session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/account/subscription?canceled=true`,
+        success_url: `${appUrl}/account/subscription?success=true&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${appUrl}/account/subscription?canceled=true`,
         customer_update: {
           address: 'auto',
           name: 'auto',

@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server';
-import { getStripe, isTestMode } from '@/lib/stripe';
-import { adminAuth as auth, adminDb as db } from '@/firebase/admin';
+import { getStripe, isTestMode, getAppUrl } from '@/lib/stripe';
+import { adminAuth, adminDb } from '@/firebase/admin';
 
 export async function POST(request: Request) {
   try {
     const stripe = getStripe();
+    const appUrl = getAppUrl();
     console.log(`[Stripe Portal] Received portal session request in ${isTestMode() ? 'test' : 'live'} mode`);
+    console.log('[Stripe Portal] Using app URL:', appUrl);
     
     // Get the authorization header
     const authHeader = request.headers.get('authorization');
@@ -21,13 +23,31 @@ export async function POST(request: Request) {
     // Verify the Firebase ID token
     const token = authHeader.split('Bearer ')[1];
     console.log('[Stripe Portal] Verifying Firebase token');
-    const decodedToken = await auth.verifyIdToken(token);
+    
+    if (!adminAuth) {
+      console.error('[Stripe Portal] Firebase Admin Auth is not initialized');
+      return NextResponse.json(
+        { error: { message: 'Server configuration error' } },
+        { status: 500 }
+      );
+    }
+    
+    const decodedToken = await adminAuth.verifyIdToken(token);
     const userId = decodedToken.uid;
     console.log('[Stripe Portal] User authenticated:', userId);
 
     // Get the user's Stripe customer ID from Firestore using Admin SDK
     console.log('[Stripe Portal] Fetching user document');
-    const userDoc = await db.collection('users').doc(userId).get();
+    
+    if (!adminDb) {
+      console.error('[Stripe Portal] Firebase Admin Firestore is not initialized');
+      return NextResponse.json(
+        { error: { message: 'Server configuration error' } },
+        { status: 500 }
+      );
+    }
+    
+    const userDoc = await adminDb.collection('users').doc(userId).get();
     const stripeCustomerId = userDoc.data()?.stripeCustomerId;
 
     if (!stripeCustomerId) {
@@ -55,7 +75,7 @@ export async function POST(request: Request) {
     console.log('[Stripe Portal] Creating billing portal session');
     const session = await stripe.billingPortal.sessions.create({
       customer: stripeCustomerId,
-      return_url: `${process.env.NEXT_PUBLIC_APP_URL}/account/subscription`,
+      return_url: `${appUrl}/account/subscription`,
     });
     console.log('[Stripe Portal] Successfully created portal session:', session.id);
 
