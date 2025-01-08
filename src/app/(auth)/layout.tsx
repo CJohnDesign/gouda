@@ -2,6 +2,8 @@
 
 import { useEffect } from 'react'
 import { useTheme } from 'next-themes'
+import { StorageWarning } from '@/components/ui/storage-warning'
+import { setupAuthPersistence } from '@/lib/auth/firebase-auth'
 
 export default function AuthLayout({
   children,
@@ -23,10 +25,29 @@ export default function AuthLayout({
     }
   }, [setTheme])
 
+  // Setup auth persistence on mount
+  useEffect(() => {
+    const initAuth = async () => {
+      try {
+        const persistenceType = await setupAuthPersistence();
+        console.log('Auth persistence initialized:', persistenceType);
+      } catch (error) {
+        console.error('Error setting up auth persistence:', error);
+      }
+    };
+    
+    initAuth();
+  }, []);
+
   // Ensure light mode is maintained
   if (theme !== 'light') {
     setTheme('light')
   }
 
-  return children
+  return (
+    <>
+      {children}
+      <StorageWarning />
+    </>
+  )
 } 

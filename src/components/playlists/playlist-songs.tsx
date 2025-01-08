@@ -25,11 +25,10 @@ import { SortableItem } from './sortable-item'
 
 interface PlaylistSongsProps {
   playlistId: string
-  userId: string
   songs: Song[]
 }
 
-export function PlaylistSongs({ playlistId, userId, songs }: PlaylistSongsProps) {
+export function PlaylistSongs({ playlistId, songs }: PlaylistSongsProps) {
   const router = useRouter()
   const [items, setItems] = useState<Song[]>([])
   const [isUpdating, setIsUpdating] = useState(false)
@@ -75,7 +74,8 @@ export function PlaylistSongs({ playlistId, userId, songs }: PlaylistSongsProps)
   const handleSongClick = (e: React.MouseEvent, song: Song, index: number) => {
     e.preventDefault()
     e.stopPropagation()
-    router.push(`/song/${song.id}?playlistId=${playlistId}&position=${index + 1}`)
+    const position = index + 1
+    router.push(`/song/${song.id}?playlistId=${playlistId}&position=${position}`)
   }
 
   return (

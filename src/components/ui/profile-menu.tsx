@@ -43,8 +43,24 @@ export function ProfileMenu() {
         <DropdownMenuContent className="w-56" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">{profile?.displayName || 'User'}</p>
-              <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
+              <p className="text-sm font-medium leading-none">
+                {(profile?.firstName && profile?.lastName) ? (
+                  `${profile.firstName} ${profile.lastName}`
+                ) : (
+                  <a href="/account/profile" className="text-primary hover:underline">
+                    Add Name
+                  </a>
+                )}
+              </p>
+              <p className="text-xs leading-none text-muted-foreground">
+                {profile?.telegramUsername ? (
+                  `@${profile.telegramUsername}`
+                ) : (
+                  <a href="/account/profile" className="text-primary hover:underline">
+                    Add Telegram
+                  </a>
+                )}
+              </p>
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />

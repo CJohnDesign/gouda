@@ -14,7 +14,7 @@ interface PlaylistNavigationProps {
 function PlaylistNavigationContent({ playlistId }: PlaylistNavigationProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const currentIndex = parseInt(searchParams.get('index') || '0')
+  const position = parseInt(searchParams.get('position') || '1')
   const [playlist, setPlaylist] = useState<Partial<Playlist> | null>(null)
 
   useEffect(() => {
@@ -31,8 +31,10 @@ function PlaylistNavigationContent({ playlistId }: PlaylistNavigationProps) {
   }, [playlistId])
 
   const handleNavigation = (direction: 'prev' | 'next') => {
-    const newIndex = direction === 'prev' ? currentIndex - 1 : currentIndex + 1
-    router.push(`/song/${playlist?.songs?.[newIndex]}?playlistId=${playlistId}&index=${newIndex}`)
+    const newPosition = direction === 'prev' ? position - 1 : position + 1
+    // Calculate array index from position (1-based to 0-based)
+    const newIndex = newPosition - 1
+    router.push(`/song/${playlist?.songs?.[newIndex]}?playlistId=${playlistId}&position=${newPosition}`)
   }
 
   const totalSongs = playlist?.songs?.length || 0
@@ -43,7 +45,7 @@ function PlaylistNavigationContent({ playlistId }: PlaylistNavigationProps) {
         variant="ghost"
         size="icon"
         onClick={() => handleNavigation('prev')}
-        disabled={currentIndex <= 0}
+        disabled={position <= 1}
         className="text-foreground hover:text-black"
       >
         <ChevronLeft className="h-4 w-4" />
@@ -52,14 +54,14 @@ function PlaylistNavigationContent({ playlistId }: PlaylistNavigationProps) {
       <div className="flex-1 text-center text-sm">
         <span className="text-muted-foreground">{playlist?.name}</span>
         <span className="text-muted-foreground mx-2">•</span>
-        <span className="text-foreground">{currentIndex + 1} / {totalSongs}</span>
+        <span className="text-foreground">{position} / {totalSongs}</span>
       </div>
 
       <Button
         variant="ghost"
         size="icon"
         onClick={() => handleNavigation('next')}
-        disabled={currentIndex >= totalSongs - 1}
+        disabled={position >= totalSongs}
         className="text-foreground hover:text-black"
       >
         <ChevronRight className="h-4 w-4" />

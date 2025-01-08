@@ -18,15 +18,15 @@ const montserrat = Montserrat({ subsets: ['latin'] })
 export default function PlaylistPage() {
   const router = useRouter()
   const params = useParams()
-  const { user, loading } = useUserProfile()
+  const { user, isLoading } = useUserProfile()
   const [playlist, setPlaylist] = useState<Playlist | null>(null)
   const [songs, setSongs] = useState<Song[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoadingData, setIsLoadingData] = useState(true)
   const playlistId = params.playlistId as string
 
   useEffect(() => {
     // Handle authentication check
-    if (!loading && !user) {
+    if (!isLoading && !user) {
       router.push('/')
       return
     }
@@ -53,7 +53,7 @@ export default function PlaylistPage() {
       } catch (error) {
         console.error('Error fetching data:', error)
       } finally {
-        setIsLoading(false)
+        setIsLoadingData(false)
       }
     }
 
@@ -77,9 +77,9 @@ export default function PlaylistPage() {
 
       return () => unsubscribe()
     }
-  }, [loading, user, router, playlistId])
+  }, [isLoading, user, router, playlistId])
 
-  if (loading || isLoading) {
+  if (isLoading || isLoadingData) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <p className="text-foreground">Loading...</p>
@@ -122,7 +122,6 @@ export default function PlaylistPage() {
           {/* Songs List */}
           <PlaylistSongs
             playlistId={playlist.id}
-            userId={user.uid}
             songs={songs}
           />
         </div>
