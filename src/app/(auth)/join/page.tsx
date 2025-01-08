@@ -141,7 +141,7 @@ export default function JoinPage() {
         <p className="text-foreground text-lg mb-8">Sign up for Gouda &amp; Company to get <strong>weekly group lessons</strong>, instructional videos and a helpful community.</p>
         {emailSent ? (
           <div className="space-y-4">
-            <Alert className="border-green-500 bg-green-50 dark:bg-green-900/10">
+            <Alert className="border-green-500 bg-green-50 dark:bg-green-700/10">
               <AlertDescription className="text-foreground">
                 <div className="text-lg mb-4">
                   Check your email!<br/><strong>There&apos;s a link to get in!</strong>

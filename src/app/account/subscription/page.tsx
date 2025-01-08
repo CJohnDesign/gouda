@@ -78,9 +78,9 @@ function SubscriptionPageContent() {
       return
     }
 
-    analytics.trackButtonClick(profile?.isSubscribed ? 'manage_subscription' : 'start_subscription', {
+    analytics.trackButtonClick(profile?.subscriptionStatus === 'Active' ? 'manage_subscription' : 'start_subscription', {
       user_id: user.uid,
-      subscription_status: profile?.isSubscribed ? 'active' : 'inactive'
+      subscription_status: profile?.subscriptionStatus === 'Active' ? 'active' : 'inactive'
     })
 
     setIsLoading(true)
@@ -88,11 +88,11 @@ function SubscriptionPageContent() {
 
     try {
       const token = await user.getIdToken()
-      const endpoint = profile?.isSubscribed
+      const endpoint = profile?.subscriptionStatus === 'Active'
         ? '/api/create-portal-session'
         : '/api/create-checkout-session'
 
-      if (!profile?.isSubscribed) {
+      if (profile?.subscriptionStatus !== 'Active') {
         analytics.trackSubscription('start', {
           user_id: user.uid
         })
@@ -132,7 +132,7 @@ function SubscriptionPageContent() {
         'SubscriptionPage',
         {
           user_id: user.uid,
-          subscription_status: profile?.isSubscribed ? 'active' : 'inactive'
+          subscription_status: profile?.subscriptionStatus === 'Active' ? 'active' : 'inactive'
         }
       )
 
@@ -165,8 +165,8 @@ function SubscriptionPageContent() {
             <CardTitle>Subscription</CardTitle>
             <CardDescription>Manage your subscription and billing</CardDescription>
           </div>
-          <Badge variant={profile?.isSubscribed ? "default" : "secondary"}>
-            {profile?.isSubscribed ? "Active" : "Inactive"}
+          <Badge variant={profile?.subscriptionStatus === 'Active' ? "default" : "secondary"}>
+            {profile?.subscriptionStatus === 'Active' ? "Active" : "Inactive"}
           </Badge>
         </div>
       </CardHeader>
@@ -181,9 +181,9 @@ function SubscriptionPageContent() {
           disabled={isLoading || !isMounted}
           className="w-full"
         >
-          {isLoading ? "Loading..." : profile?.isSubscribed ? "Manage Subscription" : "Subscribe Now"}
+          {isLoading ? "Loading..." : profile?.subscriptionStatus === 'Active' ? "Manage Subscription" : "Subscribe Now"}
         </Button>
-        {!profile?.isSubscribed && !PRICE_ID && (
+        {profile?.subscriptionStatus !== 'Active' && !PRICE_ID && (
           <p className="text-sm text-muted-foreground mt-2 text-center">
             Subscription is currently unavailable. Please try again later.
           </p>
