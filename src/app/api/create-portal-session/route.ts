@@ -1,12 +1,17 @@
 import { NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe';
+import { getStripe, isTestMode } from '@/lib/stripe';
 import { adminAuth as auth, adminDb as db } from '@/firebase/admin';
 
 export async function POST(request: Request) {
   try {
+    const stripe = getStripe();
+    console.log(`[Stripe Portal] Received portal session request in ${isTestMode() ? 'test' : 'live'} mode`);
+    
     // Get the authorization header
     const authHeader = request.headers.get('authorization');
+    console.log('[Stripe Portal] Processing request with auth:', authHeader ? 'Present' : 'Missing');
     if (!authHeader?.startsWith('Bearer ')) {
+      console.error('[Stripe Portal] Authorization header missing or invalid');
       return NextResponse.json(
         { error: { message: 'Missing or invalid authorization header' } },
         { status: 401 }
@@ -15,14 +20,18 @@ export async function POST(request: Request) {
 
     // Verify the Firebase ID token
     const token = authHeader.split('Bearer ')[1];
+    console.log('[Stripe Portal] Verifying Firebase token');
     const decodedToken = await auth.verifyIdToken(token);
     const userId = decodedToken.uid;
+    console.log('[Stripe Portal] User authenticated:', userId);
 
     // Get the user's Stripe customer ID from Firestore using Admin SDK
+    console.log('[Stripe Portal] Fetching user document');
     const userDoc = await db.collection('users').doc(userId).get();
     const stripeCustomerId = userDoc.data()?.stripeCustomerId;
 
     if (!stripeCustomerId) {
+      console.error('[Stripe Portal] No Stripe customer ID found for user:', userId);
       return NextResponse.json(
         { error: { message: 'No Stripe customer ID found' } },
         { status: 400 }
@@ -31,8 +40,11 @@ export async function POST(request: Request) {
 
     // Verify the customer ID is valid
     try {
+      console.log('[Stripe Portal] Verifying Stripe customer:', stripeCustomerId);
       await stripe.customers.retrieve(stripeCustomerId);
+      console.log('[Stripe Portal] Customer verification successful');
     } catch (error) {
+      console.error('[Stripe Portal] Invalid Stripe customer ID:', error);
       return NextResponse.json(
         { error: { message: 'Invalid Stripe customer ID', details: error instanceof Error ? error.message : 'Unknown error' } },
         { status: 400 }
@@ -40,16 +52,18 @@ export async function POST(request: Request) {
     }
 
     // Create a billing portal session
+    console.log('[Stripe Portal] Creating billing portal session');
     const session = await stripe.billingPortal.sessions.create({
       customer: stripeCustomerId,
       return_url: `${process.env.NEXT_PUBLIC_APP_URL}/account/subscription`,
     });
+    console.log('[Stripe Portal] Successfully created portal session:', session.id);
 
     return NextResponse.json({ url: session.url });
-  } catch (error) {
-    console.error('Error creating portal session:', error);
+  } catch (err) {
+    console.error('[Stripe Portal] Error:', err);
     return NextResponse.json(
-      { error: { message: error instanceof Error ? error.message : 'Internal server error' } },
+      { error: { message: err instanceof Error ? err.message : 'An unexpected error occurred' } },
       { status: 500 }
     );
   }

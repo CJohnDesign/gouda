@@ -1,21 +1,26 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { Montserrat } from 'next/font/google'
 import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+
+const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 text-center">
-        <h1 className="text-4xl font-bold">404</h1>
-        <h2 className="text-2xl font-semibold">Page Not Found</h2>
-        <p className="text-muted-foreground">
-          The page you&apos;re looking for doesn&apos;t exist.
+    <main className={`min-h-screen bg-background flex flex-col items-center justify-center p-4 ${montserrat.className}`}>
+      <div className="text-center space-y-6">
+        <h1 className="text-4xl font-bold text-foreground">404</h1>
+        <h2 className="text-2xl font-semibold text-foreground">Page Not Found</h2>
+        <p className="text-muted-foreground max-w-md mx-auto">
+          Sorry, we couldn&apos;t find the page you&apos;re looking for.
         </p>
         <Button asChild>
-          <Link href="/">Return Home</Link>
+          <Link href="/">
+            Return Home
+          </Link>
         </Button>
       </div>
-    </div>
+    </main>
   )
 } 
