@@ -1,0 +1,75 @@
+{
+  "id": "hollywood-swinging-kool-the-gang",
+  "title": "Hollywood Swinging",
+  "artist": "Kool & the Gang",
+  "featuring": [],
+  "artistId": "kool-the-gang",
+  "album": "",
+  "albumId": "",
+  "writer": "",
+  "coverUrl": "",
+  "description": "",
+  "releaseYear": 0,
+  "genre": [],
+  "mood": [],
+  "duration": "",
+  "structure": [
+    {
+      "section": "Intro",
+      "chords": ["E", "D", "D#", "E", "Gmaj7", "Am7", "Gmaj7", "Gmaj7", "Gmaj7"]
+    },
+    {
+      "section": "Chorus",
+      "chords": ["Am7", "Gmaj7", "Am7", "Gmaj7"]
+    },
+    {
+      "section": "Verse 2",
+      "chords": ["Am7", "Gmaj7", "Am7", "Gmaj7", "Am7", "Gmaj7", "Am7", "Gmaj7"]
+    },
+    {
+      "section": "Instrumental",
+      "chords": ["D", "D", "E", "D", "D", "E", "D", "D", "E"]
+    },
+    {
+      "section": "Outro",
+      "chords": ["E", "D", "E", "D", "Am7", "Gmaj7", "Am7", "Gmaj7"]
+    }
+  ],
+  "theory": {
+    "key": "",
+    "scale": "",
+    "mode": "",
+    "tempoMarking": "",
+    "timeSignature": [4, 4],
+    "bpm": 0,
+    "harmonicAnalysis": {
+      "chordProgression": "",
+      "secondaryDominants": [],
+      "borrowedChords": [],
+      "modulationSections": []
+    },
+    "melodicAnalysis": {
+      "vocalRange": "",
+      "vocalTechniques": [],
+      "motifs": [],
+      "phrasingPatterns": []
+    }
+  },
+  "chartPerformance": [],
+  "hasMaleVocals": true,
+  "hasFemaleVocals": false,
+  "hasGuitarSolo": false,
+  "metadata": {
+    "isPublished": true,
+    "isFeatured": false,
+    "isPrivate": false,
+    "isDeleted": false,
+    "isDraft": false,
+    "isPending": false,
+    "isApproved": true,
+    "isRejected": false,
+    "isHidden": false
+  },
+  "createdAt": "",
+  "updatedAt": ""
+}

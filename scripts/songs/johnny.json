@@ -1,0 +1,133 @@
+{
+  "id": "johnny-b-goode-peter-tosh",
+  "title": "Johnny B Goode",
+  "artist": "Peter Tosh",
+  "featuring": [],
+  "artistId": "peter-tosh",
+  "album": "Unknown",
+  "albumId": "unknown",
+  "writer": "Chuck Berry",
+  "coverUrl": "/images/placeholder.jpg",
+  "description": "A reggae cover of Chuck Berry's classic song",
+  "releaseYear": 1970,
+  "genre": ["Reggae", "Rock"],
+  "mood": ["Upbeat", "Energetic"],
+  "duration": "3:55",
+  "structure": [
+    {
+      "section": "Intro",
+      "lyrics": [],
+      "chords": ["Em", "D", "Em", "D", "Em", "D", "Em", "D", "Em", "G", "F#m", "D", "Em", "D"]
+    },
+    {
+      "section": "Verse 1",
+      "lyrics": [
+        "Deep down in Jamaica close to Mandeville",
+        "Back up in the woods on top of a hill",
+        "There stood an old hut made of earth and wood",
+        "There lived a country boy named Johnny B Goode",
+        "Never learned to read and a write so well",
+        "But he could play his guitar like ringing a bell yell"
+      ],
+      "chords": ["Em", "D", "Em", "D"]
+    },
+    {
+      "section": "Chorus",
+      "lyrics": [
+        "He said GO! (Go Johnny!) Johnny B. Goode tonight! Yeah",
+        "He said GO! (Go Johnny!) Johnny B. Goode"
+      ],
+      "chords": ["Em", "D", "Em", "D"]
+    },
+    {
+      "section": "Verse 2",
+      "lyrics": [
+        "He used to carry his guitar in a gunny sack",
+        "Sitting in a tree in the railroad track",
+        "Old engineer in the train sitting in the shade",
+        "Strummin' with the rhythm that them drivers made",
+        "People passing by would stop and say",
+        "Oh my oh my what the boy can play"
+      ],
+      "chords": ["Em", "D", "Em", "D"]
+    },
+    {
+      "section": "Chorus",
+      "lyrics": [
+        "He said GO! (Go Johnny!) Johnny B. Goode tonight! Yeah",
+        "Said oh! (Go Johnny!) Johnny B. Goode"
+      ],
+      "chords": ["Em", "D", "Em", "D"]
+    },
+    {
+      "section": "Solo",
+      "lyrics": [],
+      "chords": ["Em", "D", "Em", "D", "Em", "D", "Em", "D", "Em", "G", "F#m", "D"]
+    },
+    {
+      "section": "Verse 3",
+      "lyrics": [
+        "Mama said son you gotta be a man",
+        "You gotta be the leader of a reggae band",
+        "People coming in from miles around",
+        "To hear you play until the sun goes down",
+        "Boy someday your name will be in the lights",
+        "Saying Johnny, Johnny B Goode tonight"
+      ],
+      "chords": ["Em", "D", "Em", "D"]
+    },
+    {
+      "section": "Chorus",
+      "lyrics": [
+        "He said GO! (Go Johnny!) Johnny B. Goode tonight! Yeah",
+        "He said OH! (Go Johnny!) Johnny you 'bout to be good",
+        "He said GO! (Go Johnny!) Johnny B. Goode tonight!",
+        "Play, Johnny! (Go Johnny!) Johnny B. Goode",
+        "I said GO! (Go Johnny!) Johnny B. Goode tonight!"
+      ],
+      "chords": ["Em", "D", "Em", "D"]
+    }
+  ],
+  "theory": {
+    "key": "Em",
+    "scale": "minor",
+    "mode": "aeolian",
+    "tempoMarking": "Moderato",
+    "timeSignature": [4, 4],
+    "bpm": 120,
+    "harmonicAnalysis": {
+      "chordProgression": "I-IV-V progression with reggae variations",
+      "secondaryDominants": [],
+      "borrowedChords": ["G"],
+      "modulationSections": []
+    },
+    "melodicAnalysis": {
+      "vocalRange": "A2-E4",
+      "vocalTechniques": ["Raspy", "Growl", "Soulful"],
+      "motifs": ["Syncopated Rhythm", "Reggae Feel"],
+      "phrasingPatterns": ["4-bar phrases"]
+    }
+  },
+  "chartPerformance": [
+    {
+      "chartName": "Reggae Charts",
+      "position": 1
+    }
+  ],
+  "hasMaleVocals": true,
+  "hasFemaleVocals": false,
+  "hasGuitarSolo": true,
+  "metadata": {
+    "isPublished": true,
+    "isFeatured": true,
+    "isPrivate": false,
+    "isDeleted": false,
+    "isDraft": false,
+    "isPending": false,
+    "isApproved": true,
+    "isRejected": false,
+    "isHidden": false
+  },
+  "createdAt": "2023-02-20T14:30:00Z",
+  "updatedAt": "2023-02-20T14:30:00Z"
+}

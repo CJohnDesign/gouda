@@ -1,8 +1,8 @@
 export const AUTH_ROUTES = {
   LOGIN: '/login',
   JOIN: '/join',
-  AFTER_LOGIN: '/songbook',
-  AFTER_JOIN: '/songbook?newUser=true',
+  AFTER_LOGIN: '/playlists',
+  AFTER_JOIN: '/playlists?newUser=true',
 } as const;
 
 export const getRedirectUrl = (isNewUser: boolean): string => {

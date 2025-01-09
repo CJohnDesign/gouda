@@ -1,0 +1,122 @@
+{
+  "id": "spirit-in-the-sky-norman-greenbaum",
+  "title": "Spirit in the Sky",
+  "artist": "Norman Greenbaum",
+  "featuring": [],
+  "artistId": "norman-greenbaum",
+  "album": "",
+  "albumId": "",
+  "writer": "Norman Greenbaum",
+  "coverUrl": "/images/placeholder.jpg",
+  "description": "",
+  "releaseYear": 1969,
+  "genre": ["Rock", "Folk Rock", "Psychedelic Rock"],
+  "mood": ["Upbeat", "Uplifting", "Spiritual"],
+  "duration": "3:59",
+  "structure": [
+    {
+      "section": "Verse 1",
+      "lyrics": [
+        "When I die and they lay me to rest,",
+        "gonna go to the place that's the best",
+        "When they lay me down to die,",
+        "going up to the spirit in the sky",
+        "Going up to the spirit in the sky, (spirit in the sky)",
+        "that's where I'm gonna go when I die (when I die)"
+      ],
+      "chords": [
+        "A", "D", "C", "A",
+        "C", "D", "A"
+      ]
+    },
+    {
+      "section": "Verse 2",
+      "lyrics": [
+        "Prepare yourself, you know it's a must,",
+        "got to have a friend in Jesus",
+        "So you know that when you die,",
+        "He's gonna recommend you to the spirit in the sky (spirit in the sky)",
+        "Oh, recommend you to the spirit in the sky,",
+        "that's where you're gonna go when you die (when you die)"
+      ],
+      "chords": [
+        "A", "D", "C", "A",
+        "C", "D", "A"
+      ]
+    },
+    {
+      "section": "Solo",
+      "lyrics": [],
+      "chords": [
+        "A", "G", "A",
+        "C", "D"
+      ]
+    },
+    {
+      "section": "Verse 3",
+      "lyrics": [
+        "Never been a sinner, I've never sinned,",
+        "I've got a friend in Jesus",
+        "So you know that when I die,",
+        "He's gonna set me up with the spirit in the sky",
+        "Oh, set me up with the spirit in the sky,",
+        "that's where I'm gonna go when I die (when I die)"
+      ],
+      "chords": [
+        "A", "D", "C", "A",
+        "C", "D", "A"
+      ]
+    },
+    {
+      "section": "Outro",
+      "lyrics": [
+        "Go to the place that's the best",
+        "Go to the place that's the best"
+      ],
+      "chords": [
+        "E", "A",
+        "A", "D", "C", "A", "C", "D"
+      ]
+    }
+  ],
+  "theory": {
+    "key": "A",
+    "scale": "major",
+    "mode": "ionian",
+    "tempoMarking": "Moderato",
+    "timeSignature": [4, 4],
+    "bpm": 120,
+    "harmonicAnalysis": {
+      "chordProgression": "I-V-vi-IV progression with folk variations",
+      "secondaryDominants": [],
+      "borrowedChords": [],
+      "modulationSections": []
+    },
+    "melodicAnalysis": {
+      "vocalRange": "C4-E5",
+      "vocalTechniques": ["Folk", "Rock"],
+      "motifs": ["Syncopated Rhythm", "Folk Inflections"],
+      "phrasingPatterns": ["4-bar phrases"]
+    }
+  },
+  "chartPerformance": [
+    {
+      "chartName": "US Billboard Hot 100",
+      "position": 3
+    }
+  ],
+  "hasMaleVocals": true,
+  "hasFemaleVocals": false,
+  "hasGuitarSolo": false,
+  "metadata": {
+    "isPublished": true,
+    "isFeatured": false,
+    "isPrivate": false,
+    "isDeleted": false,
+    "isDraft": false,
+    "isPending": false,
+    "isApproved": true,
+    "isRejected": false,
+    "isHidden": false
+  }
+}

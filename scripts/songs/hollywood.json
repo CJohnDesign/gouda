@@ -1,0 +1,92 @@
+{
+    "id": "hollywood-swinging-kool-the-gang",
+    "title": "Hollywood Swinging",
+    "artist": "Kool & the Gang",
+    "featuring": [],
+    "artistId": "kool-the-gang",
+    "album": "",
+    "albumId": "",
+    "writer": "",
+    "coverUrl": "",
+    "description": "",
+    "releaseYear": 0,
+    "genre": [],
+    "mood": [],
+    "duration": "",
+  "structure": [
+    {
+      "section": "Intro",
+      "lyrics": [],
+      "chords": ["E", "D", "D#", "E", "Gmaj7", "Am7", "Gmaj7", "Gmaj7"]
+    },
+    {
+      "section": "Chorus",
+      "lyrics": ["Hey, hey, hey", "What ya got to say?", "Hollywood", "Hollywood swinging"],
+      "chords": ["Am7", "Gmaj7", "Am7", "Gmaj7"]
+    },
+    {
+      "section": "Verse 2",
+      "lyrics": ["I remember", "Not too long ago", "I went to the theater", "And I saw the Kool and the Gang show", 
+                  "I always wanted", "To fit to a band", "To sing my songs", "And become a bad piano playing man", 
+                  "So here I am, In this Hollywood city", "The city of the stars, movies, women and cars", 
+                  "Well I guess, I guess I have to stay"],
+      "chords": ["Am7", "Gmaj7", "Am7", "Gmaj7", "Am7", "Gmaj7", "Am7", "Gmaj7"]
+    },
+    {
+      "section": "Instrumental",
+      "lyrics": [],
+      "chords": ["D", "D", "E", "D", "D", "E", "D", "D", "E"]
+    },
+    {
+      "section": "Outro",
+      "lyrics": ["Hollywood, now swinging", "Hollywood, now swinging"],
+      "chords": ["E", "D", "E", "D", "Am7", "Gmaj7", "Am7", "Gmaj7"]
+    }
+  ],
+ "theory": {
+    "key": "E minor",
+    "scale": "Minor Pentatonic",
+    "mode": "Dorian",
+    "tempoMarking": "Allegro",
+    "timeSignature": [4, 4],
+    "bpm": 122,
+    "harmonicAnalysis": {
+      "chordProgression": "Am7 - Gmaj7",
+      "secondaryDominants": ["B7"],
+      "borrowedChords": ["D#dim7"],
+      "modulationSections": []
+    },
+    "melodicAnalysis": {
+      "vocalRange": "A2 to E4",
+      "vocalTechniques": ["Falsetto", "Call-and-Response"],
+      "motifs": ["Repeated Bassline"],
+      "phrasingPatterns": ["Syncopated Rhythms"]
+    }
+  },
+  "chartPerformance": [
+    {
+      "chart": "Billboard Hot 100",
+      "peakPosition": 6,
+      "weeksOnChart": 14
+    },
+    {
+      "chart": "Hot R&B/Hip-Hop Songs",
+      "peakPosition": 1,
+      "weeksOnChart": 16
+    }
+  ],
+  "hasMaleVocals": true,
+  "hasFemaleVocals": false,
+  "hasGuitarSolo": false,
+  "metadata": {
+    "isPublished": true,
+    "isFeatured": false,
+    "isPrivate": false,
+    "isDeleted": false,
+    "isDraft": false,
+    "isPending": false,
+    "isApproved": true,
+    "isRejected": false,
+    "isHidden": false
+  }
+}

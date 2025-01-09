@@ -1,0 +1,117 @@
+{
+    "id": "the-chain-fleetwood-mac",
+    "title": "The Chain",
+    "artist": "Fleetwood Mac",
+    "featuring": [],
+    "artistId": "fleetwood-mac",
+    "album": "",
+    "albumId": "",
+    "writer": "",
+    "coverUrl": "",
+    "description": "",
+    "releaseYear": 0,
+    "genre": [],
+    "mood": [],
+    "duration": "",
+    "structure": [
+      {
+        "section": "Intro",
+        "lyrics": [],
+        "chords": ["Em"]
+      },
+      {
+        "section": "Verse 1",
+        "lyrics": [
+          "Listen to the wind blow",
+          "Watch the sun rise",
+          "Run in the shadows",
+          "Damn your love  Damn your lies"
+        ],
+        "chords": ["Em", "A", "D", "C"]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "And if you don't love me now",
+          "You will never love me again",
+          "And I can still hear you sayin'",
+          "you will never break the chain (never break the chain)"
+        ],
+        "chords": ["Am", "Am", "Em", "C", "Dsus4"]
+      },
+      {
+        "section": "Pre-Verse",
+        "lyrics": [],
+        "chords": ["Em"]
+      },
+      {
+        "section": "Verse 2",
+        "lyrics": [
+          "Listen to the wind blow",
+          "Down comes the night",
+          "Run in the shadows",
+          "Damn your love  Damn your lies",
+          "Break The silence",
+          "Damn the dark  Damn the light"
+        ],
+        "chords": ["Em", "A", "D", "C"]
+      },
+      {
+        "section": "Chorus 2",
+        "lyrics": [
+          "And if you don't love me now",
+          "You will never love me again",
+          "And I can still hear you sayin'",
+          "you will never break the chain (never break the chain)"
+        ],
+        "chords": ["Am", "Am", "Em", "C", "Dsus4"]
+      },
+      {
+        "section": "Break",
+        "lyrics": [],
+        "chords": ["Am", "Em"]
+      },
+      {
+        "section": "Outro",
+        "lyrics": [
+          "Chain  Keep us together (Running in the shadow)"
+        ],
+        "chords": ["Am", "C", "G", "Em"]
+      }
+    ],
+    "theory": {
+      "key": "Em",
+      "scale": "",
+      "mode": "",
+      "tempoMarking": "",
+      "timeSignature": [4,4],
+      "bpm": 0,
+      "harmonicAnalysis": {
+        "chordProgression": "",
+        "secondaryDominants": [],
+        "borrowedChords": [],
+        "modulationSections": []
+      },
+      "melodicAnalysis": {
+        "vocalRange": "",
+        "vocalTechniques": [],
+        "motifs": [],
+        "phrasingPatterns": []
+      }
+    },
+    "chartPerformance": [],
+    "hasMaleVocals": true,
+    "hasFemaleVocals": true,
+    "hasGuitarSolo": true,
+    "metadata": {
+      "isPublished": true,
+      "isFeatured": true,
+      "isPrivate": false,
+      "isDeleted": false,
+      "isDraft": false,
+      "isPending": false,
+      "isApproved": true,
+      "isRejected": false,
+      "isHidden": false
+    }
+  }  

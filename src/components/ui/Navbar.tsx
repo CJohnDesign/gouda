@@ -17,28 +17,6 @@ export function Navbar() {
               className="hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors"
               asChild
             >
-              <Link href="/songbook" className="nav-link">
-                <Book className="h-4 w-4" />
-                <span>Songbook</span>
-              </Link>
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden nav-button"
-              asChild
-            >
-              <Link href="/songbook">
-                <Book className="h-4 w-4" />
-                <span className="sr-only">Songbook</span>
-              </Link>
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors"
-              asChild
-            >
               <Link href="/playlists" className="nav-link">
                 <ListMusic className="h-4 w-4" />
                 <span>Playlists</span>
@@ -53,6 +31,28 @@ export function Navbar() {
               <Link href="/playlists">
                 <ListMusic className="h-4 w-4" />
                 <span className="sr-only">Playlists</span>
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="hidden md:inline-flex items-center gap-2 text-sm font-medium transition-colors"
+              asChild
+            >
+              <Link href="/songbook" className="nav-link">
+                <Book className="h-4 w-4" />
+                <span>Songbook</span>
+              </Link>
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden nav-button"
+              asChild
+            >
+              <Link href="/songbook">
+                <Book className="h-4 w-4" />
+                <span className="sr-only">Songbook</span>
               </Link>
             </Button>
             <Button

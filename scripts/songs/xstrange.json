@@ -1,0 +1,88 @@
+{
+    "id": "people-are-strange-the-doors",
+    "title": "People Are Strange",
+    "artist": "The Doors",
+    "featuring": [],
+    "artistId": "the-doors",
+    "album": "Strange Days",
+    "albumId": "strange-days",
+    "writer": "The Doors",
+    "coverUrl": "/images/placeholder.jpg",
+    "description": "A classic song from The Doors' 1967 album Strange Days",
+    "releaseYear": 1967,
+    "genre": ["Psychedelic Rock", "Classic Rock"],
+    "mood": ["Moody", "Atmospheric", "Introspective"],
+    "duration": "2:12",
+    "structure": [
+      {
+        "section": "Verse 1",
+        "chords": [
+          "Em", "Am", "Em", "B7", "Em"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "chords": [
+          "B7", "G", "B7", "G", "B7", "A", "G", "B7"
+        ]
+      },
+      {
+        "section": "Verse 2",
+        "chords": [
+          "Em", "Am", "Em", "B7", "Em"
+        ]
+      },
+      {
+        "section": "Chorus",
+        "chords": [
+          "B7", "G", "B7", "G", "B7", "A", "G", "B7"
+        ]
+      },
+      {
+        "section": "Outro",
+        "chords": [
+          "Em", "Am", "Em", "B7", "Em"
+        ]
+      }
+    ],
+    "theory": {
+      "key": "Em",
+      "scale": "minor",
+      "mode": "natural minor",
+      "tempoMarking": "Adagio",
+      "timeSignature": [4, 4],
+      "bpm": 60,
+      "harmonicAnalysis": {
+        "chordProgression": "Em-B7-G-A progression with modal interchange",
+        "secondaryDominants": [],
+        "borrowedChords": ["B7"],
+        "modulationSections": []
+      },
+      "melodicAnalysis": {
+        "vocalRange": "C3-E5",
+        "vocalTechniques": ["Baritone", "Soulful"],
+        "motifs": ["Repetition", "Call-and-Response"],
+        "phrasingPatterns": ["4-bar phrases"]
+      }
+    },
+    "chartPerformance": [
+      {
+        "chartName": "Billboard Hot 100",
+        "position": 12
+      }
+    ],
+    "hasMaleVocals": true,
+    "hasFemaleVocals": false,
+    "hasGuitarSolo": false,
+    "metadata": {
+      "isPublished": true,
+      "isFeatured": true,
+      "isPrivate": false,
+      "isDeleted": false,
+      "isDraft": false,
+      "isPending": false,
+      "isApproved": true,
+      "isRejected": false,
+      "isHidden": false
+    }
+  }

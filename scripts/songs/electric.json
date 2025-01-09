@@ -1,0 +1,141 @@
+{
+    "id": "electric-feel-mgmt",
+    "title": "Electric Feel",
+    "artist": "MGMT",
+    "featuring": [],
+    "artistId": "mgmt",
+    "album": "Oracular Spectacular",
+    "albumId": "oracular-spectacular",
+    "writer": "MGMT",
+    "coverUrl": "/images/placeholder.jpg",
+    "description": "A synth-heavy indie rock song with a catchy chorus and electric feel",
+    "releaseYear": 2007,
+    "genre": ["Indie Rock", "Synthpop", "Psychedelic"],
+    "mood": ["Upbeat", "Energetic", "Quirky"],
+    "duration": "3:49",
+    "structure": [
+      {
+        "section": "Intro",
+        "lyrics": [],
+        "chords": ["Cm7", "Gm", "G#", "A#"]
+      },
+      {
+        "section": "Verse 1",
+        "lyrics": [
+          "All along the western front",
+          "People line up to receive",
+          "She got the power in her hand",
+          "To shock you like you won't believe",
+          "Saw her in the Amazon",
+          "With the voltage running through her skin",
+          "Standing there with nothing on",
+          "uh-she gonna teach me how to swim..."
+        ],
+        "chords": ["Cm7", "Gm", "G#", "A#"]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "I said: \"Ooh, girl!",
+          "Shock me like an electric eel",
+          "Baby girl",
+          "Turn me on with your electric feel\"",
+          "I said: \"Ooh, girl!",
+          "Shock me like an electric eel",
+          "Baby girl",
+          "Turn me on with your electric feel\""
+        ],
+        "chords": ["Cm7", "Gm", "G#", "A#"]
+      },
+      {
+        "section": "Instrumental",
+        "lyrics": [],
+        "chords": ["Cm7", "Gm", "G#", "A#"]
+      },
+      {
+        "section": "Verse 2",
+        "lyrics": [
+          "All along the Eastern shore",
+          "Put your circuits in the sea",
+          "This is what the world is for",
+          "Making electricity",
+          "You can feel it in your mind",
+          "Oh you can do it all the time",
+          "Plug it in and change the world",
+          "You are my electric girl"
+        ],
+        "chords": ["Cm7", "Gm", "G#", "A#"]
+      },
+      {
+        "section": "Chorus",
+        "lyrics": [
+          "I said: \"Ooh, girl!",
+          "Shock me like an electric eel",
+          "Baby girl",
+          "Turn me on with your electric feel\"",
+          "I said: \"Ooh, girl!",
+          "Shock me like an electric eel",
+          "Baby girl",
+          "Turn me on with your electric feel\""
+        ],
+        "chords": ["Cm7", "Gm", "G#", "A#"]
+      },
+      {
+        "section": "Instrumental",
+        "lyrics": [],
+        "chords": ["Cm", "A#", "A#", "Cm", "A#", "A#", "Cm"]
+      },
+      {
+        "section": "Outro",
+        "lyrics": [
+          "Do what you feel now!",
+          "Electric feel now!",
+          "Do what you feel now!",
+          "Electric feel now!",
+          "Do what you feel now!",
+          "Electric feel now!"
+        ],
+        "chords": ["Cm7", "Gm", "G#", "A#"]
+      }
+    ],
+    "theory": {
+      "key": "Cm",
+      "scale": "minor",
+      "mode": "aeolian",
+      "tempoMarking": "Moderato",
+      "timeSignature": [4, 4],
+      "bpm": 120,
+      "harmonicAnalysis": {
+        "chordProgression": "Cm-Gm-G#-A# progression with variations",
+        "secondaryDominants": [],
+        "borrowedChords": [],
+        "modulationSections": []
+      },
+      "melodicAnalysis": {
+        "vocalRange": "C3-E5",
+        "vocalTechniques": ["Belt", "Head Voice", "Soul Runs"],
+        "motifs": ["Syncopated Rhythm", "Soul Inflections"],
+        "phrasingPatterns": ["4-bar phrases"]
+      }
+    },
+    "chartPerformance": [
+      {
+        "chartName": "US Billboard Hot 100",
+        "position": 20
+      }
+    ],
+    "hasMaleVocals": true,
+    "hasFemaleVocals": false,
+    "hasGuitarSolo": false,
+    "metadata": {
+      "isPublished": true,
+      "isFeatured": true,
+      "isPrivate": false,
+      "isDeleted": false,
+      "isDraft": false,
+      "isPending": false,
+      "isApproved": true,
+      "isRejected": false,
+      "isHidden": false
+    }
+  }  
