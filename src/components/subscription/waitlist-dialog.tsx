@@ -21,8 +21,8 @@ export function WaitlistDialog({ open, onOpenChange }: WaitlistDialogProps) {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Hold That Note! 🎵</DialogTitle>
-          <DialogDescription className="pt-3">
-            We're still tuning up our awesome features! Want to be first in line when we drop the beat? Join our VIP waitlist and don't miss a single note of what's coming next!
+          <DialogDescription className="text-center text-lg">
+            We&apos;re still tuning up our awesome features! Want to be first in line when we drop the beat? Join our VIP waitlist and don&apos;t miss a single note of what&apos;s coming next!
           </DialogDescription>
         </DialogHeader>
         <div className="mt-6 space-y-4">

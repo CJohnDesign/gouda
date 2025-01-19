@@ -54,7 +54,7 @@ export default function JoinPage() {
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
         <Logo />
         <h1 className="text-3xl font-bold text-foreground mb-4">Learn To Jam!</h1>
-        <p className="text-foreground text-lg mb-6">Join to see what we're cuttin' up.</p>
+        <p className="text-foreground text-lg mb-6">Join to see what we&apos;re cuttin&apos; up.</p>
         {emailSent ? (
           <div className="space-y-4">
             <Alert className="border-green-500 bg-green-50 dark:bg-green-700/10">

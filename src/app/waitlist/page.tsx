@@ -2,7 +2,6 @@
 
 import { Montserrat } from 'next/font/google'
 import { Corners } from '@/components/ui/borders'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
@@ -47,7 +46,7 @@ export default function WaitlistPage() {
         createdAt: serverTimestamp()
       })
       
-      toast.success("You're on the list! Get ready to rock! 🎸")
+      toast.success("You&apos;re on the list! Get ready to rock! 🎸")
       setName('')
       setEmail('')
       setIsSuccess(true)
@@ -67,15 +66,15 @@ export default function WaitlistPage() {
         
         <h1 className="text-3xl font-bold text-foreground mb-4">Join Waitlist! 🎸</h1>
         <p className="text-foreground text-lg mb-8">
-          We're launching in March 2025 with group music lessons, training tools and a community that rocks. 
+          First cohort starting <strong>March 2025</strong><br/> Group music lessons, training tools and a community of bandmates.
         </p>
         
         {isSuccess ? (
           <div className="space-y-4">
-            <p className="text-foreground text-lg">Thanks for joining! We'll keep you posted on all the exciting updates.</p>
+            <p className="text-foreground text-lg">Thanks for joining! We&apos;ll keep you posted on all the exciting updates.</p>
             <div className="space-y-2">
               <p className="text-[14px] text-muted-foreground">
-                Can't wait? <Link href="/join" className="text-primary hover:underline">Sneak Preview?</Link>
+                Can&apos;t wait? <Link href="/join" className="hover:text-primary hover:underline underline">Sneak Preview</Link>
               </p>
             </div>
           </div>
@@ -113,7 +112,7 @@ export default function WaitlistPage() {
               {isSubmitting ? (
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />
               ) : null}
-              Count me in!
+              Let&apos;s jam!
             </Button>
           </form>
         )}
