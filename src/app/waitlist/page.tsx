@@ -11,6 +11,7 @@ import { addDoc, collection, serverTimestamp, getFirestore } from 'firebase/fire
 import app from '@/firebase/client'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
+import { Logo } from '@/components/ui/Logo'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 const db = getFirestore(app)
@@ -62,18 +63,7 @@ export default function WaitlistPage() {
     <main className={`min-h-screen flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
-        <div className="mb-8">
-            <a href="/">
-          <Image
-            src="/images/GOUDA_Logo.webp"
-            alt="Gouda"
-            width={300}
-            height={300}
-            className="mx-auto"
-            priority
-          />
-          </a>
-        </div>
+        <Logo />
         
         <h1 className="text-3xl font-bold text-foreground mb-4">Join Waitlist! 🎸</h1>
         <p className="text-foreground text-lg mb-8">

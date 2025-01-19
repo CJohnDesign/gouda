@@ -9,6 +9,7 @@ import { getPlatform, getEmailService } from '@/lib/platform'
 import { useAuthFlow } from '@/lib/auth/use-auth-flow'
 import { AUTH_ROUTES } from '@/lib/auth/routes'
 import { useState, useEffect } from 'react'
+import { Logo } from '@/components/ui/Logo'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -47,9 +48,10 @@ export default function LoginPage() {
   }, [email])
 
   return (
-    <main className={`min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
+    <main className={`min-h-screen flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
+        <Logo />
         <h1 className="text-3xl font-bold text-foreground mb-4">Login</h1>
         <p className="text-foreground text-lg mb-8">Sign in or create an account</p>
 
