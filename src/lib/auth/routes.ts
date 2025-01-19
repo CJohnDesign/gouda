@@ -1,6 +1,6 @@
 export const AUTH_ROUTES = {
   LOGIN: '/login',
-  JOIN: '/waitlist',
+  JOIN: '/join',
   AFTER_LOGIN: '/playlists',
   AFTER_JOIN: '/playlists?newUser=true',
 } as const;
