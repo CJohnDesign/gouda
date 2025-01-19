@@ -51,8 +51,8 @@ export default function JoinPage() {
     <main className={`min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
-        <h1 className="text-3xl font-bold text-foreground mb-8">Learn To Jam!</h1>
-        <p className="text-foreground text-lg mb-8">Sign up for Gouda &amp; Company to get <strong>weekly group lessons</strong>, instructional videos and a helpful community.</p>
+        <h1 className="text-3xl font-bold text-foreground mb-4">Learn To Jam!</h1>
+        <p className="text-foreground text-lg mb-6">Join to see what we're cuttin' up.</p>
         {emailSent ? (
           <div className="space-y-4">
             <Alert className="border-green-500 bg-green-50 dark:bg-green-700/10">
@@ -132,7 +132,7 @@ export default function JoinPage() {
           </form>
         )}
         <p className="mt-4 text-[14px] text-foreground">
-          Already have an account? <Link href="/login" className="text-primary hover:underline">Login</Link>
+          Already have an account? <Link href="/login" className="hover:text-primary hover:underline underline">Login</Link>
         </p>
       </div>
     </main>

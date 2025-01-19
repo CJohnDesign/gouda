@@ -63,6 +63,7 @@ export default function WaitlistPage() {
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
         <div className="mb-8">
+            <a href="/">
           <Image
             src="/images/GOUDA_Logo.webp"
             alt="Gouda"
@@ -71,12 +72,12 @@ export default function WaitlistPage() {
             className="mx-auto"
             priority
           />
+          </a>
         </div>
         
-        <h1 className="text-3xl font-bold text-foreground mb-4">Join the Band! 🎸</h1>
+        <h1 className="text-3xl font-bold text-foreground mb-4">Join Waitlist! 🎸</h1>
         <p className="text-foreground text-lg mb-8">
-          Get ready for the ultimate jam session! We're launching in March 2025 with weekly group lessons, 
-          video tutorials, and a community that rocks. Be the first to know when we're live!
+          We're launching in March 2025 with group music lessons, training tools and a community that rocks. 
         </p>
         
         {isSuccess ? (
@@ -92,18 +93,19 @@ export default function WaitlistPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
               type="text"
-              placeholder="Your stage name (or real name)"
+              placeholder="Stage Name (or real one)"
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="bg-background text-foreground"
               required
               minLength={1}
               maxLength={100}
+              autoFocus
             />
             
             <Input
               type="email"
-              placeholder="Your backstage pass (email)"
+              placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="bg-background text-foreground"
@@ -121,7 +123,7 @@ export default function WaitlistPage() {
               {isSubmitting ? (
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />
               ) : null}
-              Get VIP Access
+              Count me in!
             </Button>
           </form>
         )}

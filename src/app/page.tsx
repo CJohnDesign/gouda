@@ -2,13 +2,13 @@
 
 import { Montserrat } from 'next/font/google'
 import { Corners } from '@/components/ui/borders'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useUserProfile } from '@/contexts/UserProfileContext'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
+import { CldImage } from '@/lib/cloudinary'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -44,19 +44,22 @@ export default function Home() {
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
         <div className="mb-8">
-          <Image
-            src="/images/GOUDA_Logo.webp"
+          <CldImage
+            src="gouda/GOUDA_Logo"
             alt="Gouda"
             width={300}
             height={300}
             className="mx-auto"
             priority
+            quality={85}
+            loading="eager"
+            format="webp"
+            effects={[{ improve: true }]}
           />
         </div>
         <h1 className="text-3xl font-bold text-foreground mb-4">Ready to Rock? 🎸</h1>
         <p className="text-foreground text-lg mb-8">
-          <strong>The stage is set for March 2025!</strong> <br/>
-          We're cooking up something special - a place where music lovers become music makers. Weekly jams, video lessons, AI music tools and a community that grooves together. Sound good? Get on the VIP list!
+          Where music lovers become music makers. Group lessons, training tools and a helpful community. <strong>Opening March 2025!</strong>  
         </p>
         <div className="space-y-4">
           <div className="space-y-2">
@@ -66,15 +69,12 @@ export default function Home() {
               className="w-full text-[21px] leading-[32px] font-bold"
               asChild
             >
-              <Link href="/waitlist">Save My Spot</Link>
+              <Link href="/waitlist">Join Waitlist</Link>
             </Button>
-            <p className="text-[14px] text-muted-foreground">
-              <Link href="/join" className="text-primary hover:underline">Sneak Preview?</Link>
-            </p>
           </div>
           
           <p className="text-[14px] text-muted-foreground">
-            Already in the band? <Link href="/login" className="text-primary hover:underline">Login</Link>
+            Want a sneak peek?? <Link href="/join" className="hover:text-primary hover:underline underline">Join</Link>
           </p>
         </div>
       </div>

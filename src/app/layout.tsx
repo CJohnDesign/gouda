@@ -4,7 +4,6 @@ import '@/app/globals.css'
 import { Montserrat } from 'next/font/google'
 import { Toaster } from '@/components/ui/toaster'
 import { WelcomeTopBar } from '@/components/ui/WelcomeTopBar'
-import { Footer } from '@/components/ui/Footer'
 import { UserProfileProvider, useUserProfile } from '@/contexts/UserProfileContext'
 import { ProtectedRoute } from '@/components/auth/protected-route'
 import Script from 'next/script'
@@ -60,7 +59,6 @@ function RootLayoutInner({ children }: { children: React.ReactNode }) {
               </ProtectedRoute>
             </Suspense>
           </main>
-          <Footer />
         </div>
         <Toaster />
         <SonnerToaster position="top-center" />
