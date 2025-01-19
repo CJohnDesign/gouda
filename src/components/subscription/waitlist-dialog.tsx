@@ -20,9 +20,9 @@ export function WaitlistDialog({ open, onOpenChange }: WaitlistDialogProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Subscription Service Update</DialogTitle>
+          <DialogTitle>Hold That Note! 🎵</DialogTitle>
           <DialogDescription className="pt-3">
-            Our subscription service is temporarily unavailable while we make some improvements. Join our waitlist to be notified when we're back online with an even better experience!
+            We're still tuning up our awesome features! Want to be first in line when we drop the beat? Join our VIP waitlist and don't miss a single note of what's coming next!
           </DialogDescription>
         </DialogHeader>
         <div className="mt-6 space-y-4">
@@ -33,14 +33,14 @@ export function WaitlistDialog({ open, onOpenChange }: WaitlistDialogProps) {
             }}
             className="w-full"
           >
-            Join Waitlist
+            Get VIP Access
           </Button>
           <Button 
             variant="outline" 
             onClick={() => onOpenChange(false)}
             className="w-full"
           >
-            Close
+            Maybe Later
           </Button>
         </div>
       </DialogContent>

@@ -53,9 +53,10 @@ export default function Home() {
             priority
           />
         </div>
-        <h1 className="text-3xl font-bold text-foreground mb-4">Learn To Jam!</h1>
+        <h1 className="text-3xl font-bold text-foreground mb-4">Ready to Rock? 🎸</h1>
         <p className="text-foreground text-lg mb-8">
-          Something special is coming! Join the waitlist to be the first to know when we launch our <strong>weekly group lessons</strong>, instructional videos and helpful community.
+          <strong>The stage is set for March 2025!</strong> <br/>
+          We're cooking up something special - a place where music lovers become music makers. Weekly jams, video lessons, and a community that grooves together. Sound good? Get on the VIP list!
         </p>
         <div className="space-y-4">
           <Button 
@@ -64,11 +65,11 @@ export default function Home() {
             className="w-full text-[21px] leading-[32px] font-bold"
             asChild
           >
-            <Link href="/waitlist">Join Waitlist</Link>
+            <Link href="/waitlist">Save My Spot</Link>
           </Button>
           
           <p className="text-[14px] text-muted-foreground">
-            Already have an account? <Link href="/login" className="text-primary hover:underline">Login</Link>
+            Already in the band? <Link href="/login" className="text-primary hover:underline">Login</Link>
           </p>
         </div>
       </div>

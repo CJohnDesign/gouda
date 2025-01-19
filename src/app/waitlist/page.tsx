@@ -44,12 +44,12 @@ export default function WaitlistPage() {
         createdAt: serverTimestamp()
       })
       
-      toast.success('Thank you for joining our waitlist!')
+      toast.success("You're on the list! Get ready to rock! 🎸")
       setName('')
       setEmail('')
     } catch (error) {
       console.error('Error adding to waitlist:', error)
-      toast.error('Something went wrong. Please try again.')
+      toast.error('Oops! Hit a wrong note. Try again?')
     } finally {
       setIsSubmitting(false)
     }
@@ -70,13 +70,16 @@ export default function WaitlistPage() {
           />
         </div>
         
-        <h1 className="text-3xl font-bold text-foreground mb-4">Join the Waitlist</h1>
-        <p className="text-foreground text-lg mb-8">Be the first to know when we launch new features and opportunities.</p>
+        <h1 className="text-3xl font-bold text-foreground mb-4">Join the Band! 🎸</h1>
+        <p className="text-foreground text-lg mb-8">
+          Get ready for the ultimate jam session! We're launching in March 2025 with weekly group lessons, 
+          video tutorials, and a community that rocks. Be the first to know when we're live!
+        </p>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
             type="text"
-            placeholder="Your name"
+            placeholder="Your stage name (or real name)"
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="bg-background text-foreground"
@@ -87,7 +90,7 @@ export default function WaitlistPage() {
           
           <Input
             type="email"
-            placeholder="Your email"
+            placeholder="Your backstage pass (email)"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="bg-background text-foreground"
@@ -105,7 +108,7 @@ export default function WaitlistPage() {
             {isSubmitting ? (
               <Loader2 className="h-4 w-4 animate-spin mr-2" />
             ) : null}
-            Join Waitlist
+            Get VIP Access
           </Button>
         </form>
       </div>
