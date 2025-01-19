@@ -3,6 +3,7 @@
 import { Montserrat } from 'next/font/google'
 import { Corners } from '@/components/ui/borders'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -18,6 +19,7 @@ export default function WaitlistPage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -47,6 +49,7 @@ export default function WaitlistPage() {
       toast.success("You're on the list! Get ready to rock! 🎸")
       setName('')
       setEmail('')
+      setIsSuccess(true)
     } catch (error) {
       console.error('Error adding to waitlist:', error)
       toast.error('Oops! Hit a wrong note. Try again?')
@@ -76,41 +79,52 @@ export default function WaitlistPage() {
           video tutorials, and a community that rocks. Be the first to know when we're live!
         </p>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <Input
-            type="text"
-            placeholder="Your stage name (or real name)"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="bg-background text-foreground"
-            required
-            minLength={1}
-            maxLength={100}
-          />
-          
-          <Input
-            type="email"
-            placeholder="Your backstage pass (email)"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="bg-background text-foreground"
-            required
-            pattern="[^@]+@[^@]+\.[^@]+"
-          />
-          
-          <Button 
-            type="submit"
-            variant="filled"
-            size="lg"
-            className="w-full text-[21px] leading-[32px] font-bold"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? (
-              <Loader2 className="h-4 w-4 animate-spin mr-2" />
-            ) : null}
-            Get VIP Access
-          </Button>
-        </form>
+        {isSuccess ? (
+          <div className="space-y-4">
+            <p className="text-foreground text-lg">Thanks for joining! We'll keep you posted on all the exciting updates.</p>
+            <div className="space-y-2">
+              <p className="text-[14px] text-muted-foreground">
+                Can't wait? <Link href="/join" className="text-primary hover:underline">Sneak Preview?</Link>
+              </p>
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <Input
+              type="text"
+              placeholder="Your stage name (or real name)"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="bg-background text-foreground"
+              required
+              minLength={1}
+              maxLength={100}
+            />
+            
+            <Input
+              type="email"
+              placeholder="Your backstage pass (email)"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="bg-background text-foreground"
+              required
+              pattern="[^@]+@[^@]+\.[^@]+"
+            />
+            
+            <Button 
+              type="submit"
+              variant="filled"
+              size="lg"
+              className="w-full text-[21px] leading-[32px] font-bold"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : null}
+              Get VIP Access
+            </Button>
+          </form>
+        )}
       </div>
     </main>
   )

@@ -56,17 +56,22 @@ export default function Home() {
         <h1 className="text-3xl font-bold text-foreground mb-4">Ready to Rock? 🎸</h1>
         <p className="text-foreground text-lg mb-8">
           <strong>The stage is set for March 2025!</strong> <br/>
-          We're cooking up something special - a place where music lovers become music makers. Weekly jams, video lessons, and a community that grooves together. Sound good? Get on the VIP list!
+          We're cooking up something special - a place where music lovers become music makers. Weekly jams, video lessons, AI music tools and a community that grooves together. Sound good? Get on the VIP list!
         </p>
         <div className="space-y-4">
-          <Button 
-            variant="filled"
-            size="lg"
-            className="w-full text-[21px] leading-[32px] font-bold"
-            asChild
-          >
-            <Link href="/waitlist">Save My Spot</Link>
-          </Button>
+          <div className="space-y-2">
+            <Button 
+              variant="filled"
+              size="lg"
+              className="w-full text-[21px] leading-[32px] font-bold"
+              asChild
+            >
+              <Link href="/waitlist">Save My Spot</Link>
+            </Button>
+            <p className="text-[14px] text-muted-foreground">
+              <Link href="/join" className="text-primary hover:underline">Sneak Preview?</Link>
+            </p>
+          </div>
           
           <p className="text-[14px] text-muted-foreground">
             Already in the band? <Link href="/login" className="text-primary hover:underline">Login</Link>
