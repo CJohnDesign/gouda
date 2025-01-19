@@ -11,6 +11,7 @@ import Script from 'next/script'
 import { Suspense } from 'react'
 import { Analytics } from '@/components/analytics'
 import { usePathname } from 'next/navigation'
+import { Toaster as SonnerToaster } from 'sonner'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -18,7 +19,7 @@ const montserrat = Montserrat({
   display: 'swap',
 })
 
-const PUBLIC_ROUTES = ['/', '/login', '/join']
+const PUBLIC_ROUTES = ['/', '/login', '/join', '/waitlist']
 
 function RootLayoutInner({ children }: { children: React.ReactNode }) {
   const { profile } = useUserProfile()
@@ -62,6 +63,7 @@ function RootLayoutInner({ children }: { children: React.ReactNode }) {
           <Footer />
         </div>
         <Toaster />
+        <SonnerToaster position="top-center" />
         <Analytics />
       </body>
     </html>

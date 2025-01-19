@@ -35,27 +35,38 @@
       "chords": ["E", "D", "E", "D", "Am7", "Gmaj7", "Am7", "Gmaj7"]
     }
   ],
-  "theory": {
-    "key": "",
-    "scale": "",
-    "mode": "",
-    "tempoMarking": "",
+ "theory": {
+    "key": "E minor",
+    "scale": "Minor Pentatonic",
+    "mode": "Dorian",
+    "tempoMarking": "Allegro",
     "timeSignature": [4, 4],
-    "bpm": 0,
+    "bpm": 122,
     "harmonicAnalysis": {
-      "chordProgression": "",
-      "secondaryDominants": [],
-      "borrowedChords": [],
+      "chordProgression": "Am7 - Gmaj7",
+      "secondaryDominants": ["B7"],
+      "borrowedChords": ["D#dim7"],
       "modulationSections": []
     },
     "melodicAnalysis": {
-      "vocalRange": "",
-      "vocalTechniques": [],
-      "motifs": [],
-      "phrasingPatterns": []
+      "vocalRange": "A2 to E4",
+      "vocalTechniques": ["Falsetto", "Call-and-Response"],
+      "motifs": ["Repeated Bassline"],
+      "phrasingPatterns": ["Syncopated Rhythms"]
     }
   },
-  "chartPerformance": [],
+  "chartPerformance": [
+    {
+      "chart": "Billboard Hot 100",
+      "peakPosition": 6,
+      "weeksOnChart": 14
+    },
+    {
+      "chart": "Hot R&B/Hip-Hop Songs",
+      "peakPosition": 1,
+      "weeksOnChart": 16
+    }
+  ],
   "hasMaleVocals": true,
   "hasFemaleVocals": false,
   "hasGuitarSolo": false,
@@ -69,7 +80,5 @@
     "isApproved": true,
     "isRejected": false,
     "isHidden": false
-  },
-  "createdAt": "",
-  "updatedAt": ""
+  }
 }

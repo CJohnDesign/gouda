@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Navbar } from "@/components/ui/Navbar"
 import { useUserProfile } from '@/contexts/UserProfileContext'
-import { getUserPlaylists } from '@/lib/firestore/playlists'
+import { getAllPlaylists } from '@/lib/firestore/playlists'
 import { CreatePlaylistDialog } from '@/components/playlists/create-playlist-dialog'
 import { PlaylistCard } from '@/components/playlists/playlist-card'
 import type { Playlist } from '@/types/music/playlist'
@@ -41,22 +41,22 @@ const getCardStyle = (index: number) => {
 }
 
 export default function PlaylistsPage() {
-  const { user, loading } = useUserProfile()
+  const { user, isLoading } = useUserProfile()
   const router = useRouter()
   const [playlists, setPlaylists] = useState<Playlist[]>([])
 
   useEffect(() => {
-    if (!loading && !user) {
+    if (!isLoading && !user) {
       router.push('/login')
       return
     }
 
-    // Fetch playlists if user is authenticated
+    // Fetch all playlists if user is authenticated
     async function fetchPlaylists() {
       try {
         if (!user) return
-        const playlistsData = await getUserPlaylists(user.uid)
-        setPlaylists(playlistsData.map(p => p.playlist))
+        const playlistsData = await getAllPlaylists()
+        setPlaylists(playlistsData)
       } catch (error) {
         console.error('Error fetching playlists:', error)
       }
@@ -65,9 +65,9 @@ export default function PlaylistsPage() {
     if (user) {
       fetchPlaylists()
     }
-  }, [user, loading, router])
+  }, [user, isLoading, router])
 
-  if (loading || !user) {
+  if (isLoading || !user) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <p className="text-foreground">Loading...</p>
@@ -82,7 +82,7 @@ export default function PlaylistsPage() {
       <div className="container pt-16 pb-20 space-y-2">
         {/* Header with Create Button */}
         <div className="flex justify-between items-center mb-8">
-          <h1 className={`scroll-m-20 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight ${montserrat.className}`}>Your Playlists</h1>
+          <h1 className={`scroll-m-20 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight ${montserrat.className}`}>All Playlists</h1>
           <CreatePlaylistDialog />
         </div>
 

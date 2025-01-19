@@ -1,0 +1,103 @@
+'use client'
+
+import { Montserrat } from 'next/font/google'
+import { Corners } from '@/components/ui/borders'
+import Image from 'next/image'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { addDoc, collection, serverTimestamp, getFirestore } from 'firebase/firestore'
+import app from '@/firebase/client'
+import { toast } from 'sonner'
+import { Loader2 } from 'lucide-react'
+
+const montserrat = Montserrat({ subsets: ['latin'] })
+const db = getFirestore(app)
+
+export default function WaitlistPage() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!name || !email) {
+      toast.error('Please fill in all fields')
+      return
+    }
+
+    setIsSubmitting(true)
+    
+    try {
+      await addDoc(collection(db, 'waitlist'), {
+        name,
+        email,
+        createdAt: serverTimestamp()
+      })
+      
+      toast.success('Thank you for joining our waitlist!')
+      setName('')
+      setEmail('')
+    } catch (error) {
+      console.error('Error adding to waitlist:', error)
+      toast.error('Something went wrong. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  return (
+    <main className={`min-h-screen flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
+      <Corners />
+      <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
+        <div className="mb-8">
+          <Image
+            src="/images/GOUDA_Logo.webp"
+            alt="Gouda"
+            width={300}
+            height={300}
+            className="mx-auto"
+            priority
+          />
+        </div>
+        
+        <h1 className="text-3xl font-bold text-foreground mb-4">Join the Waitlist</h1>
+        <p className="text-foreground text-lg mb-8">Be the first to know when we launch new features and opportunities.</p>
+        
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <Input
+            type="text"
+            placeholder="Your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="bg-background text-foreground"
+            required
+          />
+          
+          <Input
+            type="email"
+            placeholder="Your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="bg-background text-foreground"
+            required
+          />
+          
+          <Button 
+            type="submit"
+            variant="filled"
+            size="lg"
+            className="w-full text-[21px] leading-[32px] font-bold"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <Loader2 className="h-4 w-4 animate-spin mr-2" />
+            ) : null}
+            Join Waitlist
+          </Button>
+        </form>
+      </div>
+    </main>
+  )
+} 

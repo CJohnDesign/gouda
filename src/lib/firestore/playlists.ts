@@ -394,4 +394,26 @@ export async function deletePlaylist(playlistId: string, userId: string): Promis
     console.error('Error deleting playlist:', error)
     throw error
   }
+}
+
+// Get all playlists
+export async function getAllPlaylists(): Promise<Playlist[]> {
+  try {
+    const playlistsRef = collection(db, 'playlists')
+    const playlistsSnap = await getDocs(playlistsRef)
+    
+    return playlistsSnap.docs.map(doc => {
+      const data = doc.data()
+      return {
+        ...data,
+        id: doc.id,
+        createdAt: data.createdAt ? (data.createdAt as Timestamp).toDate().toISOString() : null,
+        updatedAt: data.updatedAt ? (data.updatedAt as Timestamp).toDate().toISOString() : null,
+        songs: data.songs || []
+      } as Playlist
+    })
+  } catch (error) {
+    console.error('Error getting all playlists:', error)
+    throw error
+  }
 } 
