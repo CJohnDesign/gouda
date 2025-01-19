@@ -22,7 +22,7 @@ const isValidPriceId = (priceId: string | undefined): boolean => {
 function SubscriptionPageContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const { user, profile, refreshProfile } = useUserProfile()
+  const { user, profile } = useUserProfile()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isMounted, setIsMounted] = useState(false)
@@ -32,94 +32,18 @@ function SubscriptionPageContent() {
     setIsMounted(true)
   }, [])
 
-  useEffect(() => {
-    if (!isMounted) return
-
-    const success = searchParams.get('success')
-    const canceled = searchParams.get('canceled')
-    const sessionId = searchParams.get('session_id')
-
-    // Only handle the params if they exist
-    if (success || canceled) {
-      if (success && sessionId) {
-        analytics.trackSubscription('success', {
-          transaction_id: sessionId,
-          user_id: user?.uid,
-          value: 1,
-          currency: 'USD',
-          items: [{
-            item_name: 'Gouda Subscription',
-            item_category: 'Subscription',
-            price: 1,
-            quantity: 1
-          }]
-        })
-
-        toast({
-          title: "Thanks for subscribing!",
-          description: "Your subscription is now active.",
-        })
-        refreshProfile()
-      }
-
-      if (canceled) {
-        analytics.trackSubscription('cancel', {
-          user_id: user?.uid
-        })
-
-        toast({
-          title: "Subscription canceled",
-          description: "The subscription process was canceled.",
-          variant: "destructive",
-        })
-      }
-
-      // Remove the query parameters
-      router.replace('/account/subscription')
-    }
-  }, [searchParams, refreshProfile, router, user?.uid, isMounted])
-
-  const handleSubscriptionAction = async () => {
+  const handleSubscriptionAction = () => {
     if (!user) {
       setError('You must be logged in to manage your subscription')
       return
     }
 
-    if (profile?.subscriptionStatus === 'Active') {
-      // If user has an active subscription, still allow them to manage it
-      setIsLoading(true)
-      try {
-        const token = await user.getIdToken()
-        const response = await fetch('/api/create-portal-session', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          }
-        })
-
-        const data = await response.json()
-        if (data.url) {
-          window.location.href = data.url
-        }
-      } catch (error) {
-        console.error('Error accessing portal:', error)
-        toast({
-          title: "Error",
-          description: "Failed to access subscription portal. Please try again.",
-          variant: "destructive",
-        })
-      } finally {
-        setIsLoading(false)
-      }
-    } else {
-      // For new subscriptions, show the waitlist dialog
-      setShowWaitlist(true)
-      analytics.trackButtonClick('show_waitlist_dialog', {
-        user_id: user.uid,
-        subscription_status: 'inactive'
-      })
-    }
+    // Show waitlist dialog for all users
+    setShowWaitlist(true)
+    analytics.trackButtonClick('show_waitlist_dialog', {
+      user_id: user.uid,
+      subscription_status: profile?.subscriptionStatus || 'inactive'
+    })
   }
 
   if (!user) {
