@@ -53,7 +53,7 @@ export default function Home() {
             priority
           />
         </div>
-        <h1 className="text-3xl font-bold text-foreground mb-4">Learn Music Better</h1>
+        <h1 className="text-3xl font-bold text-foreground mb-4">Learn To Jam!</h1>
         <p className="text-foreground text-lg mb-8">
           Something special is coming! Join the waitlist to be the first to know when we launch our <strong>weekly group lessons</strong>, instructional videos and helpful community.
         </p>

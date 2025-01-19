@@ -51,7 +51,7 @@ export default function JoinPage() {
     <main className={`min-h-screen bg-background flex flex-col items-center justify-center pt-24 pb-12 ${montserrat.className}`}>
       <Corners />
       <div className="w-full max-w-md mx-auto text-center flex flex-col justify-center flex-1 px-4 z-[1]">
-        <h1 className="text-3xl font-bold text-foreground mb-8">Learn Music Better</h1>
+        <h1 className="text-3xl font-bold text-foreground mb-8">Learn To Jam!</h1>
         <p className="text-foreground text-lg mb-8">Sign up for Gouda &amp; Company to get <strong>weekly group lessons</strong>, instructional videos and a helpful community.</p>
         {emailSent ? (
           <div className="space-y-4">

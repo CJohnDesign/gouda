@@ -31,7 +31,7 @@ jest.mock('@/contexts/UserProfileContext', () => ({
 describe('HomePage', () => {
   it('renders the home page', () => {
     render(<HomePage />)
-    expect(screen.getByText('Learn Music Better')).toBeInTheDocument()
+    expect(screen.getByText('Learn To Jam!')).toBeInTheDocument()
     expect(screen.getByText(/weekly group lessons/i)).toBeInTheDocument()
     expect(screen.getByText('Join Now')).toBeInTheDocument()
     expect(screen.getByText('Login')).toBeInTheDocument()

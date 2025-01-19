@@ -5,7 +5,7 @@ import { useUserProfile } from '../../contexts/UserProfileContext'
 import { useRouter, usePathname } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
 
-const PUBLIC_ROUTES = ['/', '/login', '/join']
+const PUBLIC_ROUTES = ['/', '/login', '/join', '/waitlist']
 
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useUserProfile()
