@@ -54,7 +54,9 @@ export default function Home() {
           />
         </div>
         <h1 className="text-3xl font-bold text-foreground mb-4">Learn Music Better</h1>
-        <p className="text-foreground text-lg mb-8">Join Gouda & Company to get <strong>weekly group lessons</strong>, instructional videos and a helpful community.</p>
+        <p className="text-foreground text-lg mb-8">
+          Something special is coming! Join the waitlist to be the first to know when we launch our <strong>weekly group lessons</strong>, instructional videos and helpful community.
+        </p>
         <div className="space-y-4">
           <Button 
             variant="filled"
@@ -62,7 +64,7 @@ export default function Home() {
             className="w-full text-[21px] leading-[32px] font-bold"
             asChild
           >
-            <Link href="/join">Join Now</Link>
+            <Link href="/waitlist">Join Waitlist</Link>
           </Button>
           
           <p className="text-[14px] text-muted-foreground">
