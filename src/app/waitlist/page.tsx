@@ -8,7 +8,6 @@ import { addDoc, collection, serverTimestamp, getFirestore } from 'firebase/fire
 import app from '@/firebase/client'
 import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
-import { Logo } from '@/components/ui/Logo'
 import { PublicPageLayout } from '@/components/layout/public-page-layout'
 
 const db = getFirestore(app)
@@ -58,9 +57,7 @@ export default function WaitlistPage() {
 
   return (
     <PublicPageLayout>
-      <Logo />
-      
-      <h1 className="text-3xl font-bold text-foreground mb-4">Join Waitlist! 🎸</h1>
+      <h1 className="text-3xl font-bold text-foreground mb-4">Join Waitlist! 🤘</h1>
       <p className="text-foreground text-lg mb-8">
         First cohort starting <strong>March 2025</strong><br/> Group music lessons, training tools and a community of bandmates.
       </p>

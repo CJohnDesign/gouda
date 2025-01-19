@@ -7,7 +7,6 @@ import { getPlatform, getEmailService } from '@/lib/platform'
 import { useAuthFlow } from '@/lib/auth/use-auth-flow'
 import { AUTH_ROUTES } from '@/lib/auth/routes'
 import { useState, useEffect } from 'react'
-import { Logo } from '@/components/ui/Logo'
 import { PublicPageLayout } from '@/components/layout/public-page-layout'
 
 const EMAIL_LINKS = {
@@ -46,7 +45,6 @@ export default function LoginPage() {
 
   return (
     <PublicPageLayout>
-      <Logo />
       <h1 className="text-3xl font-bold text-foreground mb-4">Login</h1>
       <p className="text-foreground text-lg mb-8">Sign in or create an account</p>
 
@@ -125,15 +123,6 @@ export default function LoginPage() {
               {isProcessing ? 'SENDING...' : 'SEND MAGIC LINK'}
             </Button>
           </form>
-
-          <div className="mt-8 space-y-4 text-foreground">
-            <h2 className="font-bold text-sm">How it works</h2>
-            <div className="text-xs space-y-2">
-              <p>1. Enter your email address above</p>
-              <p>2. We&apos;ll send you a secure magic link</p>
-              <p>3. Click the link to sign in instantly</p>
-            </div>
-          </div>
         </>
       )}
     </PublicPageLayout>

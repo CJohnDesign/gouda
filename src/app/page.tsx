@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
-import { Logo } from '@/components/ui/Logo'
 import { PublicPageLayout } from '@/components/layout/public-page-layout'
 
 export default function Home() {
@@ -38,7 +37,6 @@ export default function Home() {
   // Show landing page for non-logged in users
   return (
     <PublicPageLayout>
-      <Logo />
       <h1 className="text-3xl font-bold text-foreground mb-4">Ready to Rock? 🎸</h1>
       <p className="text-foreground text-lg mb-8">
         Where music lovers become music makers. Group lessons, training tools and a helpful community. <strong>Opening March 2025!</strong>  

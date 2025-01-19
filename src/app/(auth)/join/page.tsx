@@ -8,7 +8,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { getPlatform, getEmailService } from '@/lib/platform'
 import { useAuthFlow } from '@/lib/auth/use-auth-flow'
 import { AUTH_ROUTES } from '@/lib/auth/routes'
-import { Logo } from '@/components/ui/Logo'
 import { PublicPageLayout } from '@/components/layout/public-page-layout'
 
 const EMAIL_LINKS = {
@@ -47,7 +46,6 @@ export default function JoinPage() {
 
   return (
     <PublicPageLayout>
-      <Logo />
       <h1 className="text-3xl font-bold text-foreground mb-4">Learn To Jam!</h1>
       <p className="text-foreground text-lg mb-6">Join to see what we&apos;re cuttin&apos; up.</p>
       {emailSent ? (
