@@ -10,6 +10,24 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == userId;
     }
 
+    // Waitlist collection - allow public write access
+    match /waitlist/{entryId} {
+      allow create: if 
+        // Must have required fields
+        request.resource.data.keys().hasAll(['name', 'email', 'createdAt']) &&
+        // Name must be a string and not empty
+        request.resource.data.name is string &&
+        request.resource.data.name.size() > 0 &&
+        // Email must be a string and match email format
+        request.resource.data.email is string &&
+        request.resource.data.email.matches('^[^@]+@[^@]+\\.[^@]+$') &&
+        // Timestamp must be server timestamp
+        request.resource.data.createdAt == request.time;
+      
+      // Only allow admins to read waitlist entries
+      allow read: if false;
+    }
+
     // Songs collection - read-only for authenticated users
     match /songs/{songId} {
       allow read: if request.auth != null;

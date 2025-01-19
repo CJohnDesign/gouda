@@ -22,8 +22,16 @@ export default function WaitlistPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    if (!name || !email) {
+    // Basic validation
+    if (!name.trim() || !email.trim()) {
       toast.error('Please fill in all fields')
+      return
+    }
+
+    // Email validation
+    const emailRegex = /^[^@]+@[^@]+\.[^@]+$/
+    if (!emailRegex.test(email)) {
+      toast.error('Please enter a valid email address')
       return
     }
 
@@ -31,8 +39,8 @@ export default function WaitlistPage() {
     
     try {
       await addDoc(collection(db, 'waitlist'), {
-        name,
-        email,
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
         createdAt: serverTimestamp()
       })
       
@@ -73,6 +81,8 @@ export default function WaitlistPage() {
             onChange={(e) => setName(e.target.value)}
             className="bg-background text-foreground"
             required
+            minLength={1}
+            maxLength={100}
           />
           
           <Input
@@ -82,6 +92,7 @@ export default function WaitlistPage() {
             onChange={(e) => setEmail(e.target.value)}
             className="bg-background text-foreground"
             required
+            pattern="[^@]+@[^@]+\.[^@]+"
           />
           
           <Button 
